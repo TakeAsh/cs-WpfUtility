@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUtility", "WpfUtility\WpfUtility.csproj", "{2F2D7E12-1121-4E38-AEF9-3E0BD51DA099}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUtility_Call", "WpfUtility_Call\WpfUtility_Call.csproj", "{5109A4C2-65EC-4ADB-8466-017C0615A7CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -19,9 +21,16 @@ Global
 		{2F2D7E12-1121-4E38-AEF9-3E0BD51DA099}.Release|x64.Build.0 = Release|x64
 		{2F2D7E12-1121-4E38-AEF9-3E0BD51DA099}.Release|x86.ActiveCfg = Release|x86
 		{2F2D7E12-1121-4E38-AEF9-3E0BD51DA099}.Release|x86.Build.0 = Release|x86
+		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Debug|x64.ActiveCfg = Debug|x64
+		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Debug|x64.Build.0 = Debug|x64
+		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Debug|x86.ActiveCfg = Debug|x86
+		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Debug|x86.Build.0 = Debug|x86
+		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Release|x64.ActiveCfg = Release|x64
+		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Release|x64.Build.0 = Release|x64
+		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Release|x86.ActiveCfg = Release|x86
+		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
-
