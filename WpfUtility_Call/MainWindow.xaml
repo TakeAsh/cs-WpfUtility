@@ -8,7 +8,7 @@
 	Width="720" Height="260" MinWidth="320" MinHeight="260">
 
     <DockPanel>
-        <r:Ribbon x:Name="Ribbon" DockPanel.Dock="Top">
+        <r:Ribbon x:Name="ribbon_Main" DockPanel.Dock="Top">
             <r:Ribbon.ApplicationMenu>
                 <r:RibbonApplicationMenu SmallImageSource="Images\SmallIcon.png">
                     <r:RibbonApplicationMenuItem x:Name="MenuItem1" Header="Hello _Ribbon"

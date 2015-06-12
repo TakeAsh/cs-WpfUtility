@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Windows.Controls.Ribbon;
+using WpfUtility;
 
 namespace WpfUtility_Call {
     /// <summary>
@@ -22,6 +23,7 @@ namespace WpfUtility_Call {
             InitializeComponent();
 
             // Insert code required on object creation below this point.
+            ribbon_Main.AddMinimizeButton();
         }
     }
 }
