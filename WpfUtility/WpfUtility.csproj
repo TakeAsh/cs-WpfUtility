@@ -91,6 +91,18 @@
     <Resource Include="Images\Hide.png" />
     <Resource Include="Images\Show.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AsteriskLarge.png" />
+    <Resource Include="Images\AsteriskSmall.png" />
+    <Resource Include="Images\BeepLarge.png" />
+    <Resource Include="Images\BeepSmall.png" />
+    <Resource Include="Images\ExclamationLarge.png" />
+    <Resource Include="Images\ExclamationSmall.png" />
+    <Resource Include="Images\HandLarge.png" />
+    <Resource Include="Images\HandSmall.png" />
+    <Resource Include="Images\QuestionLarge.png" />
+    <Resource Include="Images\QuestionSmall.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if "$(ConfigurationName)" == "Release" (
