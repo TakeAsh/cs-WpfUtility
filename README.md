@@ -1,10 +1,20 @@
-﻿# WpfUtility
+﻿# [WpfUtility](https://github.com/TakeAsh/cs-WpfUtility/wiki)
 - Utility classes for WPF
 
 ## Items
-- ResourceHelper returns resource from the CallingAssembly.
-- RibbonExtensionMethods add helper methods to Ribbon.
-- SoftBreak realize 'Word Break' and 'Soft Hyphen' in Label of RibbonButton.
+- [MessageButton](https://github.com/TakeAsh/cs-WpfUtility/wiki/MessageButton) is an alternative 'MessageBox' that can be pinned on window as an icon.
+- [ResourceHelper](https://github.com/TakeAsh/cs-WpfUtility/wiki/ResourceHelper) returns resource from the CallingAssembly.
+- [RibbonExtensionMethods](https://github.com/TakeAsh/cs-WpfUtility/wiki/RibbonExtensionMethods) add helper methods to Ribbon.
+- [SoftBreak](https://github.com/TakeAsh/cs-WpfUtility/wiki/SoftBreak) realize 'Word Break' and 'Soft Hyphen' in Label of RibbonButton.
+
+## MessageButton
+- It can be pinned on window as an icon.
+- It show a text as popup with system sound.
+- A text is closed automatically after several seconds, or opened infinitely.
+- The popup can be opened/closed by click.
+- MessageButton is not modal but modeless.
+- MessageButton DON'T support buttons(OK, Cancel, Yes, No, ...).
+- MessageButtons can be placed in Quick Access ToolBar, Help Pane Content, Ribbon Group.
 
 ## ResourceHelper
 - returns resource from the CallingAssembly.
