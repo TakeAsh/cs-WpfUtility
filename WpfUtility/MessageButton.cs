@@ -24,7 +24,7 @@ namespace WpfUtility {
     /// <item>MessageButton is not modal but modeless.</item>
     /// <item>MessageButton DON'T support buttons(OK, Cancel, Yes, No, ...).</item>
     /// <item>MessageButtons in Quick Access ToolBar, Help Pane Content, Ribbon Group.<br />
-    /// ![Sample SS01](https://raw.githubusercontent.com/TakeAsh/cs-WpfUtility/master/SS/Sample_SS01.png)</item>
+    /// ![Sample](https://raw.githubusercontent.com/TakeAsh/cs-WpfUtility/master/SS/MessageButton.png)</item>
     /// </list>
     /// </remarks>
     public class MessageButton :
