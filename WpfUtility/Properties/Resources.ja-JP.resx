@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="RibbonExtensionMethods_MinimizeButton_ToolTip_Hide" xml:space="preserve">
-    <value>リボンを畳む</value>
+    <value>リボンを隠す</value>
   </data>
   <data name="RibbonExtensionMethods_MinimizeButton_ToolTip_Show" xml:space="preserve">
-    <value>リボンを展開</value>
+    <value>リボンを表示</value>
   </data>
 </root>

@@ -61,7 +61,7 @@ namespace WpfUtility.Properties {
         }
         
         /// <summary>
-        ///   collapse Ribbon に類似しているローカライズされた文字列を検索します。
+        ///   hide Ribbon に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RibbonExtensionMethods_MinimizeButton_ToolTip_Hide {
             get {
@@ -70,7 +70,7 @@ namespace WpfUtility.Properties {
         }
         
         /// <summary>
-        ///   expand Ribbon に類似しているローカライズされた文字列を検索します。
+        ///   show Ribbon に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RibbonExtensionMethods_MinimizeButton_ToolTip_Show {
             get {

@@ -60,5 +60,17 @@ namespace WpfUtility {
                 });
             return ribbon.AddHelpItem(button);
         }
+
+        public static MessageButton AddMessageButton(
+            this Ribbon ribbon,
+            string toolTip = "Info",
+            int autoPopDelay = 5000
+        ) {
+            return ribbon.AddHelpItem(new MessageButton() {
+                Size = MessageButton.ButtonSizes.Small,
+                ToolTip = toolTip,
+                AutoPopDelay = autoPopDelay,
+            });
+        }
     }
 }
