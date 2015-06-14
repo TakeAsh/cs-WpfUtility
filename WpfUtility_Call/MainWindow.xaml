@@ -15,6 +15,22 @@
                         ImageSource="Images\LargeIcon.png"/>
                 </r:RibbonApplicationMenu>
             </r:Ribbon.ApplicationMenu>
+
+            <r:Ribbon.QuickAccessToolBar>
+                <r:RibbonQuickAccessToolBar>
+                    <StackPanel Orientation="Horizontal">
+                        <wu:MessageButton x:Name="messageButton_QATB" ToolTip="5sec" Size="Small" />
+                    </StackPanel>
+                </r:RibbonQuickAccessToolBar>
+            </r:Ribbon.QuickAccessToolBar>
+
+            <r:Ribbon.HelpPaneContent>
+                <StackPanel Orientation="Horizontal">
+                    <Image ToolTip="Dummy"
+                        Source="Images/SmallIcon.png" />
+                </StackPanel>
+            </r:Ribbon.HelpPaneContent>
+
             <r:RibbonTab Header="SoftBreak">
                 <r:RibbonGroup Header="Dummy">
                     <r:RibbonButton x:Name="Button1" Label="Button1"
@@ -55,6 +71,25 @@
                         wu:SoftBreak.Label="StackOver[[SHY]]Flow ForEver"
                         LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon_Red.png"
                         SmallImageSource="/WpfUtility_Call;component/Images/SmallIcon_Red.png" />
+                </r:RibbonGroup>
+            </r:RibbonTab>
+            <r:RibbonTab Header="MessageButton">
+                <r:RibbonGroup x:Name="Group1" Header="Update">
+                    <r:RibbonButton x:Name="button_QATB" Label="update Quick Access ToolBar"
+                        LargeImageSource="Images/LargeIcon.png"
+                        SmallImageSource="Images/SmallIcon.png"
+                        Click="button_MessageButton_Click" />
+                    <r:RibbonButton x:Name="button_HPC" Label="update Help Pane Content"
+                        LargeImageSource="Images/LargeIcon.png"
+                        SmallImageSource="Images/SmallIcon.png"
+                        Click="button_MessageButton_Click" />
+                    <r:RibbonButton x:Name="button_RG" Label="update Ribbon Group"
+                        LargeImageSource="Images/LargeIcon.png"
+                        SmallImageSource="Images/SmallIcon.png"
+                        Click="button_MessageButton_Click" />
+                </r:RibbonGroup>
+                <r:RibbonGroup>
+                    <wu:MessageButton x:Name="messageButton_RG" Label="Info" ToolTip="20 sec" AutoPopDelay="20000" />
                 </r:RibbonGroup>
             </r:RibbonTab>
         </r:Ribbon>

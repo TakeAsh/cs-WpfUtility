@@ -19,11 +19,43 @@ namespace WpfUtility_Call {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : RibbonWindow {
+
+        private MessageButton messageButton_HPC;
+
         public MainWindow() {
             InitializeComponent();
 
             // Insert code required on object creation below this point.
-            ribbon_Main.AddMinimizeButton();
+            messageButton_HPC = ribbon_Main.AddMessageButton("Infinity", 0);
+            ribbon_Main.AddMinimizeButton(
+                ResourceHelper.GetImage("Images/Show.png"),
+                null, //ResourceHelper.GetImage("Images/Hide.png"),
+                null, //Properties.Resources.MainWindow_button_Minimize_ToolTip_Show,
+                Properties.Resources.MainWindow_button_Minimize_ToolTip_Hide
+            );
+        }
+
+        private void button_MessageButton_Click(object sender, RoutedEventArgs e) {
+            var src = sender as RibbonButton;
+            MessageButton target;
+            switch (src.Name) {
+                default:
+                case "button_RG":
+                    target = messageButton_RG;
+                    break;
+                case "button_QATB":
+                    target = messageButton_QATB;
+                    break;
+                case "button_HPC":
+                    target = messageButton_HPC;
+                    break;
+            }
+            if (String.IsNullOrEmpty(target.Text)) {
+                var icon = (MessageButton.Icons)(((int)target.Icon + 1) % Enum.GetValues(typeof(MessageButton.Icons)).Length);
+                target.Show(DateTime.Now.ToString("g"), icon);
+            } else {
+                target.Text = null;
+            }
         }
     }
 }
