@@ -92,6 +92,24 @@
                     <wu:MessageButton x:Name="messageButton_RG" Label="Info" ToolTip="20 sec" AutoPopDelay="20000" />
                 </r:RibbonGroup>
             </r:RibbonTab>
+            <r:RibbonTab Header="PlaceHolder">
+                <r:RibbonGroup Header="Common Control">
+                    <WrapPanel Orientation="Vertical" ItemWidth="120">
+                        <TextBox wu:Placeholder.Text="TextBox1" />
+                        <TextBox wu:Placeholder.Text="TextBox2" />
+                        <ComboBox wu:Placeholder.Text="ComboBox1" IsEditable="True" >
+                            <ComboBoxItem Content="" />
+                            <ComboBoxItem Content="Item1" />
+                            <ComboBoxItem Content="Item2" />
+                        </ComboBox>
+                        <ComboBox wu:Placeholder.Text="ComboBox2" IsEditable="False" >
+                            <ComboBoxItem Content="" />
+                            <ComboBoxItem Content="Item1" />
+                            <ComboBoxItem Content="Item2" />
+                        </ComboBox>
+                    </WrapPanel>
+                </r:RibbonGroup>
+            </r:RibbonTab>
         </r:Ribbon>
 
     </DockPanel>
