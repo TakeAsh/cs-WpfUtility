@@ -31,13 +31,17 @@ namespace WpfUtility {
             if (String.IsNullOrEmpty(_key)) {
                 return NotFoundError;
             }
-            var rootObjectProvider = serviceProvider.GetService(typeof(IRootObjectProvider)) as IRootObjectProvider;
             ResourceManager resourceManager;
-            if (rootObjectProvider == null ||
-                (resourceManager = ResourceHelper.GetResourceManager(rootObjectProvider.RootObject)) == null) {
-                return _key;
+            var rootObjectProvider = GetService<IRootObjectProvider>(serviceProvider);
+            if (rootObjectProvider != null &&
+                (resourceManager = ResourceHelper.GetResourceManager(rootObjectProvider.RootObject)) != null) {
+                return resourceManager.GetString(_key) ?? _key;
             }
-            return resourceManager.GetString(_key) ?? _key;
+            return _key;
+        }
+
+        private static T GetService<T>(IServiceProvider serviceProvider) where T : class {
+            return serviceProvider.GetService(typeof(T)) as T;
         }
     }
 }
