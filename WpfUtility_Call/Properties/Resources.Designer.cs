@@ -61,6 +61,33 @@ namespace WpfUtility_Call.Properties {
         }
         
         /// <summary>
+        ///   Apply に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Dialog_Button_Apply {
+            get {
+                return ResourceManager.GetString("Dialog_Button_Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cancel に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Dialog_Button_Cancel {
+            get {
+                return ResourceManager.GetString("Dialog_Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   OK に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Dialog_Button_OK {
+            get {
+                return ResourceManager.GetString("Dialog_Button_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   collapse Ribbon に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWindow_button_Minimize_ToolTip_Hide {

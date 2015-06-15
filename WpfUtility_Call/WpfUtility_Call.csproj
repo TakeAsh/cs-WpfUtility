@@ -168,6 +168,13 @@
     <Resource Include="Images\Hide.png" />
     <Resource Include="Images\Show.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CancelS.png" />
+    <Resource Include="Images\OkS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ApplyS.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
