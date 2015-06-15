@@ -82,6 +82,7 @@
     <Compile Include="ResourceHelper.cs" />
     <Compile Include="RibbonExtensionMethods.cs" />
     <Compile Include="SoftBreak.cs" />
+    <Compile Include="TrExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
