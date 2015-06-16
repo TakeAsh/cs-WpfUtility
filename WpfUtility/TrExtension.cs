@@ -32,16 +32,23 @@ namespace WpfUtility {
                 return NotFoundError;
             }
             ResourceManager resourceManager;
-            var rootObjectProvider = GetService<IRootObjectProvider>(serviceProvider);
+            var rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>();
             if (rootObjectProvider != null &&
                 (resourceManager = ResourceHelper.GetResourceManager(rootObjectProvider.RootObject)) != null) {
                 return resourceManager.GetString(_key) ?? _key;
             }
             return _key;
         }
+    }
 
-        private static T GetService<T>(IServiceProvider serviceProvider) where T : class {
-            return serviceProvider.GetService(typeof(T)) as T;
+    public static class IServiceProviderExtensionMethods {
+
+        public static T GetService<T>(this IServiceProvider serviceProvider)
+            where T : class {
+
+            return serviceProvider != null ?
+                serviceProvider.GetService(typeof(T)) as T :
+                null;
         }
     }
 }
