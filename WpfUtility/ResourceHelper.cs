@@ -41,10 +41,8 @@ namespace WpfUtility {
             }
         }
 
-        public static ResourceManager GetResourceManager(Object obj) {
-            Assembly assembly;
-            if (obj == null ||
-                (assembly = obj.GetType().Assembly) == null) {
+        public static ResourceManager GetResourceManager(Assembly assembly) {
+            if (assembly == null) {
                 return null;
             }
             var resourceName = assembly.GetName().Name + ".Properties.Resources";
@@ -52,6 +50,25 @@ namespace WpfUtility {
                 return null;
             }
             return new ResourceManager(resourceName, assembly);
+        }
+
+        public static ResourceManager GetResourceManager(Object obj) {
+            if (obj == null) {
+                return null;
+            }
+            return GetResourceManager(obj.GetType().Assembly);
+        }
+
+        public static ResourceManager GetResourceManager(string assemblyName) {
+            if (String.IsNullOrEmpty(assemblyName)) {
+                return null;
+            }
+            return GetResourceManager(AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .Where(asm => asm.GetName().Name == assemblyName)
+                .FirstOrDefault()
+            );
         }
     }
 }

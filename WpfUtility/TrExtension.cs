@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Resources;
+using System.Linq;
 using System.Windows.Markup;
 using System.Xaml;
 
@@ -23,6 +23,8 @@ namespace WpfUtility {
 
         string _key;
 
+        public string Assembly { get; set; }
+
         public TrExtension(string key) {
             _key = key;
         }
@@ -31,7 +33,10 @@ namespace WpfUtility {
             if (String.IsNullOrEmpty(_key)) {
                 return NotFoundError;
             }
-            ResourceManager resourceManager;
+            var resourceManager = ResourceHelper.GetResourceManager(this.Assembly);
+            if (resourceManager != null) {
+                return resourceManager.GetString(_key) ?? _key;
+            }
             var rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>();
             if (rootObjectProvider != null &&
                 (resourceManager = ResourceHelper.GetResourceManager(rootObjectProvider.RootObject)) != null) {
