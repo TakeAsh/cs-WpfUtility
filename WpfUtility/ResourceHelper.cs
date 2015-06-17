@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 
 namespace WpfUtility {
@@ -42,20 +41,12 @@ namespace WpfUtility {
             }
         }
 
-        private static Regex regPropertyResources = new Regex(@"\.Properties\.");
-        private static Regex regLastResources = new Regex(@"\.resources$");
-
         public static ResourceManager GetResourceManager(Object obj) {
             Assembly assembly;
-            string[] resNames;
             ResourceManager resourceManager;
             if (obj == null ||
                 (assembly = obj.GetType().Assembly) == null ||
-                (resNames = assembly.GetManifestResourceNames()) == null ||
-                resNames.Length == 0 ||
-                (resNames = resNames.Where(name => regPropertyResources.IsMatch(name)).ToArray()) == null ||
-                resNames.Length == 0 ||
-                (resourceManager = new ResourceManager(regLastResources.Replace(resNames[0], ""), assembly)) == null) {
+                (resourceManager = new ResourceManager(assembly.GetName().Name + ".Properties.Resources", assembly)) == null) {
                 return null;
             }
             return resourceManager;
