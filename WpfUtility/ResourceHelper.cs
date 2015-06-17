@@ -43,13 +43,15 @@ namespace WpfUtility {
 
         public static ResourceManager GetResourceManager(Object obj) {
             Assembly assembly;
-            ResourceManager resourceManager;
             if (obj == null ||
-                (assembly = obj.GetType().Assembly) == null ||
-                (resourceManager = new ResourceManager(assembly.GetName().Name + ".Properties.Resources", assembly)) == null) {
+                (assembly = obj.GetType().Assembly) == null) {
                 return null;
             }
-            return resourceManager;
+            var resourceName = assembly.GetName().Name + ".Properties.Resources";
+            if (!assembly.GetManifestResourceNames().Contains(resourceName + ".resources")) {
+                return null;
+            }
+            return new ResourceManager(resourceName, assembly);
         }
     }
 }
