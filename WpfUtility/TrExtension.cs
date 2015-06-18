@@ -45,10 +45,9 @@ namespace WpfUtility {
                     rootObjectProvider.RootObject :
                     null
             );
-            if (resourceManager != null) {
-                return resourceManager.GetString(_key) ?? _key;
-            }
-            return _key;
+            return resourceManager != null ?
+                (resourceManager.GetString(_key) ?? _key) :
+                _key;
         }
     }
 
