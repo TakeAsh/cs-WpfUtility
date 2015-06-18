@@ -42,7 +42,7 @@ namespace WpfUtility {
                     (Application.Current.TryFindResource(AssemblyKey) as string)
             ) ?? ResourceHelper.GetResourceManager(
                 (rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>()) != null ?
-                    rootObjectProvider.RootObject :
+                    rootObjectProvider.RootObject.GetType() :
                     null
             );
             return resourceManager != null ?

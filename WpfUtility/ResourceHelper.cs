@@ -46,17 +46,17 @@ namespace WpfUtility {
                 return null;
             }
             var resourceName = assembly.GetName().Name + ".Properties.Resources";
-            if (!assembly.GetManifestResourceNames().Contains(resourceName + ".resources")) {
+            if (assembly.GetManifestResourceInfo(resourceName + ".resources") == null) {
                 return null;
             }
             return new ResourceManager(resourceName, assembly);
         }
 
-        public static ResourceManager GetResourceManager(Object obj) {
-            if (obj == null) {
+        public static ResourceManager GetResourceManager(Type type) {
+            if (type == null) {
                 return null;
             }
-            return GetResourceManager(obj.GetType().Assembly);
+            return GetResourceManager(type.Assembly);
         }
 
         public static ResourceManager GetResourceManager(string assemblyName) {
