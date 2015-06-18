@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 using System.Windows.Markup;
 using System.Xaml;
 
@@ -19,6 +20,7 @@ namespace WpfUtility {
     public class TrExtension :
         MarkupExtension {
 
+        public const string AssemblyKey = "TrExtension_Assembly";
         const string NotFoundError = "#NotFound#";
 
         string _key;
@@ -33,13 +35,17 @@ namespace WpfUtility {
             if (String.IsNullOrEmpty(_key)) {
                 return NotFoundError;
             }
-            var resourceManager = ResourceHelper.GetResourceManager(this.Assembly);
+            IRootObjectProvider rootObjectProvider;
+            var resourceManager = ResourceHelper.GetResourceManager(
+                !String.IsNullOrEmpty(this.Assembly) ?
+                    this.Assembly :
+                    (Application.Current.TryFindResource(AssemblyKey) as string)
+            ) ?? ResourceHelper.GetResourceManager(
+                (rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>()) != null ?
+                    rootObjectProvider.RootObject :
+                    null
+            );
             if (resourceManager != null) {
-                return resourceManager.GetString(_key) ?? _key;
-            }
-            var rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>();
-            if (rootObjectProvider != null &&
-                (resourceManager = ResourceHelper.GetResourceManager(rootObjectProvider.RootObject)) != null) {
                 return resourceManager.GetString(_key) ?? _key;
             }
             return _key;

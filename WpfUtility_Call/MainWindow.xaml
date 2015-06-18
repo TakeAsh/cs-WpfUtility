@@ -33,11 +33,11 @@
 
             <r:RibbonTab Header="TrExtension">
                 <r:RibbonGroup>
-                    <r:RibbonButton Label="{wu:Tr Dialog_Button_OK, Assembly=WpfUtility_Call}"
+                    <r:RibbonButton Label="{wu:Tr Dialog_Button_OK}"
                         SmallImageSource="Images/OkS.png" />
                     <r:RibbonButton Label="{wu:Tr Dialog_Button_Cancel, Assembly=WpfUtility_Call}"
                         SmallImageSource="Images/CancelS.png" />
-                    <r:RibbonButton Label="{wu:Tr Dialog_Button_Apply, Assembly=WpfUtility_Call}"
+                    <r:RibbonButton Label="{wu:Tr Dialog_Button_Apply, Assembly=NotExist}"
                         SmallImageSource="Images/ApplyS.png" />
                 </r:RibbonGroup>
             </r:RibbonTab>
