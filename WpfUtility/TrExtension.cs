@@ -39,7 +39,9 @@ namespace WpfUtility {
             var resourceManager = ResourceHelper.GetResourceManager(
                 !String.IsNullOrEmpty(this.Assembly) ?
                     this.Assembly :
-                    (Application.Current.TryFindResource(AssemblyKey) as string)
+                    (serviceProvider.GetService<IXamlSchemaContextProvider>() != null ?
+                        new StaticResourceExtension(AssemblyKey).ProvideValue(serviceProvider) :
+                        (Application.Current.TryFindResource(AssemblyKey))) as string
             ) ?? ResourceHelper.GetResourceManager(
                 (rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>()) != null ?
                     rootObjectProvider.RootObject.GetType() :
