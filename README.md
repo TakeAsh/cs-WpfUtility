@@ -7,7 +7,7 @@
 - [ResourceHelper](https://github.com/TakeAsh/cs-WpfUtility/wiki/ResourceHelper) returns resource from the CallingAssembly.
 - [RibbonExtensionMethods](https://github.com/TakeAsh/cs-WpfUtility/wiki/RibbonExtensionMethods) add helper methods to Ribbon.
 - [SoftBreak](https://github.com/TakeAsh/cs-WpfUtility/wiki/SoftBreak) realize 'Word Break' and 'Soft Hyphen' in Label of RibbonButton.
-- [TrExtension](https://github.com/TakeAsh/cs-WpfUtility/wiki/TrExtension) (Translation Extension) show string resource reflexing language setting.
+- [TrExtension](https://github.com/TakeAsh/cs-WpfUtility/wiki/TrExtension) (Translation Extension) show string resource reflecting language setting.
 
 ## MessageButton
 - It can be pinned on window as an icon.
