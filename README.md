@@ -3,9 +3,11 @@
 
 ## Items
 - [MessageButton](https://github.com/TakeAsh/cs-WpfUtility/wiki/MessageButton) is an alternative 'MessageBox' that can be pinned on window as an icon.
+- [PlaceHolder](https://github.com/TakeAsh/cs-WpfUtility/wiki/PlaceHolder) realize place holder for TextBox and ComboBox in .Net 4.0.
 - [ResourceHelper](https://github.com/TakeAsh/cs-WpfUtility/wiki/ResourceHelper) returns resource from the CallingAssembly.
 - [RibbonExtensionMethods](https://github.com/TakeAsh/cs-WpfUtility/wiki/RibbonExtensionMethods) add helper methods to Ribbon.
 - [SoftBreak](https://github.com/TakeAsh/cs-WpfUtility/wiki/SoftBreak) realize 'Word Break' and 'Soft Hyphen' in Label of RibbonButton.
+- [TrExtension](https://github.com/TakeAsh/cs-WpfUtility/wiki/TrExtension) (Translation Extension) show string resource reflexing language setting.
 
 ## MessageButton
 - It can be pinned on window as an icon.
@@ -15,6 +17,9 @@
 - MessageButton is not modal but modeless.
 - MessageButton DON'T support buttons(OK, Cancel, Yes, No, ...).
 - MessageButtons can be placed in Quick Access ToolBar, Help Pane Content, Ribbon Group.
+
+## PlaceHolder
+- realize place holder for TextBox and ComboBox in .Net 4.0.
 
 ## ResourceHelper
 - returns resource from the CallingAssembly.
@@ -44,3 +49,6 @@
 - WordBreakTag: string
 - SoftHyphenTag: string
 
+## TrExtension
+- show string resource reflexing language setting.
+- 'Assembly' property, static resouce, dynamic resource, and root element can be used to specify assembly name.
