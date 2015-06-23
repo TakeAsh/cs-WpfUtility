@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -15,14 +16,20 @@ using Microsoft.Windows.Controls.Ribbon;
 using WpfUtility;
 
 namespace WpfUtility_Call {
+
+    using _resources = Properties.Resources;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : RibbonWindow {
 
+        private static Properties.Settings _settings = Properties.Settings.Default;
+
         private MessageButton messageButton_HPC;
 
         public MainWindow() {
+            CultureManager.SetCulture(_settings.Culture);
             InitializeComponent();
 
             // Insert code required on object creation below this point.
@@ -32,6 +39,18 @@ namespace WpfUtility_Call {
                 null, //ResourceHelper.GetImage("Images/Hide.png"),
                 null, //Properties.Resources.MainWindow_button_Minimize_ToolTip_Show,
                 Properties.Resources.MainWindow_button_Minimize_ToolTip_Hide
+            );
+
+            comboBox_Culture_GalleryCategory.ItemsSource = CultureManager.AvailableCultures;
+            comboBox_Culture_Gallery.SelectedItem = CultureManager.GetCulture(_settings.Culture);
+        }
+
+        private void SetCulture() {
+            _settings.Culture = (comboBox_Culture_Gallery.SelectedItem as CultureInfo).Name;
+            _settings.Save();
+            messageButton_QATB.Show(
+                _resources.MainWindow_method_SetCulture_message_OK,
+                MessageButton.Icons.Beep
             );
         }
 
@@ -56,6 +75,10 @@ namespace WpfUtility_Call {
             } else {
                 target.Text = null;
             }
+        }
+
+        private void button_Culture_OK_Click(object sender, RoutedEventArgs e) {
+            SetCulture();
         }
     }
 }

@@ -37,13 +37,24 @@
             </r:Ribbon.HelpPaneContent>
 
             <r:RibbonTab Header="TrExtension">
-                <r:RibbonGroup>
+                <r:RibbonGroup Header="{wu:Tr MainWindow_tab_TrExtension_group_Buttons_Header}">
                     <r:RibbonButton Label="{wu:Tr Dialog_Button_OK}"
                         SmallImageSource="Images/OkS.png" />
                     <r:RibbonButton Label="{wu:Tr Dialog_Button_Cancel, Assembly=WpfUtility_Call}"
                         SmallImageSource="Images/CancelS.png" />
                     <r:RibbonButton Label="{wu:Tr Dialog_Button_Apply, Assembly=NotExist}"
                         SmallImageSource="Images/ApplyS.png" />
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="{wu:Tr MainWindow_tab_TrExtension_group_Culture_Header}">
+                    <r:RibbonComboBox x:Name="comboBox_Culture">
+                        <r:RibbonGallery x:Name="comboBox_Culture_Gallery">
+                            <r:RibbonGalleryCategory x:Name="comboBox_Culture_GalleryCategory"
+                                DisplayMemberPath="EnglishName" />
+                        </r:RibbonGallery>
+                    </r:RibbonComboBox>
+                    <r:RibbonButton x:Name="button_Culture_OK" Label="{wu:Tr Dialog_Button_OK}"
+                        SmallImageSource="Images/OkS.png"
+                        Click="button_Culture_OK_Click" />
                 </r:RibbonGroup>
             </r:RibbonTab>
             <r:RibbonTab Header="SoftBreak">
