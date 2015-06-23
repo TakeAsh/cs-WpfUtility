@@ -132,4 +132,13 @@
   <data name="MainWindow_button_Minimize_ToolTip_Show" xml:space="preserve">
     <value>リボンを展開</value>
   </data>
+  <data name="MainWindow_method_SetCulture_message_OK" xml:space="preserve">
+    <value>リスタート後に言語設定が反映されます。</value>
+  </data>
+  <data name="MainWindow_tab_TrExtension_group_Buttons_Header" xml:space="preserve">
+    <value>ボタン</value>
+  </data>
+  <data name="MainWindow_tab_TrExtension_group_Culture_Header" xml:space="preserve">
+    <value>言語</value>
+  </data>
 </root>

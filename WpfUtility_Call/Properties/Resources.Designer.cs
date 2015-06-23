@@ -104,5 +104,32 @@ namespace WpfUtility_Call.Properties {
                 return ResourceManager.GetString("MainWindow_button_Minimize_ToolTip_Show", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Language setting will work after restart. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_method_SetCulture_message_OK {
+            get {
+                return ResourceManager.GetString("MainWindow_method_SetCulture_message_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Buttons に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_tab_TrExtension_group_Buttons_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_tab_TrExtension_group_Buttons_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Language に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_tab_TrExtension_group_Culture_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_tab_TrExtension_group_Culture_Header", resourceCulture);
+            }
+        }
     }
 }

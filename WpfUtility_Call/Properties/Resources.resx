@@ -132,4 +132,13 @@
   <data name="MainWindow_button_Minimize_ToolTip_Show" xml:space="preserve">
     <value>expand Ribbon</value>
   </data>
+  <data name="MainWindow_method_SetCulture_message_OK" xml:space="preserve">
+    <value>Language setting will work after restart.</value>
+  </data>
+  <data name="MainWindow_tab_TrExtension_group_Buttons_Header" xml:space="preserve">
+    <value>Buttons</value>
+  </data>
+  <data name="MainWindow_tab_TrExtension_group_Culture_Header" xml:space="preserve">
+    <value>Language</value>
+  </data>
 </root>
