@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChildPopup.cs" />
+    <Compile Include="CultureManager.cs" />
     <Compile Include="MessageButton.cs" />
     <Compile Include="PlaceHolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
