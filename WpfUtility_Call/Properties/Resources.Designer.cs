@@ -115,6 +115,24 @@ namespace WpfUtility_Call.Properties {
         }
         
         /// <summary>
+        ///   [R_en] Mac(CR) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_NewLineCodes_Cr {
+            get {
+                return ResourceManager.GetString("MainWindow_NewLineCodes_Cr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   [R_en] Unix(LF) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_NewLineCodes_Lf {
+            get {
+                return ResourceManager.GetString("MainWindow_NewLineCodes_Lf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Buttons に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWindow_tab_TrExtension_group_Buttons_Header {

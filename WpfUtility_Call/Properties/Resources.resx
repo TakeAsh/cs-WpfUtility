@@ -135,6 +135,12 @@
   <data name="MainWindow_method_SetCulture_message_OK" xml:space="preserve">
     <value>Language setting will work after restart.</value>
   </data>
+  <data name="MainWindow_NewLineCodes_Cr" xml:space="preserve">
+    <value>[R_en] Mac(CR)</value>
+  </data>
+  <data name="MainWindow_NewLineCodes_Lf" xml:space="preserve">
+    <value>[R_en] Unix(LF)</value>
+  </data>
   <data name="MainWindow_tab_TrExtension_group_Buttons_Header" xml:space="preserve">
     <value>Buttons</value>
   </data>

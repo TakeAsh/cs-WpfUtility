@@ -135,6 +135,12 @@
   <data name="MainWindow_method_SetCulture_message_OK" xml:space="preserve">
     <value>リスタート後に言語設定が反映されます。</value>
   </data>
+  <data name="MainWindow_NewLineCodes_CrLf" xml:space="preserve">
+    <value>[R_ja] ウィンドウズ(CR+LF)</value>
+  </data>
+  <data name="MainWindow_NewLineCodes_Lf" xml:space="preserve">
+    <value>[R_ja] ユニックス(LF)</value>
+  </data>
   <data name="MainWindow_tab_TrExtension_group_Buttons_Header" xml:space="preserve">
     <value>ボタン</value>
   </data>

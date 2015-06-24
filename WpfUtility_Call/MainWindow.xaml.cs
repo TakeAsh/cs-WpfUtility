@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Windows.Controls.Ribbon;
+using TakeAsh;
 using WpfUtility;
 
 namespace WpfUtility_Call {
 
+    using NewLineCodesHelper = EnumHelper<MainWindow.NewLineCodes>;
     using _resources = Properties.Resources;
 
     /// <summary>
@@ -28,9 +31,28 @@ namespace WpfUtility_Call {
 
         private MessageButton messageButton_HPC;
 
+        [TypeConverter(typeof(EnumTypeConverter<NewLineCodes>))]
+        public enum NewLineCodes {
+            [ExtraProperties("Entity:'\n', Escaped:'\\x22\\u0027\t'")]
+            Lf = 1,
+
+            [ExtraProperties("Entity : \"\r\"Escaped : '\\x0027\\x0022'")]
+            [Description("[A] Mac(CR)")]
+            Cr = 2,
+
+            [ExtraProperties("Entity:\t'\r\n';;;Escaped:\t\"\\x3042\"")] // U+3042 あ
+            [Description("[A] Windows(CR+LF)")]
+            CrLf = 4,
+
+            [ExtraProperties("Entity:\n\t'\n\r'\nEscaped:\n\t'\\uD842\\uDFB7'")] // U+00020BB7 𠮷
+            LfCr = 8,
+        }
+
         public MainWindow() {
             CultureManager.SetCulture(_settings.Culture);
             InitializeComponent();
+            ribbonComboBox_comboBox3_GalleryCategory.ItemsSource = NewLineCodesHelper.ValueDescriptionPairs;
+            ribbonComboBox_comboBox4_GalleryCategory.ItemsSource = NewLineCodesHelper.ValueDescriptionPairs;
 
             // Insert code required on object creation below this point.
             messageButton_HPC = ribbon_Main.AddMessageButton("Infinity", 0);
