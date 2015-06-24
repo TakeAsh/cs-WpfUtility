@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Windows.Controls.Ribbon;
 
@@ -102,17 +103,12 @@ namespace WpfUtility {
 
         private static RoutedPropertyChangedEventHandler<object> CreateRibbonGallerySelectionChangedEventHandler(string placeHolder) {
             return (sender, e) => {
+                Mouse.Capture(null);
                 var comboBox = sender as RibbonComboBox;
-                var galleryItem = e.NewValue as RibbonGalleryItem;
-                if (comboBox == null || galleryItem == null) {
+                if (comboBox == null) {
                     return;
                 }
-                var text = comboBox.IsEditable && !String.IsNullOrEmpty(comboBox.Text) ?
-                    comboBox.Text :
-                    (galleryItem.Content != null ?
-                        galleryItem.Content.ToString() :
-                        galleryItem.ToString());
-                DrawPlaceHolder(comboBox, placeHolder, text);
+                DrawPlaceHolder(comboBox, placeHolder, comboBox.Text);
             };
         }
 
