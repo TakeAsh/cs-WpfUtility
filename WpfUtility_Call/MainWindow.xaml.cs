@@ -71,7 +71,15 @@ namespace WpfUtility_Call {
             }
             if (String.IsNullOrEmpty(target.Text)) {
                 var icon = (MessageButton.Icons)(((int)target.Icon + 1) % Enum.GetValues(typeof(MessageButton.Icons)).Length);
-                target.Show(DateTime.Now.ToString("g"), icon);
+                var now = DateTime.Now;
+                if (now.Second % 2 == 0) {
+                    target.Show(now.ToString("g"), icon);
+                } else {
+                    target.Show(
+                        new[] { now.ToLongDateString(), now.DayOfWeek.ToString(), now.ToLongTimeString(), },
+                        icon
+                    );
+                }
             } else {
                 target.Text = null;
             }

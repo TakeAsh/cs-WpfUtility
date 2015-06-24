@@ -220,6 +220,10 @@ namespace WpfUtility {
             }
         }
 
+        public void Show(IEnumerable<string> list, Icons icon = Icons.Beep) {
+            Show(String.Join("\n", list), icon);
+        }
+
         private void UpdateIcon() {
             this.SmallImageSource = GetImageResource(_icon, ButtonSizes.Small);
             this.LargeImageSource = (_size == ButtonSizes.Large) ?
