@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Microsoft.Windows.Controls.Ribbon;
 
 namespace WpfUtility {
 
@@ -30,8 +32,10 @@ namespace WpfUtility {
             var placeHolder = e.NewValue as string;
             var textChangedHandler = CreateTextChangedEventHandler(placeHolder);
             var selectionChangedHandler = CreateSelectionChangedEventHandler(placeHolder);
+            var ribbonGallerySelectionChangedHandler = CreateRibbonGallerySelectionChangedEventHandler(placeHolder);
             var textBox = sender as TextBox;
             var comboBox = sender as ComboBox;
+            var ribbonComboBox = sender as RibbonComboBox;
             if (textBox != null) {
                 if (String.IsNullOrEmpty(placeHolder)) {
                     textBox.TextChanged -= textChangedHandler;
@@ -48,6 +52,15 @@ namespace WpfUtility {
                     comboBox.SelectionChanged += selectionChangedHandler;
                 }
                 DrawPlaceHolder(comboBox, placeHolder, comboBox.Text);
+            } else if (ribbonComboBox != null) {
+                if (String.IsNullOrEmpty(placeHolder)) {
+                    ribbonComboBox.RemoveHandler(TextBox.TextChangedEvent, textChangedHandler);
+                    ribbonComboBox.RemoveHandler(RibbonGallery.SelectionChangedEvent, ribbonGallerySelectionChangedHandler);
+                } else {
+                    ribbonComboBox.AddHandler(TextBox.TextChangedEvent, textChangedHandler);
+                    ribbonComboBox.AddHandler(RibbonGallery.SelectionChangedEvent, ribbonGallerySelectionChangedHandler);
+                }
+                DrawPlaceHolder(ribbonComboBox, placeHolder, ribbonComboBox.Text);
             }
         }
 
@@ -60,10 +73,13 @@ namespace WpfUtility {
             return (sender, e) => {
                 var textBox = sender as TextBox;
                 var comboBox = sender as ComboBox;
+                var ribbonComboBox = sender as RibbonComboBox;
                 if (textBox != null) {
                     DrawPlaceHolder(textBox, placeHolder, textBox.Text);
                 } else if (comboBox != null) {
                     DrawPlaceHolder(comboBox, placeHolder, comboBox.Text);
+                } else if (ribbonComboBox != null) {
+                    DrawPlaceHolder(ribbonComboBox, placeHolder, ribbonComboBox.Text);
                 }
             };
         }
@@ -71,15 +87,32 @@ namespace WpfUtility {
         private static SelectionChangedEventHandler CreateSelectionChangedEventHandler(string placeHolder) {
             return (sender, e) => {
                 var comboBox = sender as ComboBox;
-                if (comboBox != null) {
-                    var comboBoxItem = comboBox.SelectedItem as ComboBoxItem;
-                    var text = comboBox.IsEditable && !String.IsNullOrEmpty(comboBox.Text) ?
-                        comboBox.Text :
-                        (comboBoxItem != null ?
-                            comboBoxItem.Content.ToString() :
-                            comboBox.SelectedItem.ToString());
-                    DrawPlaceHolder(comboBox, placeHolder, text);
+                var comboBoxItem = comboBox.SelectedItem as ComboBoxItem;
+                if (comboBox == null) {
+                    return;
                 }
+                var text = comboBox.IsEditable && !String.IsNullOrEmpty(comboBox.Text) ?
+                    comboBox.Text :
+                    (comboBoxItem != null ?
+                        comboBoxItem.Content.ToString() :
+                        comboBox.SelectedItem.ToString());
+                DrawPlaceHolder(comboBox, placeHolder, text);
+            };
+        }
+
+        private static RoutedPropertyChangedEventHandler<object> CreateRibbonGallerySelectionChangedEventHandler(string placeHolder) {
+            return (sender, e) => {
+                var comboBox = sender as RibbonComboBox;
+                var galleryItem = e.NewValue as RibbonGalleryItem;
+                if (comboBox == null || galleryItem == null) {
+                    return;
+                }
+                var text = comboBox.IsEditable && !String.IsNullOrEmpty(comboBox.Text) ?
+                    comboBox.Text :
+                    (galleryItem.Content != null ?
+                        galleryItem.Content.ToString() :
+                        galleryItem.ToString());
+                DrawPlaceHolder(comboBox, placeHolder, text);
             };
         }
 

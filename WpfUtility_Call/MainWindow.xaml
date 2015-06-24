@@ -135,6 +135,30 @@
                         </ComboBox>
                     </WrapPanel>
                 </r:RibbonGroup>
+                <r:RibbonGroup Header="RibbonTextBox">
+                    <r:RibbonTextBox wu:Placeholder.Text="RTextBox1" />
+                    <r:RibbonTextBox wu:Placeholder.Text="RTextBox2" />
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="RibbonComboBox">
+                    <r:RibbonComboBox wu:Placeholder.Text="RComboBox1" IsEditable="True">
+                        <r:RibbonGallery>
+                            <r:RibbonGalleryCategory>
+                                <r:RibbonGalleryItem Content="" />
+                                <r:RibbonGalleryItem Content="Item1" />
+                                <r:RibbonGalleryItem Content="Item2" />
+                            </r:RibbonGalleryCategory>
+                        </r:RibbonGallery>
+                    </r:RibbonComboBox>
+                    <r:RibbonComboBox wu:Placeholder.Text="RComboBox2" IsEditable="False">
+                        <r:RibbonGallery>
+                            <r:RibbonGalleryCategory>
+                                <r:RibbonGalleryItem Content="" />
+                                <r:RibbonGalleryItem Content="Item1" />
+                                <r:RibbonGalleryItem Content="Item2" />
+                            </r:RibbonGalleryCategory>
+                        </r:RibbonGallery>
+                    </r:RibbonComboBox>
+                </r:RibbonGroup>
             </r:RibbonTab>
         </r:Ribbon>
 
