@@ -73,6 +73,7 @@
     <Compile Include="ChildPopup.cs" />
     <Compile Include="CultureManager.cs" />
     <Compile Include="MessageButton.cs" />
+    <Compile Include="PaneledTab.cs" />
     <Compile Include="PlaceHolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -107,6 +108,12 @@
     <Resource Include="Images\HandSmall.png" />
     <Resource Include="Images\QuestionLarge.png" />
     <Resource Include="Images\QuestionSmall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="PaneledTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
