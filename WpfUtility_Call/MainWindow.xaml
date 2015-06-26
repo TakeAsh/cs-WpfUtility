@@ -9,7 +9,14 @@
 	Width="720" Height="260" MinWidth="320" MinHeight="260">
 
     <r:RibbonWindow.Resources>
-        <sys:String x:Key="TrExtension_Assembly">WpfUtility_Call</sys:String>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <sys:String x:Key="TrExtension_Assembly">WpfUtility_Call</sys:String>
+                </ResourceDictionary>
+                <ResourceDictionary Source="/WpfUtility;component/PaneledTab.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </r:RibbonWindow.Resources>
     
     <DockPanel>
@@ -175,6 +182,45 @@
                 </r:RibbonGroup>
             </r:RibbonTab>
         </r:Ribbon>
-
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <wu:PaneledTab Grid.Column="0">
+                <wu:PaneledTab.FormerPanel>
+                    <WrapPanel>
+                        <Button Content="B1" />
+                    </WrapPanel>
+                </wu:PaneledTab.FormerPanel>
+                <wu:PaneledTab.LatterPanel>
+                    <WrapPanel>
+                        <Button Content="B2" />
+                        <Button Content="B3" />
+                        <Button Content="B4" />
+                    </WrapPanel>
+                </wu:PaneledTab.LatterPanel>
+                <TabItem Header="Item1">
+                    <TextBlock Text="Item1" />
+                </TabItem>
+                <TabItem Header="Item2">
+                    <TextBlock Text="Item2" />
+                </TabItem>
+                <TabItem Header="Item3">
+                    <TextBlock Text="Item3" />
+                </TabItem>
+            </wu:PaneledTab>
+            <TabControl Grid.Column="1" >
+                <TabItem Header="Item1">
+                    <TextBlock Text="Item1" />
+                </TabItem>
+                <TabItem Header="Item2">
+                    <TextBlock Text="Item2" />
+                </TabItem>
+                <TabItem Header="Item3">
+                    <TextBlock Text="Item3" />
+                </TabItem>
+            </TabControl>
+        </Grid>
     </DockPanel>
 </r:RibbonWindow>
