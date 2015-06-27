@@ -6,7 +6,7 @@
     xmlns:wu="clr-namespace:WpfUtility;assembly=WpfUtility"
     Title="WpfUtility"
 	x:Name="RibbonWindow"
-	Width="720" Height="260" MinWidth="320" MinHeight="260">
+	Width="720" Height="300" MinWidth="320" MinHeight="260">
 
     <r:RibbonWindow.Resources>
         <ResourceDictionary>
@@ -187,17 +187,17 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <wu:PaneledTab Grid.Column="0">
+            <wu:PaneledTab x:Name="paneledTab" Grid.Column="0">
                 <wu:PaneledTab.FormerPanel>
                     <WrapPanel>
-                        <Button Content="B1" />
+                        <Button x:Name="button_Top" Content=" T " Click="button_ChangeTabStripPlacement_Click" />
                     </WrapPanel>
                 </wu:PaneledTab.FormerPanel>
                 <wu:PaneledTab.LatterPanel>
                     <WrapPanel>
-                        <Button Content="B2" />
-                        <Button Content="B3" />
-                        <Button Content="B4" />
+                        <Button x:Name="button_Left" Content=" L " Click="button_ChangeTabStripPlacement_Click" />
+                        <Button x:Name="button_Right" Content=" R " Click="button_ChangeTabStripPlacement_Click" />
+                        <Button x:Name="button_Bottom" Content=" B " Click="button_ChangeTabStripPlacement_Click" />
                     </WrapPanel>
                 </wu:PaneledTab.LatterPanel>
                 <TabItem Header="Item1">
@@ -210,7 +210,7 @@
                     <TextBlock Text="Item3" />
                 </TabItem>
             </wu:PaneledTab>
-            <TabControl Grid.Column="1" >
+            <TabControl x:Name="normalTab" Grid.Column="1" >
                 <TabItem Header="Item1">
                     <TextBlock Text="Item1" />
                 </TabItem>

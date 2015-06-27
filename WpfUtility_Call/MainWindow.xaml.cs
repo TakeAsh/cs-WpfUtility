@@ -110,5 +110,30 @@ namespace WpfUtility_Call {
         private void button_Culture_OK_Click(object sender, RoutedEventArgs e) {
             SetCulture();
         }
+
+        private void button_ChangeTabStripPlacement_Click(object sender, RoutedEventArgs e) {
+            var button = sender as Button;
+            if (button == null) {
+                return;
+            }
+            switch (button.Name) {
+                case "button_Top":
+                    paneledTab.TabStripPlacement = Dock.Top;
+                    normalTab.TabStripPlacement = Dock.Top;
+                    break;
+                case "button_Left":
+                    paneledTab.TabStripPlacement = Dock.Left;
+                    normalTab.TabStripPlacement = Dock.Left;
+                    break;
+                case "button_Right":
+                    paneledTab.TabStripPlacement = Dock.Right;
+                    normalTab.TabStripPlacement = Dock.Right;
+                    break;
+                case "button_Bottom":
+                    paneledTab.TabStripPlacement = Dock.Bottom;
+                    normalTab.TabStripPlacement = Dock.Bottom;
+                    break;
+            }
+        }
     }
 }
