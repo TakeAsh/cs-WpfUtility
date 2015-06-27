@@ -3,6 +3,7 @@
 
 ## Items
 - [MessageButton](https://github.com/TakeAsh/cs-WpfUtility/wiki/MessageButton) is an alternative 'MessageBox' that can be pinned on window as an icon.
+- [PaneledTab](https://github.com/TakeAsh/cs-WpfUtility/wiki/PaneledTab) is TabContorl with 'FormerPanel' and 'LatterPanel' beside TabPanel. 
 - [PlaceHolder](https://github.com/TakeAsh/cs-WpfUtility/wiki/PlaceHolder) realize place holder for TextBox and ComboBox in .Net 4.0.
 - [ResourceHelper](https://github.com/TakeAsh/cs-WpfUtility/wiki/ResourceHelper) returns resource from the CallingAssembly.
 - [RibbonExtensionMethods](https://github.com/TakeAsh/cs-WpfUtility/wiki/RibbonExtensionMethods) add helper methods to Ribbon.
@@ -17,6 +18,9 @@
 - MessageButton is not modal but modeless.
 - MessageButton DON'T support buttons(OK, Cancel, Yes, No, ...).
 - MessageButtons can be placed in Quick Access ToolBar, Help Pane Content, Ribbon Group.
+
+## PaneledTab
+- is TabContorl with 'FormerPanel' and 'LatterPanel' beside TabPanel. 
 
 ## PlaceHolder
 - realize place holder for TextBox and ComboBox in .Net 4.0.
