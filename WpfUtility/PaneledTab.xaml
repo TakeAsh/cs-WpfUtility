@@ -7,25 +7,32 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type wu:PaneledTab}">
-                    <Grid KeyboardNavigation.TabNavigation="Local">
+                    <Grid
+                        x:Name="RootPanel"
+                        KeyboardNavigation.TabNavigation="Local">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition x:Name="rowDefinition0" Height="Auto" />
+                            <RowDefinition x:Name="rowDefinition1" Height="*" />
+                            <RowDefinition x:Name="rowDefinition2" Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition x:Name="columnDefinition0" Width="Auto"/>
+                            <ColumnDefinition x:Name="columnDefinition1" Width="*"/>
+                            <ColumnDefinition x:Name="columnDefinition2" Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <ContentPresenter
+                            x:Name="FormerPanel"
                             Grid.Row="0"
                             Grid.Column="0"
                             Content="{TemplateBinding FormerPanel}"
+                            Panel.ZIndex="2"
+                            VerticalAlignment="Bottom"
                             KeyboardNavigation.TabNavigation="Local"
                             KeyboardNavigation.DirectionalNavigation="Contained"
                             KeyboardNavigation.TabIndex="1"
                         />
                         <TabPanel
+                            x:Name="TabPanel"
                             Grid.Row="0"
                             Grid.Column="1"
                             IsItemsHost="True"
@@ -36,16 +43,21 @@
                             KeyboardNavigation.TabIndex="2"
                         />
                         <ContentPresenter
+                            x:Name="LatterPanel"
                             Grid.Row="0"
                             Grid.Column="2"
                             Content="{TemplateBinding LatterPanel}"
+                            Panel.ZIndex="2"
+                            VerticalAlignment="Bottom"
                             KeyboardNavigation.TabNavigation="Local"
                             KeyboardNavigation.DirectionalNavigation="Contained"
                             KeyboardNavigation.TabIndex="3"
                         />
                         <Border
+                            x:Name="ContentPanel"
                             Grid.Row="1" 
                             Grid.Column="0"
+                            Grid.RowSpan="2"
                             Grid.ColumnSpan="3"
                             KeyboardNavigation.TabNavigation="Local"
                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -72,6 +84,47 @@
                             </Border>
                         </Border>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="TabStripPlacement" Value="Bottom">
+                            <Setter TargetName="FormerPanel" Property="Grid.Row" Value="2" />
+                            <Setter TargetName="FormerPanel" Property="VerticalAlignment" Value="Top" />
+                            <Setter TargetName="TabPanel" Property="Grid.Row" Value="2" />
+                            <Setter TargetName="TabPanel" Property="VerticalAlignment" Value="Top" />
+                            <Setter TargetName="LatterPanel" Property="Grid.Row" Value="2" />
+                            <Setter TargetName="LatterPanel" Property="VerticalAlignment" Value="Top" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Row" Value="0" />
+                        </Trigger>
+                        <Trigger Property="TabStripPlacement" Value="Left">
+                            <Setter TargetName="FormerPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="FormerPanel" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="FormerPanel" Property="VerticalAlignment" Value="Top" />
+                            <Setter TargetName="TabPanel" Property="Grid.Row" Value="1" />
+                            <Setter TargetName="TabPanel" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="TabPanel" Property="Margin" Value="0, 2" />
+                            <Setter TargetName="TabPanel" Property="VerticalAlignment" Value="Top" />
+                            <Setter TargetName="LatterPanel" Property="Grid.Row" Value="2" />
+                            <Setter TargetName="LatterPanel" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="ContentPanel" Property="Grid.RowSpan" Value="3" />
+                            <Setter TargetName="ContentPanel" Property="Grid.ColumnSpan" Value="2" />
+                        </Trigger>
+                        <Trigger Property="TabStripPlacement" Value="Right">
+                            <Setter TargetName="FormerPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="FormerPanel" Property="Grid.Column" Value="2" />
+                            <Setter TargetName="FormerPanel" Property="VerticalAlignment" Value="Top" />
+                            <Setter TargetName="TabPanel" Property="Grid.Row" Value="1" />
+                            <Setter TargetName="TabPanel" Property="Grid.Column" Value="2" />
+                            <Setter TargetName="TabPanel" Property="Margin" Value="0, 2" />
+                            <Setter TargetName="TabPanel" Property="VerticalAlignment" Value="Top" />
+                            <Setter TargetName="LatterPanel" Property="Grid.Row" Value="2" />
+                            <Setter TargetName="LatterPanel" Property="Grid.Column" Value="2" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="ContentPanel" Property="Grid.RowSpan" Value="3" />
+                            <Setter TargetName="ContentPanel" Property="Grid.ColumnSpan" Value="2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

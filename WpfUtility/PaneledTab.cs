@@ -16,6 +16,12 @@ namespace WpfUtility {
     public class PaneledTab :
         TabControl {
 
+        private Grid _rootPanel;
+        private Panel _formerPanel;
+        private TabPanel _tabPanel;
+        private Panel _latterPanel;
+        private Border _contentPanel;
+
         static PaneledTab() {
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(PaneledTab),
@@ -35,6 +41,15 @@ namespace WpfUtility {
             typeof(PaneledTab)
         );
 
+        public override void OnApplyTemplate() {
+            base.OnApplyTemplate();
+            _rootPanel = GetTemplateChild("RootPanel") as Grid;
+            _formerPanel = GetTemplateChild("FormerPanel") as Panel;
+            _tabPanel = GetTemplateChild("TabPanel") as TabPanel;
+            _latterPanel = GetTemplateChild("LatterPanel") as Panel;
+            _contentPanel = GetTemplateChild("ContentPanel") as Border;
+        }
+
         public Panel FormerPanel {
             get { return GetValue(FormerPanelProperty) as Panel; }
             set { SetValue(FormerPanelProperty, value); }
@@ -43,6 +58,14 @@ namespace WpfUtility {
         public Panel LatterPanel {
             get { return GetValue(LatterPanelProperty) as Panel; }
             set { SetValue(LatterPanelProperty, value); }
+        }
+
+        public double TabPanelWidth {
+            get { return _tabPanel.ActualWidth; }
+        }
+
+        public double TabPanelHeight {
+            get { return _tabPanel.ActualHeight; }
         }
     }
 }
