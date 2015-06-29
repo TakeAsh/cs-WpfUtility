@@ -63,25 +63,10 @@
                             KeyboardNavigation.DirectionalNavigation="Contained"
                             KeyboardNavigation.TabIndex="4"
                             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                            BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"
-                            BorderThickness="1,1,0,0"
+                            BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+                            BorderThickness="1"
                         >
-                            <Border
-                                BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
-                                BorderThickness="0,0,1,1"
-                            >
-                                <Border
-                                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
-                                    BorderThickness="1,1,0,0"
-                                >
-                                    <Border
-                                        BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
-                                        BorderThickness="0,0,1,1"
-                                    >
-                                        <ContentPresenter ContentSource="SelectedContent"/>
-                                    </Border>
-                                </Border>
-                            </Border>
+                            <ContentPresenter ContentSource="SelectedContent"/>
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
