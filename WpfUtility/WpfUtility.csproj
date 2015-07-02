@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="ChildPopup.cs" />
     <Compile Include="CultureManager.cs" />
+    <Compile Include="DependencyObjectExtensionMethods.cs" />
     <Compile Include="MessageButton.cs" />
     <Compile Include="PaneledTab.cs" />
     <Compile Include="PlaceHolder.cs" />
