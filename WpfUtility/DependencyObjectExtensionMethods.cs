@@ -19,7 +19,7 @@ namespace WpfUtility {
         /// [LogicalTreeHelper.FindLogicalNode Method (System.Windows)](https://msdn.microsoft.com/en-us/library/system.windows.logicaltreehelper.findlogicalnode.aspx)
         /// </remarks>
         public static T FindChild<T>(this DependencyObject node, string name)
-            where T : class {
+            where T : DependencyObject {
 
             return node != null ?
                 LogicalTreeHelper.FindLogicalNode(node, name) as T :
