@@ -160,6 +160,10 @@
       <Project>{350A3E35-55C2-46C4-A393-F5A1FE5D0DE6}</Project>
       <Name>EnumHelperLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\cs-SerializableDictionary\SerializableDictionary\SerializableDictionary.csproj">
+      <Project>{356B032D-5DFE-41BB-AE70-3C46BB8F4345}</Project>
+      <Name>SerializableDictionary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WpfUtility\WpfUtility.csproj">
       <Project>{2F2D7E12-1121-4E38-AEF9-3E0BD51DA099}</Project>
       <Name>WpfUtility</Name>
