@@ -1,0 +1,3 @@
+﻿ID:1	FirstName:'John'	LastName:'Doe'	Sex:'Male'
+ID:2	FirstName:'Jane'	LastName:'Doe'	Sex:'Female'
+ID:3	FirstName:'HAL 9000'	LastName:''	Sex:'NotApplicable'

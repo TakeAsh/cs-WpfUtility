@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -19,8 +20,9 @@ using WpfUtility;
 
 namespace WpfUtility_Call {
 
-    using NewLineCodesHelper = EnumHelper<MainWindow.NewLineCodes>;
     using _resources = Properties.Resources;
+    using NewLineCodesHelper = EnumHelper<MainWindow.NewLineCodes>;
+    using SexesCodesHelper = EnumHelper<Person.SexesCodes>;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -65,6 +67,10 @@ namespace WpfUtility_Call {
 
             comboBox_Culture_GalleryCategory.ItemsSource = CultureManager.AvailableCultures;
             comboBox_Culture_Gallery.SelectedItem = CultureManager.GetCulture(_settings.Culture);
+
+            comboBox_PersonSex_GalleryCategory.ItemsSource = SexesCodesHelper.ValueDescriptionPairs;
+            var persons = ResourceHelper.GetText("Resources/Persons.txt").ToPersons();
+            dataGrid_Notify.ItemsSource = new ObservableCollection<Person>(persons);
         }
 
         private void SetCulture() {
@@ -134,6 +140,28 @@ namespace WpfUtility_Call {
                     normalTab.TabStripPlacement = Dock.Bottom;
                     break;
             }
+        }
+
+        private void dataGrid_Notify_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            var person = dataGrid_Notify.SelectedItem as Person;
+            if (person == null) {
+                return;
+            }
+            textBox_PersonId.Text = person.ID.ToString();
+            textBox_PersonFirstName.Text = person.FirstName;
+            textBox_PersonLastName.Text = person.LastName;
+            comboBox_PersonSex_Gallery.SelectedValue = person.Sex;
+        }
+
+        private void button_ApplyPerson_Click(object sender, RoutedEventArgs e) {
+            var person = dataGrid_Notify.SelectedItem as Person;
+            if (person == null) {
+                return;
+            }
+            person.ID = textBox_PersonId.Text.TryParse<int>();
+            person.FirstName = textBox_PersonFirstName.Text;
+            person.LastName = textBox_PersonLastName.Text;
+            person.Sex = SexesCodesHelper.Cast(comboBox_PersonSex_Gallery.SelectedValue);
         }
     }
 }

@@ -181,6 +181,25 @@
                     </r:RibbonComboBox>
                 </r:RibbonGroup>
             </r:RibbonTab>
+            <r:RibbonTab Header="Notify">
+                <r:RibbonGroup Header="Person">
+                    <r:RibbonTextBox x:Name="textBox_PersonId" />
+                    <r:RibbonTextBox x:Name="textBox_PersonFirstName" />
+                    <r:RibbonTextBox x:Name="textBox_PersonLastName" />
+                    <r:RibbonComboBox x:Name="comboBox_PersonSex">
+                        <r:RibbonGallery x:Name="comboBox_PersonSex_Gallery"
+                            SelectedValuePath="Key">
+                            <r:RibbonGalleryCategory x:Name="comboBox_PersonSex_GalleryCategory"
+                                DisplayMemberPath="Value" />
+                        </r:RibbonGallery>
+                    </r:RibbonComboBox>
+                    <r:RibbonButton x:Name="button_ApplyPerson"
+                        Label="Apply"
+                        LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon.png"
+                        SmallImageSource="/WpfUtility_Call;component/Images/ApplyS.png"
+                        Click="button_ApplyPerson_Click" />
+                </r:RibbonGroup>
+            </r:RibbonTab>
         </r:Ribbon>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -208,6 +227,11 @@
                 </TabItem>
                 <TabItem Header="Item3">
                     <TextBlock Text="Item3" />
+                </TabItem>
+                <TabItem Header="Notify">
+                    <DataGrid x:Name="dataGrid_Notify"
+                        IsReadOnly="True" SelectionMode="Single"
+                        SelectionChanged="dataGrid_Notify_SelectionChanged" />
                 </TabItem>
             </wu:PaneledTab>
             <TabControl x:Name="normalTab" Grid.Column="1" >
