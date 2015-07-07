@@ -87,6 +87,7 @@
     <Compile Include="RibbonExtensionMethods.cs" />
     <Compile Include="SoftBreak.cs" />
     <Compile Include="TrExtension.cs" />
+    <Compile Include="UIElementCollectionExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
