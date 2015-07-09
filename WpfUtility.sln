@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumHelperLib", "..\cs-Enum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializableDictionary", "..\cs-SerializableDictionary\SerializableDictionary\SerializableDictionary.csproj", "{356B032D-5DFE-41BB-AE70-3C46BB8F4345}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeAshUtility", "..\cs-TakeAshUtility\TakeAshUtility\TakeAshUtility.csproj", "{26A4A55A-CA4E-455C-8C14-832A73E23DFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -49,6 +51,14 @@ Global
 		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Release|x64.Build.0 = Release|x64
 		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Release|x86.ActiveCfg = Release|x86
 		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Release|x86.Build.0 = Release|x86
+		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Debug|x64.ActiveCfg = Debug|x64
+		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Debug|x64.Build.0 = Debug|x64
+		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Debug|x86.ActiveCfg = Debug|x86
+		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Debug|x86.Build.0 = Debug|x86
+		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Release|x64.ActiveCfg = Release|x64
+		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Release|x64.Build.0 = Release|x64
+		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Release|x86.ActiveCfg = Release|x86
+		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -118,6 +118,12 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\cs-TakeAshUtility\TakeAshUtility\TakeAshUtility.csproj">
+      <Project>{26A4A55A-CA4E-455C-8C14-832A73E23DFE}</Project>
+      <Name>TakeAshUtility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if "$(ConfigurationName)" == "Release" (
