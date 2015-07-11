@@ -165,6 +165,10 @@
       <Project>{356B032D-5DFE-41BB-AE70-3C46BB8F4345}</Project>
       <Name>SerializableDictionary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\cs-TakeAshUtility\TakeAshUtility\TakeAshUtility.csproj">
+      <Project>{26A4A55A-CA4E-455C-8C14-832A73E23DFE}</Project>
+      <Name>TakeAshUtility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WpfUtility\WpfUtility.csproj">
       <Project>{2F2D7E12-1121-4E38-AEF9-3E0BD51DA099}</Project>
       <Name>WpfUtility</Name>

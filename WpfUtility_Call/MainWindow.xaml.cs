@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Windows.Controls.Ribbon;
 using TakeAsh;
+using TakeAshUtility;
 using WpfUtility;
 
 namespace WpfUtility_Call {
