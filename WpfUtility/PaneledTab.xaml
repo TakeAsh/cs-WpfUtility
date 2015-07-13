@@ -4,6 +4,10 @@
     xmlns:wu="clr-namespace:WpfUtility">
 
     <Style TargetType="{x:Type wu:PaneledTab}">
+        <Setter Property="Background" Value="#FFF9F9F9" />
+        <!-- <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" /> -->
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type wu:PaneledTab}">
@@ -62,9 +66,9 @@
                             KeyboardNavigation.TabNavigation="Local"
                             KeyboardNavigation.DirectionalNavigation="Contained"
                             KeyboardNavigation.TabIndex="4"
-                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                            BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
-                            BorderThickness="1"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
                         >
                             <ContentPresenter ContentSource="SelectedContent"/>
                         </Border>
