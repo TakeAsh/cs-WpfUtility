@@ -40,14 +40,14 @@ namespace WpfUtility {
 
         private List<string> _columnNames;
         private Dictionary<string, ContextMenu> _autoFilterMenus;
-        private Dictionary<string, SortedSet<string>> _autoFilterItems;
+        private Dictionary<string, Dictionary<string, bool>> _autoFilterItems;
 
         public void UpdateAutoFilter() {
             if (Items == null) {
                 return;
             }
             if (_columnNames.Count == 0) {
-                _autoFilterItems = new Dictionary<string, SortedSet<string>>();
+                _autoFilterItems = new Dictionary<string, Dictionary<string, bool>>();
                 foreach (var item in Items) {
                     var pis = item.GetType()
                         .GetProperties(BindingFlags.Instance | BindingFlags.Public)
@@ -58,11 +58,11 @@ namespace WpfUtility {
                     }
                     pis.ForEach(pi => {
                         if (!_autoFilterItems.ContainsKey(pi.Name)) {
-                            _autoFilterItems[pi.Name] = new SortedSet<string>();
+                            _autoFilterItems[pi.Name] = new Dictionary<string, bool>();
                         }
                         var value = pi.GetValue(item, null).SafeToString(null);
                         if (value != null) {
-                            _autoFilterItems[pi.Name].Add(value);
+                            _autoFilterItems[pi.Name][value] = true;
                         }
                     });
                 }
@@ -76,16 +76,16 @@ namespace WpfUtility {
                         }
                         var value = pi.GetValue(item, null).SafeToString(null);
                         if (value != null) {
-                            _autoFilterItems[column].Add(value);
+                            _autoFilterItems[column][value] = true;
                         }
                     }
                     var menu = _autoFilterMenus[column];
                     menu.Items.Clear();
                     menu.Items.Add<UIElement>(CreateInitialAutoFilterMenuItems()
-                        .Concat(_autoFilterItems[column]
-                        .Select(value => new CheckBox() {
-                            Content = value,
-                            IsChecked = true,
+                        .Concat(_autoFilterItems[column].OrderBy(item => item.Key)
+                        .Select(item => new CheckBox() {
+                            Content = item.Key,
+                            IsChecked = item.Value,
                         }))
                     );
                 });
@@ -117,10 +117,11 @@ namespace WpfUtility {
                     _columnNames.Add(name);
                     var menu = new ContextMenu();
                     menu.Items.Add<UIElement>(CreateInitialAutoFilterMenuItems()
-                        .Concat(_autoFilterItems[name].Select(value => new CheckBox() {
-                            Content = value,
-                            IsChecked = true,
-                        }))
+                        .Concat(_autoFilterItems[name].OrderBy(item => item.Key)
+                            .Select(item => new CheckBox() {
+                                Content = item.Key,
+                                IsChecked = item.Value,
+                            }))
                     );
                     _autoFilterMenus[name] = menu;
                     ColumnHeaderStyle.Triggers.Add(new Trigger() {
