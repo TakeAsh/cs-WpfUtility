@@ -185,11 +185,7 @@ namespace WpfUtility {
                         _autoFilterItems[name] = new AutoFilterItem(name, this);
                     }
                     _autoFilterItems[name].Menu = menu;
-                    ColumnHeaderStyle.Triggers.Add(new Trigger() {
-                        Property = DataGridColumnHeader.ContentProperty,
-                        Value = name,
-                        Setters = { new Setter(DataGridColumnHeader.ContextMenuProperty, menu), },
-                    });
+                    ColumnHeaderStyle.Triggers.Add(_autoFilterItems[name].HeaderTrigger);
                 });
         }
 
@@ -209,6 +205,16 @@ namespace WpfUtility {
             public string Name { get; set; }
             public ContextMenu Menu { get; set; }
             public Dictionary<string, bool> Values { get; set; }
+
+            public Trigger HeaderTrigger {
+                get {
+                    return new Trigger() {
+                        Property = DataGridColumnHeader.ContentProperty,
+                        Value = Name,
+                        Setters = { new Setter(DataGridColumnHeader.ContextMenuProperty, Menu), },
+                    };
+                }
+            }
         }
     }
 }
