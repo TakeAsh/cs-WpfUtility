@@ -67,72 +67,8 @@ namespace WpfUtility {
                     });
                 }
             } else {
-                _columnNames.ForEach(column => {
-                    foreach (var item in Items) {
-                        var pi = item.GetType()
-                            .GetProperty(column, BindingFlags.Instance | BindingFlags.Public);
-                        if (pi == null) {
-                            continue;
-                        }
-                        var value = pi.GetValue(item, null).SafeToString(null);
-                        if (value != null &&
-                            !_autoFilterItems[column].Values.ContainsKey(value)) {
-                            _autoFilterItems[column].Values[value] = true;
-                        }
-                    }
-                    var menu = _autoFilterItems[column].Menu;
-                    menu.Items.Clear();
-                    menu.Items.Add<UIElement>(CreateInitialAutoFilterMenuItems(column));
-                    if (_autoFilterItems.ContainsKey(column)) {
-                        menu.Items.Add<UIElement>(_autoFilterItems[column]
-                            .Values
-                            .Keys
-                            .OrderBy(item => item)
-                            .Select(item => CreateValueSelectCheckBox(column, item))
-                        );
-                    }
-                });
+                _columnNames.ForEach(column => _autoFilterItems[column].Update());
             }
-        }
-
-        private List<UIElement> CreateInitialAutoFilterMenuItems(string column) {
-            var checkBoxAll = new CheckBox() {
-                Content = "All",
-                IsChecked = !_autoFilterItems.ContainsKey(column) ?
-                    true :
-                    _autoFilterItems[column].Values.Aggregate(true, (current, kvp) => current && kvp.Value),
-            };
-            checkBoxAll.Checked += (sender, e) => {
-                var checkBox0 = sender as CheckBox;
-                _autoFilterItems[column].Menu
-                    .Items
-                    .OfType<CheckBox>()
-                    .Where(checkBox => checkBox != checkBox0)
-                    .ToList()
-                    .ForEach(checkBox => {
-                        checkBox.IsChecked = true;
-                    });
-            };
-            return new List<UIElement>() {
-                checkBoxAll,
-                new Separator(),
-            };
-        }
-
-        private CheckBox CreateValueSelectCheckBox(string column, string item) {
-            var checkBox = new CheckBox() {
-                Content = item,
-                IsChecked = _autoFilterItems[column].Values[item],
-            };
-            checkBox.Checked += (sender, e) => {
-                _autoFilterItems[column].Values[item] = true;
-            };
-            checkBox.Unchecked += (sender, e) => {
-                _autoFilterItems[column].Values[item] = false;
-                var checkBoxAll = _autoFilterItems[column].Menu.Items[0] as CheckBox;
-                checkBoxAll.IsChecked = false;
-            };
-            return checkBox;
         }
 
         private bool PredicateAutoFilter(object item) {
@@ -167,25 +103,7 @@ namespace WpfUtility {
                 .ForEach(column => {
                     var name = column.Header.ToString();
                     _columnNames.Add(name);
-                    var menu = new ContextMenu();
-                    menu.Closed += (s, args) => {
-                        var source = this.ItemsSource;
-                        this.ItemsSource = null;
-                        this.ItemsSource = source;
-                    };
-                    menu.Items.Add<UIElement>(CreateInitialAutoFilterMenuItems(name));
-                    if (_autoFilterItems.ContainsKey(name)) {
-                        menu.Items.Add<UIElement>(_autoFilterItems[name]
-                            .Values
-                            .OrderBy(item => item.Key)
-                            .Select(item => CreateValueSelectCheckBox(name, item.Key))
-                        );
-                    }
-                    if (!_autoFilterItems.ContainsKey(name)) {
-                        _autoFilterItems[name] = new AutoFilterItem(name, this);
-                    }
-                    _autoFilterItems[name].Menu = menu;
-                    ColumnHeaderStyle.Triggers.Add(_autoFilterItems[name].HeaderTrigger);
+                    _autoFilterItems[name] = new AutoFilterItem(name, this);
                 });
         }
 
@@ -193,16 +111,24 @@ namespace WpfUtility {
 
             public AutoFilterItem(string name, DataGrid dataGrid) {
                 Name = name;
+                this.DataGrid = dataGrid;
+                Values = new Dictionary<string, bool>();
                 Menu = new ContextMenu();
                 Menu.Closed += (s, args) => {
                     var source = dataGrid.ItemsSource;
                     dataGrid.ItemsSource = null;
                     dataGrid.ItemsSource = source;
                 };
-                Values = new Dictionary<string, bool>();
+                Menu.Items.Add<UIElement>(InitialMenuItems);
+                Menu.Items.Add<UIElement>(Values
+                    .OrderBy(item => item.Key)
+                    .Select(item => CreateValueSelectCheckBox(item.Key))
+                );
+                this.DataGrid.ColumnHeaderStyle.Triggers.Add(HeaderTrigger);
             }
 
             public string Name { get; set; }
+            public DataGrid DataGrid { get; set; }
             public ContextMenu Menu { get; set; }
             public Dictionary<string, bool> Values { get; set; }
 
@@ -214,6 +140,67 @@ namespace WpfUtility {
                         Setters = { new Setter(DataGridColumnHeader.ContextMenuProperty, Menu), },
                     };
                 }
+            }
+
+            private List<UIElement> InitialMenuItems {
+                get {
+                    var checkBoxAll = new CheckBox() {
+                        Content = "All",
+                        IsChecked = Values.Aggregate(true, (current, kvp) => current && kvp.Value),
+                    };
+                    checkBoxAll.Checked += (sender, e) => {
+                        var checkBox0 = sender as CheckBox;
+                        Menu.Items
+                            .OfType<CheckBox>()
+                            .Where(checkBox => checkBox != checkBox0)
+                            .ToList()
+                            .ForEach(checkBox => {
+                                checkBox.IsChecked = true;
+                            });
+                    };
+                    return new List<UIElement>() {
+                        checkBoxAll,
+                        new Separator(),
+                    };
+                }
+            }
+
+            private CheckBox CreateValueSelectCheckBox(string item) {
+                var checkBox = new CheckBox() {
+                    Content = item,
+                    IsChecked = Values[item],
+                };
+                checkBox.Checked += (sender, e) => {
+                    Values[item] = true;
+                };
+                checkBox.Unchecked += (sender, e) => {
+                    Values[item] = false;
+                    var checkBoxAll = Menu.Items[0] as CheckBox;
+                    checkBoxAll.IsChecked = false;
+                };
+                return checkBox;
+            }
+
+            public void Update() {
+                foreach (var item in this.DataGrid.Items) {
+                    var pi = item.GetType()
+                        .GetProperty(Name, BindingFlags.Instance | BindingFlags.Public);
+                    if (pi == null) {
+                        continue;
+                    }
+                    var value = pi.GetValue(item, null).SafeToString(null);
+                    if (value != null &&
+                        !Values.ContainsKey(value)) {
+                        Values[value] = true;
+                    }
+                }
+                Menu.Items.Clear();
+                Menu.Items.Add<UIElement>(InitialMenuItems);
+                Menu.Items.Add<UIElement>(Values
+                    .Keys
+                    .OrderBy(item => item)
+                    .Select(item => CreateValueSelectCheckBox(item))
+                );
             }
         }
     }
