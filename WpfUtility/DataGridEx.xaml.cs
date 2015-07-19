@@ -168,7 +168,9 @@ namespace WpfUtility {
                     _columnNames.Add(name);
                     var menu = new ContextMenu();
                     menu.Closed += (s, args) => {
-                        _collectionView.Refresh();
+                        var source = this.ItemsSource;
+                        this.ItemsSource = null;
+                        this.ItemsSource = source;
                     };
                     menu.Items.Add<UIElement>(CreateInitialAutoFilterMenuItems(name));
                     if (_autoFilterItems.ContainsKey(name)) {
