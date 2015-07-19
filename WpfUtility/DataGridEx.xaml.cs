@@ -60,7 +60,8 @@ namespace WpfUtility {
                             _autoFilterItems[pi.Name] = new AutoFilterItem(pi.Name, this);
                         }
                         var value = pi.GetValue(item, null).SafeToString(null);
-                        if (value != null) {
+                        if (value != null &&
+                            !_autoFilterItems[pi.Name].Values.ContainsKey(value)) {
                             _autoFilterItems[pi.Name].Values[value] = true;
                         }
                     });
