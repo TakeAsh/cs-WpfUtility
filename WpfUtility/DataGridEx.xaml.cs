@@ -124,6 +124,9 @@ namespace WpfUtility {
                     .OrderBy(item => item.Key)
                     .Select(item => CreateValueSelectCheckBox(item.Key))
                 );
+                ToolTipText = new TextBlock() {
+                    Text = "All",
+                };
                 this.DataGrid.ColumnHeaderStyle.Triggers.Add(HeaderTrigger);
             }
 
@@ -131,13 +134,17 @@ namespace WpfUtility {
             public DataGrid DataGrid { get; set; }
             public ContextMenu Menu { get; set; }
             public Dictionary<string, bool> Values { get; set; }
+            public TextBlock ToolTipText { get; set; }
 
             public Trigger HeaderTrigger {
                 get {
                     return new Trigger() {
                         Property = DataGridColumnHeader.ContentProperty,
                         Value = Name,
-                        Setters = { new Setter(DataGridColumnHeader.ContextMenuProperty, Menu), },
+                        Setters = {
+                            new Setter(DataGridColumnHeader.ContextMenuProperty, Menu),
+                            new Setter(DataGridColumnHeader.ToolTipProperty, ToolTipText),
+                        },
                     };
                 }
             }
@@ -201,6 +208,9 @@ namespace WpfUtility {
                     .OrderBy(item => item)
                     .Select(item => CreateValueSelectCheckBox(item))
                 );
+                ToolTipText.Text = (Menu.Items[0] as CheckBox).IsChecked == true ?
+                    "All" :
+                    String.Join("\n", Values.Keys.Where(key => Values[key]).OrderBy(key => key));
             }
         }
     }
