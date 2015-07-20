@@ -129,7 +129,14 @@ namespace WpfUtility {
                 ToolTipText = new TextBlock() {
                     Text = _resources.DataGridEx_ColumnHeader_All,
                 };
-                this.DataGrid.ColumnHeaderStyle.Triggers.Add(HeaderTrigger);
+                this.DataGrid.ColumnHeaderStyle.Triggers.Add(new Trigger() {
+                    Property = DataGridColumnHeader.ContentProperty,
+                    Value = Name,
+                    Setters = {
+                            new Setter(DataGridColumnHeader.ContextMenuProperty, Menu),
+                            new Setter(DataGridColumnHeader.ToolTipProperty, ToolTipText),
+                        },
+                });
             }
 
             public string Name { get; set; }
@@ -137,19 +144,6 @@ namespace WpfUtility {
             public ContextMenu Menu { get; set; }
             public Dictionary<string, bool> Values { get; set; }
             public TextBlock ToolTipText { get; set; }
-
-            public Trigger HeaderTrigger {
-                get {
-                    return new Trigger() {
-                        Property = DataGridColumnHeader.ContentProperty,
-                        Value = Name,
-                        Setters = {
-                            new Setter(DataGridColumnHeader.ContextMenuProperty, Menu),
-                            new Setter(DataGridColumnHeader.ToolTipProperty, ToolTipText),
-                        },
-                    };
-                }
-            }
 
             private List<UIElement> InitialMenuItems {
                 get {
