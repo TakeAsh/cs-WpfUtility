@@ -79,7 +79,9 @@
     <Compile Include="INotifyPropertyChangedExtensionMethods.cs" />
     <Compile Include="ItemCollectionExtensionMethods.cs" />
     <Compile Include="MessageButton.cs" />
-    <Compile Include="PaneledTab.cs" />
+    <Compile Include="PaneledTab.xaml.cs" >
+      <DependentUpon>PaneledTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PlaceHolder.cs" />
     <Compile Include="PolynomialConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
