@@ -18,6 +18,8 @@ using TakeAshUtility;
 
 namespace WpfUtility {
 
+    using _resources = Properties.Resources;
+
     public class DataGridEx : DataGrid {
 
         static DataGridEx() {
@@ -125,7 +127,7 @@ namespace WpfUtility {
                     .Select(item => CreateValueSelectCheckBox(item.Key))
                 );
                 ToolTipText = new TextBlock() {
-                    Text = "All",
+                    Text = _resources.DataGridEx_ColumnHeader_All,
                 };
                 this.DataGrid.ColumnHeaderStyle.Triggers.Add(HeaderTrigger);
             }
@@ -152,7 +154,7 @@ namespace WpfUtility {
             private List<UIElement> InitialMenuItems {
                 get {
                     var checkBoxAll = new CheckBox() {
-                        Content = "All",
+                        Content = _resources.DataGridEx_ColumnHeader_All,
                         IsChecked = Values.Aggregate(true, (current, kvp) => current && kvp.Value),
                     };
                     checkBoxAll.Checked += (sender, e) => {
@@ -209,7 +211,7 @@ namespace WpfUtility {
                     .Select(item => CreateValueSelectCheckBox(item))
                 );
                 ToolTipText.Text = (Menu.Items[0] as CheckBox).IsChecked == true ?
-                    "All" :
+                    _resources.DataGridEx_ColumnHeader_All :
                     String.Join("\n", Values.Keys.Where(key => Values[key]).OrderBy(key => key));
             }
         }

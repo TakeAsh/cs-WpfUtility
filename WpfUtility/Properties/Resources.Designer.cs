@@ -61,6 +61,15 @@ namespace WpfUtility.Properties {
         }
         
         /// <summary>
+        ///   All に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string DataGridEx_ColumnHeader_All {
+            get {
+                return ResourceManager.GetString("DataGridEx_ColumnHeader_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   hide Ribbon に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RibbonExtensionMethods_MinimizeButton_ToolTip_Hide {
