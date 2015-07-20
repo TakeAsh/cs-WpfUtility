@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -165,7 +166,7 @@ namespace WpfUtility_Call {
     }
 
     public class Persons :
-        List<Person> {
+        ObservableCollection<Person> {
 
         public Persons() : base() { }
         public Persons(IEnumerable<Person> list) : base(list) { }

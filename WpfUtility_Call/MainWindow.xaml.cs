@@ -70,8 +70,7 @@ namespace WpfUtility_Call {
             comboBox_Culture_Gallery.SelectedItem = CultureManager.GetCulture(_settings.Culture);
 
             comboBox_PersonSex_GalleryCategory.ItemsSource = SexesCodesHelper.ValueDescriptionPairs;
-            var persons = ResourceHelper.GetText("Resources/Persons.txt").ToPersons();
-            dataGrid_Notify.ItemsSource = new ObservableCollection<Person>(persons);
+            dataGrid_Notify.ItemsSource = ResourceHelper.GetText("Resources/Persons.txt").ToPersons();
         }
 
         private void SetCulture() {
