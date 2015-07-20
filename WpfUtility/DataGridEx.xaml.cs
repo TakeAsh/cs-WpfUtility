@@ -43,7 +43,7 @@ namespace WpfUtility {
         private Dictionary<string, AutoFilterItem> _autoFilterItems;
 
         public void UpdateAutoFilter() {
-            if (Items == null) {
+            if (Items == null || ItemsSource == null) {
                 return;
             }
             if (_columnNames.Count == 0) {
