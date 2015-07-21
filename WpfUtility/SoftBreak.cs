@@ -17,30 +17,56 @@ namespace WpfUtility {
         );
 
         private static void OnLabelChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e) {
-            var button = sender as RibbonButton;
-            if (button == null) {
-                return;
-            }
             var text = e.NewValue as string;
             var handler = CreateEventHandler(text);
-            if (!String.IsNullOrEmpty(text)) {
-                button.SizeChanged += handler;
-            } else {
-                button.SizeChanged -= handler;
+            var ribbonButton = sender as RibbonButton;
+            if (ribbonButton != null) {
+                if (!String.IsNullOrEmpty(text)) {
+                    ribbonButton.SizeChanged += handler;
+                } else {
+                    ribbonButton.SizeChanged -= handler;
+                }
+                return;
+            }
+            var ribbonToggleButton = sender as RibbonToggleButton;
+            if (ribbonToggleButton != null) {
+                if (!String.IsNullOrEmpty(text)) {
+                    ribbonToggleButton.SizeChanged += handler;
+                } else {
+                    ribbonToggleButton.SizeChanged -= handler;
+                }
+                return;
             }
         }
 
         private static SizeChangedEventHandler CreateEventHandler(string text) {
             return (sender, e) => {
-                var button = sender as RibbonButton;
-                if (button == null || String.IsNullOrEmpty(text)) {
+                if (String.IsNullOrEmpty(text)) {
                     return;
                 }
-                var isLarge = button.ControlSizeDefinition.ImageSize == RibbonImageSize.Large;
-                button.Label = text
-                    .Replace(WordBreakTag, isLarge ? " " : "")
-                    .Replace(SoftHyphenTag, isLarge ? "- " : "");
+                var ribbonButton = sender as RibbonButton;
+                if (ribbonButton != null) {
+                    ribbonButton.Label = ReplaceTags(
+                        text,
+                        ribbonButton.ControlSizeDefinition.ImageSize == RibbonImageSize.Large
+                    );
+                    return;
+                }
+                var ribbonToggleButton = sender as RibbonToggleButton;
+                if (ribbonToggleButton != null) {
+                    ribbonToggleButton.Label = ReplaceTags(
+                        text,
+                        ribbonToggleButton.ControlSizeDefinition.ImageSize == RibbonImageSize.Large
+                    );
+                    return;
+                }
             };
+        }
+
+        private static string ReplaceTags(string text, bool isLarge) {
+            return text
+                .Replace(WordBreakTag, isLarge ? " " : "")
+                .Replace(SoftHyphenTag, isLarge ? "- " : "");
         }
 
         public static void SetLabel(UIElement element, string text) {
