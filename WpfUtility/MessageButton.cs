@@ -8,6 +8,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Windows.Controls.Ribbon;
+using TakeAshUtility;
 using UI.Extensions.Wpf.Controls;
 
 namespace WpfUtility {

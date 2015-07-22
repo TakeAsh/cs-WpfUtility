@@ -79,7 +79,7 @@
     <Compile Include="INotifyPropertyChangedExtensionMethods.cs" />
     <Compile Include="ItemCollectionExtensionMethods.cs" />
     <Compile Include="MessageButton.cs" />
-    <Compile Include="PaneledTab.xaml.cs" >
+    <Compile Include="PaneledTab.xaml.cs">
       <DependentUpon>PaneledTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="PlaceHolder.cs" />
@@ -90,7 +90,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ResourceHelper.cs" />
     <Compile Include="RibbonExtensionMethods.cs" />
     <Compile Include="SoftBreak.cs" />
     <Compile Include="TrExtension.cs" />
