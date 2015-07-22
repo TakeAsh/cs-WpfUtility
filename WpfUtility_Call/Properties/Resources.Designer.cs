@@ -149,5 +149,50 @@ namespace WpfUtility_Call.Properties {
                 return ResourceManager.GetString("MainWindow_tab_TrExtension_group_Culture_Header", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   First Name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Person_FirstName {
+            get {
+                return ResourceManager.GetString("Person_FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Full Name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Person_FullName {
+            get {
+                return ResourceManager.GetString("Person_FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ID に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Person_ID {
+            get {
+                return ResourceManager.GetString("Person_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Last Name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Person_LastName {
+            get {
+                return ResourceManager.GetString("Person_LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sex に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Person_Sex {
+            get {
+                return ResourceManager.GetString("Person_Sex", resourceCulture);
+            }
+        }
     }
 }

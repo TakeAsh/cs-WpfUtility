@@ -4,6 +4,7 @@
     xmlns:r="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:wu="clr-namespace:WpfUtility;assembly=WpfUtility"
+    xmlns:wuc="clr-namespace:WpfUtility_Call"
     Title="WpfUtility"
 	x:Name="RibbonWindow"
 	Width="720" Height="300" MinWidth="320" MinHeight="260">
@@ -232,6 +233,7 @@
                 <TabItem Header="Notify">
                     <wu:DataGridEx x:Name="dataGrid_Notify"
                         IsReadOnly="True" SelectionMode="Single"
+                        DataType="{x:Type wuc:Person}"
                         SelectionChanged="dataGrid_Notify_SelectionChanged" />
                 </TabItem>
             </wu:PaneledTab>
