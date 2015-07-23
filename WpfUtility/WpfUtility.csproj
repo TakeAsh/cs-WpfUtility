@@ -75,6 +75,7 @@
     <Compile Include="DataGridEx.xaml.cs">
       <DependentUpon>DataGridEx.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataGridExAttribute.cs" />
     <Compile Include="DependencyObjectExtensionMethods.cs" />
     <Compile Include="INotifyPropertyChangedExtensionMethods.cs" />
     <Compile Include="ItemCollectionExtensionMethods.cs" />

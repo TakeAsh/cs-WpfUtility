@@ -108,7 +108,8 @@ namespace WpfUtility {
                 _columnNames.Add(e.PropertyName);
                 _autoFilterItems[e.PropertyName] = new AutoFilterItem(e.PropertyName, dataGridEx);
             }
-            e.Column.Header = _autoFilterItems[e.PropertyName].Description;
+            e.Cancel = _autoFilterItems[e.PropertyName].DataGridExAttr.Ignore;
+            e.Column.Header = _autoFilterItems[e.PropertyName].DataGridExAttr.Header;
         }
 
         private class AutoFilterItem {
@@ -120,9 +121,10 @@ namespace WpfUtility {
                     (dataGridEx.Items.Count > 0 ?
                         dataGridEx.Items[0].GetType() :
                         null);
-                Description = dataType != null ?
-                    dataType.ToDescription(name) ?? name :
-                    name;
+                DataGridExAttr = dataType.GetAttribute<DataGridExAttribute>(name) ?? new DataGridExAttribute();
+                if (String.IsNullOrEmpty(DataGridExAttr.Header)) {
+                    DataGridExAttr.Header = dataType.ToDescription(name) ?? name;
+                }
                 Values = new Dictionary<string, bool>();
                 Menu = new ContextMenu();
                 Menu.Closed += (s, args) => {
@@ -140,7 +142,7 @@ namespace WpfUtility {
                 };
                 DataGridEx.ColumnHeaderStyle.Triggers.Add(new Trigger() {
                     Property = DataGridColumnHeader.ContentProperty,
-                    Value = Description,
+                    Value = DataGridExAttr.Header,
                     Setters = {
                             new Setter(DataGridColumnHeader.ContextMenuProperty, Menu),
                             new Setter(DataGridColumnHeader.ToolTipProperty, ToolTipText),
@@ -150,7 +152,7 @@ namespace WpfUtility {
 
             public string Name { get; private set; }
             public DataGridEx DataGridEx { get; private set; }
-            public string Description { get; private set; }
+            public DataGridExAttribute DataGridExAttr { get; private set; }
             public ContextMenu Menu { get; private set; }
             public Dictionary<string, bool> Values { get; private set; }
             public TextBlock ToolTipText { get; private set; }
