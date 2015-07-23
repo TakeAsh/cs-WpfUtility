@@ -94,6 +94,16 @@ namespace WpfUtility_Call {
             }
         }
 
+        [DataGridEx("Now")]
+        public string Dummy1 {
+            get { return DateTime.Now.ToString("g"); }
+        }
+
+        [DataGridEx(Ignore = true)]
+        public string Dummy2 {
+            get { return DateTime.Now.ToString("g"); }
+        }
+
         public string this[Items item] {
             get {
                 switch (item) {

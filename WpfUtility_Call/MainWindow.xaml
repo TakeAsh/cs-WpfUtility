@@ -221,6 +221,12 @@
                         <Button x:Name="button_Bottom" Content=" B " Click="button_ChangeTabStripPlacement_Click" />
                     </WrapPanel>
                 </wu:PaneledTab.LatterPanel>
+                <TabItem Header="Notify">
+                    <wu:DataGridEx x:Name="dataGrid_Notify"
+                        IsReadOnly="True" SelectionMode="Single"
+                        DataType="{x:Type wuc:Person}"
+                        SelectionChanged="dataGrid_Notify_SelectionChanged" />
+                </TabItem>
                 <TabItem Header="Item1">
                     <TextBlock Text="Item1" />
                 </TabItem>
@@ -229,12 +235,6 @@
                 </TabItem>
                 <TabItem Header="Item3">
                     <TextBlock Text="Item3" />
-                </TabItem>
-                <TabItem Header="Notify">
-                    <wu:DataGridEx x:Name="dataGrid_Notify"
-                        IsReadOnly="True" SelectionMode="Single"
-                        DataType="{x:Type wuc:Person}"
-                        SelectionChanged="dataGrid_Notify_SelectionChanged" />
                 </TabItem>
             </wu:PaneledTab>
             <TabControl x:Name="normalTab" Grid.Column="1" >
