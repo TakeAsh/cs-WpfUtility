@@ -77,7 +77,6 @@
     </Compile>
     <Compile Include="DataGridExAttribute.cs" />
     <Compile Include="DependencyObjectExtensionMethods.cs" />
-    <Compile Include="INotifyPropertyChangedExtensionMethods.cs" />
     <Compile Include="ItemCollectionExtensionMethods.cs" />
     <Compile Include="MessageButton.cs" />
     <Compile Include="PaneledTab.xaml.cs">
