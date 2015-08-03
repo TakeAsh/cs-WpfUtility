@@ -144,9 +144,9 @@ namespace WpfUtility {
                     Property = DataGridColumnHeader.ContentProperty,
                     Value = DataGridExAttr.Header,
                     Setters = {
-                            new Setter(DataGridColumnHeader.ContextMenuProperty, Menu),
-                            new Setter(DataGridColumnHeader.ToolTipProperty, ToolTipText),
-                        },
+                        new Setter(DataGridColumnHeader.ContextMenuProperty, Menu),
+                        new Setter(DataGridColumnHeader.ToolTipProperty, ToolTipText),
+                    },
                 });
             }
 
