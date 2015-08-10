@@ -28,7 +28,9 @@ namespace WpfUtility_Call {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : RibbonWindow {
+    public partial class MainWindow :
+        RibbonWindow,
+        IResizeEvent {
 
         private static Properties.Settings _settings = Properties.Settings.Default;
 
@@ -71,6 +73,24 @@ namespace WpfUtility_Call {
 
             comboBox_PersonSex_GalleryCategory.ItemsSource = SexesCodesHelper.ValueDescriptionPairs;
             dataGrid_Notify.ItemsSource = ResourceHelper.GetText("Resources/Persons.txt").ToPersons();
+            this.AddResizeHook();
+            this.Resizing += (sender, e) => {
+                var window = sender as RibbonWindow;
+                if (window == null) {
+                    return;
+                }
+                window.Title = Application.Current.MainWindow.Left + ", " +
+                    Application.Current.MainWindow.Top + ", " +
+                    Application.Current.MainWindow.ActualWidth + ", " +
+                    Application.Current.MainWindow.ActualHeight;
+            };
+            this.Resized += (sender, e) => {
+                var window = sender as RibbonWindow;
+                if (window == null) {
+                    return;
+                }
+                window.Title = "WpfUtility";
+            };
         }
 
         private void SetCulture() {
@@ -163,5 +183,17 @@ namespace WpfUtility_Call {
             person.LastName = textBox_PersonLastName.Text;
             person.Sex = SexesCodesHelper.Cast(comboBox_PersonSex_Gallery.SelectedValue);
         }
+
+#pragma warning disable 0067
+
+        #region IResizeEvent
+
+        public event EventHandler Resizing;
+        public event EventHandler Resized;
+        
+        #endregion
+
+#pragma warning restore 0067
+
     }
 }
