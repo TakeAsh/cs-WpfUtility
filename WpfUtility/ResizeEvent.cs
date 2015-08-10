@@ -25,32 +25,34 @@ namespace WpfUtility {
         /// </summary>
         /// <typeparam name="TWindow">Window type with IResizeEvent</typeparam>
         /// <param name="window">Window</param>
-        /// <remarks>
-        /// Should call this method in Loaded event handler of the window because Window Handle is not prepared until then.
-        /// </remarks>
         public static void AddResizeHook<TWindow>(this TWindow window)
             where TWindow : Window, IResizeEvent {
 
-            var source = HwndSource.FromHwnd(new WindowInteropHelper(window).Handle);
-            source.AddHook((IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) => {
-                switch (msg) {
-                    case WM_ENTERSIZEMOVE:
-                        var resizingHandler = window.GetDelegate(ResizingEventHandlerName)
-                            .GetHandler<EventHandler>();
-                        if (resizingHandler != null) {
-                            resizingHandler(window, EventArgs.Empty);
-                        }
-                        break;
-                    case WM_EXITSIZEMOVE:
-                        var resizedHandler = window.GetDelegate(ResizedEventHandlerName)
-                            .GetHandler<EventHandler>();
-                        if (resizedHandler != null) {
-                            resizedHandler(window, EventArgs.Empty);
-                        }
-                        break;
-                }
-                return IntPtr.Zero;
-            });
+            if (window == null) {
+                return;
+            }
+            window.Loaded += (sender, e) => {
+                var source = HwndSource.FromHwnd(new WindowInteropHelper(window).Handle);
+                source.AddHook((IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) => {
+                    switch (msg) {
+                        case WM_ENTERSIZEMOVE:
+                            var resizingHandler = window.GetDelegate(ResizingEventHandlerName)
+                                .GetHandler<EventHandler>();
+                            if (resizingHandler != null) {
+                                resizingHandler(window, EventArgs.Empty);
+                            }
+                            break;
+                        case WM_EXITSIZEMOVE:
+                            var resizedHandler = window.GetDelegate(ResizedEventHandlerName)
+                                .GetHandler<EventHandler>();
+                            if (resizedHandler != null) {
+                                resizedHandler(window, EventArgs.Empty);
+                            }
+                            break;
+                    }
+                    return IntPtr.Zero;
+                });
+            };
         }
     }
 }
