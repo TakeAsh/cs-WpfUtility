@@ -173,6 +173,16 @@ namespace WpfUtility {
                                 checkBox.IsChecked = true;
                             });
                     };
+                    checkBoxAll.Unchecked += (sender, e) => {
+                        var checkBox0 = sender as CheckBox;
+                        Menu.Items
+                            .OfType<CheckBox>()
+                            .Where(checkBox => checkBox != checkBox0)
+                            .ToList()
+                            .ForEach(checkBox => {
+                                checkBox.IsChecked = false;
+                            });
+                    };
                     return new List<UIElement>() {
                         checkBoxAll,
                         new Separator(),
@@ -190,8 +200,6 @@ namespace WpfUtility {
                 };
                 checkBox.Unchecked += (sender, e) => {
                     Values[item] = false;
-                    var checkBoxAll = Menu.Items[0] as CheckBox;
-                    checkBoxAll.IsChecked = false;
                 };
                 return checkBox;
             }
