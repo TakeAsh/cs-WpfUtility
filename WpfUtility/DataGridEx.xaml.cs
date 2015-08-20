@@ -42,6 +42,9 @@ namespace WpfUtility {
             DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof(DataGridEx))
                 .AddValueChanged(this, (sender, e) => {
                     var dataGridEx = sender as DataGridEx;
+                    if (dataGridEx == null || dataGridEx.ItemsSource == null) {
+                        return;
+                    }
                     dataGridEx.ColumnHeaderStyle = new Style();
                     _collectionView = CollectionViewSource.GetDefaultView(dataGridEx.ItemsSource) as ListCollectionView;
                     ((INotifyCollectionChanged)_collectionView).CollectionChanged += OnUpdateItems;
