@@ -39,8 +39,9 @@ namespace WpfUtility {
         public DataGridEx()
             : base() {
 
-            DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof(DataGridEx))
-                .AddValueChanged(this, (sender, e) => {
+            this.AddPropertyChanged(
+                ItemsControl.ItemsSourceProperty,
+                (sender, e) => {
                     var dataGridEx = sender as DataGridEx;
                     if (dataGridEx == null || dataGridEx.ItemsSource == null) {
                         return;
@@ -49,7 +50,8 @@ namespace WpfUtility {
                     _collectionView = CollectionViewSource.GetDefaultView(dataGridEx.ItemsSource) as ListCollectionView;
                     ((INotifyCollectionChanged)_collectionView).CollectionChanged += OnUpdateItems;
                     _collectionView.Filter = PredicateAutoFilter;
-                });
+                }
+            );
             AutoGeneratingColumn += OnAutoGeneratingColumn;
         }
 
