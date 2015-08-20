@@ -76,6 +76,7 @@
       <DependentUpon>DataGridEx.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataGridExAttribute.cs" />
+    <Compile Include="DataGridExAutoFilterItem.cs" />
     <Compile Include="DataGridExAutoFilterSubItem.cs" />
     <Compile Include="DependencyObjectExtensionMethods.cs" />
     <Compile Include="ResizeEvent.cs" />
