@@ -49,16 +49,17 @@ namespace WpfUtility {
                 ribbon.IsMinimized = !ribbon.IsMinimized;
             };
             // ribbon.IsMinimizedChanged += ...
-            DependencyPropertyDescriptor
-                .FromProperty(Ribbon.IsMinimizedProperty, typeof(Ribbon))
-                .AddValueChanged(ribbon, (s, e) => {
+            ribbon.AddPropertyChanged(
+                Ribbon.IsMinimizedProperty,
+                (s, e) => {
                     button.SmallImageSource = ribbon.IsMinimized ?
                         showIcon :
                         hideIcon;
                     button.ToolTip = ribbon.IsMinimized ?
                         showToolTip :
                         hideToolTip;
-                });
+                }
+            );
             return ribbon.AddHelpItem(button);
         }
 
