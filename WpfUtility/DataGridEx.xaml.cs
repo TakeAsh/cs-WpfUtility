@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -22,6 +24,11 @@ namespace WpfUtility {
 
     public class DataGridEx : DataGrid {
 
+        private enum FilterItemsActions {
+            Add,
+            Remove,
+        }
+
         static DataGridEx() {
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(DataGridEx),
@@ -32,56 +39,34 @@ namespace WpfUtility {
         public DataGridEx()
             : base() {
 
-            _columnNames = new List<string>();
-            _autoFilterItems = new Dictionary<string, AutoFilterItem>();
-            var collectionView = CollectionViewSource.GetDefaultView(this.Items) as CollectionView;
-            ((INotifyCollectionChanged)collectionView).CollectionChanged += OnUpdateItems;
-            collectionView.Filter = PredicateAutoFilter;
-            ColumnHeaderStyle = new Style();
+            DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof(DataGridEx))
+                .AddValueChanged(this, (sender, e) => {
+                    var dataGridEx = sender as DataGridEx;
+                    dataGridEx.ColumnHeaderStyle = new Style();
+                    _collectionView = CollectionViewSource.GetDefaultView(dataGridEx.ItemsSource) as ListCollectionView;
+                    ((INotifyCollectionChanged)_collectionView).CollectionChanged += OnUpdateItems;
+                    _collectionView.Filter = PredicateAutoFilter;
+                });
             AutoGeneratingColumn += OnAutoGeneratingColumn;
         }
 
         private List<string> _columnNames;
         private Dictionary<string, AutoFilterItem> _autoFilterItems;
+        private CollectionView _collectionView;
 
         public Type DataType { get; set; }
 
-        public void UpdateAutoFilter() {
-            if (Items == null || ItemsSource == null) {
-                return;
-            }
-            if (_columnNames.Count == 0) {
-                foreach (var item in Items) {
-                    var pis = (DataType ?? item.GetType())
-                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                        .Where(pi => pi.GetIndexParameters().Length == 0)
-                        .ToList();
-                    if (pis == null || pis.Count == 0) {
-                        continue;
-                    }
-                    pis.ForEach(pi => {
-                        if (!_autoFilterItems.ContainsKey(pi.Name)) {
-                            _autoFilterItems[pi.Name] = new AutoFilterItem(pi.Name, this);
-                        }
-                        var value = pi.GetValue(item, null).SafeToString(null);
-                        if (value != null &&
-                            !_autoFilterItems[pi.Name].Values.ContainsKey(value)) {
-                            _autoFilterItems[pi.Name].Values[value] = true;
-                        }
-                    });
-                }
-            } else {
-                _columnNames.ForEach(column => _autoFilterItems[column].Update());
-            }
+        public void Refresh() {
+            _collectionView.Refresh();
         }
 
         private bool PredicateAutoFilter(object item) {
             if (_autoFilterItems == null) {
                 return true;
             }
-            foreach (var p in _autoFilterItems.Keys) {
+            foreach (var p in _columnNames) {
                 foreach (var kvp in _autoFilterItems[p].Values) {
-                    if (kvp.Value == true) {
+                    if (kvp.Value.IsChecked == true) {
                         continue;
                     }
                     var pi = (DataType ?? item.GetType())
@@ -95,8 +80,55 @@ namespace WpfUtility {
             return true;
         }
 
+        private void ModifyFilterItems(FilterItemsActions action, IEnumerable items) {
+            foreach (var item in items) {
+                _columnNames.Select(columnName => _autoFilterItems[columnName])
+                    .Where(filterItem => !filterItem.DataGridExAttr.Ignore)
+                    .ToList()
+                    .ForEach(filterItem => {
+                        var pi = item.GetType()
+                            .GetProperty(filterItem.Name, BindingFlags.Instance | BindingFlags.Public);
+                        if (pi == null) {
+                            return;
+                        }
+                        var value = pi.GetValue(item, null).SafeToString(null);
+                        switch (action) {
+                            case FilterItemsActions.Add:
+                                filterItem.AddValue(value);
+                                break;
+                            case FilterItemsActions.Remove:
+                                filterItem.RemoveValue(value);
+                                break;
+                        }
+                    });
+            }
+            _columnNames.ForEach(columnName => _autoFilterItems[columnName].Update());
+        }
+
         private void OnUpdateItems(object sender, NotifyCollectionChangedEventArgs e) {
-            UpdateAutoFilter();
+            var view = sender as ListCollectionView;
+            if (view == null) {
+                return;
+            }
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Reset:
+                    if (_columnNames == null) {
+                        _columnNames = view.ItemProperties
+                            .Select(info => info.Name).ToList();
+                        _autoFilterItems = _columnNames.Select(name => new AutoFilterItem(name, this))
+                            .ToDictionary(filterItem => filterItem.Name);
+                        if (view.Count > 0) {
+                            ModifyFilterItems(FilterItemsActions.Add, view);
+                        }
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Add:
+                    ModifyFilterItems(FilterItemsActions.Add, e.NewItems);
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    ModifyFilterItems(FilterItemsActions.Remove, e.OldItems);
+                    break;
+            }
         }
 
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e) {
@@ -116,7 +148,7 @@ namespace WpfUtility {
 
             public AutoFilterItem(string name, DataGridEx dataGridEx) {
                 Name = name;
-                DataGridEx = dataGridEx;
+                Parent = dataGridEx;
                 var dataType = dataGridEx.DataType ??
                     (dataGridEx.Items.Count > 0 ?
                         dataGridEx.Items[0].GetType() :
@@ -125,22 +157,17 @@ namespace WpfUtility {
                 if (String.IsNullOrEmpty(DataGridExAttr.Header)) {
                     DataGridExAttr.Header = dataType.ToDescription(name) ?? name;
                 }
-                Values = new Dictionary<string, bool>();
+                Values = new Dictionary<string, DataGridExAutoFilterSubItem>();
                 Menu = new ContextMenu();
                 Menu.Closed += (s, args) => {
-                    var source = dataGridEx.ItemsSource;
-                    dataGridEx.ItemsSource = null;
-                    dataGridEx.ItemsSource = source;
+                    UpdateToolTip();
+                    Parent.Refresh();
                 };
                 Menu.Items.Add<UIElement>(InitialMenuItems);
-                Menu.Items.Add<UIElement>(Values
-                    .OrderBy(item => item.Key)
-                    .Select(item => CreateValueSelectCheckBox(item.Key))
-                );
                 ToolTipText = new TextBlock() {
                     Text = _resources.DataGridEx_ColumnHeader_All,
                 };
-                DataGridEx.ColumnHeaderStyle.Triggers.Add(new Trigger() {
+                Parent.ColumnHeaderStyle.Triggers.Add(new Trigger() {
                     Property = DataGridColumnHeader.ContentProperty,
                     Value = DataGridExAttr.Header,
                     Setters = {
@@ -151,17 +178,17 @@ namespace WpfUtility {
             }
 
             public string Name { get; private set; }
-            public DataGridEx DataGridEx { get; private set; }
+            public DataGridEx Parent { get; private set; }
             public DataGridExAttribute DataGridExAttr { get; private set; }
             public ContextMenu Menu { get; private set; }
-            public Dictionary<string, bool> Values { get; private set; }
+            public Dictionary<string, DataGridExAutoFilterSubItem> Values { get; private set; }
             public TextBlock ToolTipText { get; private set; }
 
             private List<UIElement> InitialMenuItems {
                 get {
                     var checkBoxAll = new CheckBox() {
                         Content = _resources.DataGridEx_ColumnHeader_All,
-                        IsChecked = Values.Aggregate(true, (current, kvp) => current && kvp.Value),
+                        IsChecked = Values.Aggregate(true, (current, kvp) => current && kvp.Value.IsChecked),
                     };
                     checkBoxAll.Checked += (sender, e) => {
                         var checkBox0 = sender as CheckBox;
@@ -193,30 +220,38 @@ namespace WpfUtility {
             private CheckBox CreateValueSelectCheckBox(string item) {
                 var checkBox = new CheckBox() {
                     Content = item,
-                    IsChecked = Values[item],
+                    IsChecked = Values[item].IsChecked,
                 };
                 checkBox.Checked += (sender, e) => {
-                    Values[item] = true;
+                    Values[item].IsChecked = true;
                 };
                 checkBox.Unchecked += (sender, e) => {
-                    Values[item] = false;
+                    Values[item].IsChecked = false;
                 };
                 return checkBox;
             }
 
-            public void Update() {
-                foreach (var item in DataGridEx.Items) {
-                    var pi = (DataGridEx.DataType ?? item.GetType())
-                        .GetProperty(Name, BindingFlags.Instance | BindingFlags.Public);
-                    if (pi == null) {
-                        continue;
-                    }
-                    var value = pi.GetValue(item, null).SafeToString(null);
-                    if (value != null &&
-                        !Values.ContainsKey(value)) {
-                        Values[value] = true;
-                    }
+            public void AddValue(string value) {
+                if (value == null) {
+                    return;
                 }
+                if (!Values.ContainsKey(value)) {
+                    Values[value] = new DataGridExAutoFilterSubItem();
+                } else {
+                    ++Values[value].Count;
+                }
+            }
+
+            public void RemoveValue(string value) {
+                if (value == null || !Values.ContainsKey(value)) {
+                    return;
+                }
+                if (--Values[value].Count <= 0) {
+                    Values.Remove(value);
+                }
+            }
+
+            public void Update() {
                 Menu.Items.Clear();
                 Menu.Items.Add<UIElement>(InitialMenuItems);
                 Menu.Items.Add<UIElement>(Values
@@ -224,9 +259,13 @@ namespace WpfUtility {
                     .OrderBy(item => item)
                     .Select(item => CreateValueSelectCheckBox(item))
                 );
-                ToolTipText.Text = (Menu.Items[0] as CheckBox).IsChecked == true ?
+                UpdateToolTip();
+            }
+
+            private void UpdateToolTip() {
+                ToolTipText.Text = Values.Keys.Aggregate(true, (current, key) => current && Values[key].IsChecked) == true ?
                     _resources.DataGridEx_ColumnHeader_All :
-                    String.Join("\n", Values.Keys.Where(key => Values[key]).OrderBy(key => key));
+                    String.Join("\n", Values.Keys.Where(key => Values[key].IsChecked).OrderBy(key => key));
             }
         }
     }
