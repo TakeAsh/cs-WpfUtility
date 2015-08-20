@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -24,6 +25,21 @@ namespace WpfUtility {
             return node != null ?
                 LogicalTreeHelper.FindLogicalNode(node, name) as T :
                 null;
+        }
+
+        public static void AddPropertyChanged(
+            this DependencyObject component,
+            DependencyProperty dependencyProperty,
+            EventHandler handler
+        ) {
+            if (component == null || dependencyProperty == null || handler == null) {
+                return;
+            }
+            var descriptor = DependencyPropertyDescriptor.FromProperty(dependencyProperty, component.GetType());
+            if (descriptor == null) {
+                return;
+            }
+            descriptor.AddValueChanged(component, handler);
         }
     }
 }
