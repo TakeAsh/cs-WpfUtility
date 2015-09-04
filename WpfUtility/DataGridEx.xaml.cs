@@ -86,6 +86,9 @@ namespace WpfUtility {
         }
 
         private void ModifyFilterItems(FilterItemsActions action, IEnumerable items) {
+            if (_columnNames == null) {
+                return;
+            }
             foreach (var item in items) {
                 _columnNames.Select(columnName => _autoFilterItems[columnName])
                     .Where(filterItem => !filterItem.DataGridExAttr.Ignore)
@@ -112,7 +115,7 @@ namespace WpfUtility {
 
         private void OnUpdateItems(object sender, NotifyCollectionChangedEventArgs e) {
             var view = sender as ListCollectionView;
-            if (view == null) {
+            if (view == null || view.ItemProperties == null) {
                 return;
             }
             switch (e.Action) {
@@ -138,7 +141,7 @@ namespace WpfUtility {
 
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e) {
             var dataGridEx = sender as DataGridEx;
-            if (dataGridEx == null) {
+            if (dataGridEx == null || _columnNames == null) {
                 return;
             }
             if (!_columnNames.Contains(e.PropertyName)) {
