@@ -35,6 +35,7 @@ namespace WpfUtility_Call {
         private static Properties.Settings _settings = Properties.Settings.Default;
 
         private MessageButton messageButton_HPC;
+        private MonitorDpi _monitorDpi;
 
         [TypeConverter(typeof(EnumTypeConverter<NewLineCodes>))]
         public enum NewLineCodes {
@@ -98,6 +99,18 @@ namespace WpfUtility_Call {
             _settings.Save();
             messageButton_QATB.Show(
                 _resources.MainWindow_method_SetCulture_message_OK,
+                MessageButton.Icons.Beep
+            );
+        }
+
+        private void RibbonWindow_Loaded(object sender, RoutedEventArgs e) {
+            _monitorDpi = new MonitorDpi(this);
+        }
+
+        private void menuItem_ShowMonitorDpi_Click(object sender, RoutedEventArgs e) {
+            _monitorDpi.Update();
+            messageButton_QATB.Show(
+                new[] { "Monitor DPI", "X:" + _monitorDpi.X, "Y:" + _monitorDpi.Y },
                 MessageButton.Icons.Beep
             );
         }

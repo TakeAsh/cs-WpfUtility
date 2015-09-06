@@ -162,4 +162,7 @@
   <data name="Person_Sex" xml:space="preserve">
     <value>性別</value>
   </data>
+  <data name="MainWindow_menuItem_ShowMonitorDpi_Header" xml:space="preserve">
+    <value>モニタDPIを表示</value>
+  </data>
 </root>

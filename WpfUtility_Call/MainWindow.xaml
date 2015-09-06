@@ -7,7 +7,8 @@
     xmlns:wuc="clr-namespace:WpfUtility_Call"
     Title="WpfUtility"
 	x:Name="RibbonWindow"
-	Width="720" Height="300" MinWidth="320" MinHeight="260">
+	Width="720" Height="300" MinWidth="320" MinHeight="260"
+    Loaded="RibbonWindow_Loaded">
 
     <r:RibbonWindow.Resources>
         <ResourceDictionary>
@@ -25,8 +26,11 @@
         <r:Ribbon x:Name="ribbon_Main" DockPanel.Dock="Top">
             <r:Ribbon.ApplicationMenu>
                 <r:RibbonApplicationMenu SmallImageSource="Images\SmallIcon.png">
-                    <r:RibbonApplicationMenuItem x:Name="MenuItem1" Header="Hello _Ribbon"
-                        ImageSource="Images\LargeIcon.png"/>
+                    <r:RibbonApplicationMenuItem
+                        x:Name="menuItem_ShowMonitorDpi"
+                        Header="{wu:Tr MainWindow_menuItem_ShowMonitorDpi_Header}"
+                        ImageSource="Images\LargeIcon.png"
+                        Click="menuItem_ShowMonitorDpi_Click" />
                 </r:RibbonApplicationMenu>
             </r:Ribbon.ApplicationMenu>
 

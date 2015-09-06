@@ -106,6 +106,15 @@ namespace WpfUtility_Call.Properties {
         }
         
         /// <summary>
+        ///   Show Monitor DPI に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_menuItem_ShowMonitorDpi_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_menuItem_ShowMonitorDpi_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Language setting will work after restart. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWindow_method_SetCulture_message_OK {

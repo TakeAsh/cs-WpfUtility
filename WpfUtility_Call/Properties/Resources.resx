@@ -162,4 +162,7 @@
   <data name="Person_Sex" xml:space="preserve">
     <value>Sex</value>
   </data>
+  <data name="MainWindow_menuItem_ShowMonitorDpi_Header" xml:space="preserve">
+    <value>Show Monitor DPI</value>
+  </data>
 </root>
