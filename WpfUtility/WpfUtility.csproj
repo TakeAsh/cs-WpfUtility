@@ -96,6 +96,9 @@
     </Compile>
     <Compile Include="RibbonExtensionMethods.cs" />
     <Compile Include="SoftBreak.cs" />
+    <Compile Include="TextPrompt.xaml.cs">
+      <DependentUpon>TextPrompt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TrExtension.cs" />
     <Compile Include="UIElementCollectionExtensionMethods.cs" />
   </ItemGroup>
@@ -130,6 +133,10 @@
     <Page Include="PaneledTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TextPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
