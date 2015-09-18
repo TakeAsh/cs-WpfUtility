@@ -34,6 +34,16 @@ namespace WpfUtility {
             set { textBox_Input.Text = value; }
         }
 
+        public bool AcceptsReturn {
+            get { return textBox_Input.AcceptsReturn; }
+            set { textBox_Input.AcceptsReturn = value; }
+        }
+
+        public bool AcceptsTab {
+            get { return textBox_Input.AcceptsTab; }
+            set { textBox_Input.AcceptsTab = value; }
+        }
+
         private void Window_Activated(object sender, EventArgs e) {
             DialogResult = null;
         }
