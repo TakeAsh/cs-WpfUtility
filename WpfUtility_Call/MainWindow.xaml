@@ -44,8 +44,11 @@
 
             <r:Ribbon.HelpPaneContent>
                 <StackPanel Orientation="Horizontal">
-                    <Image ToolTip="Dummy"
-                        Source="Images/SmallIcon.png" />
+                    <r:RibbonButton
+                        x:Name="button_ShowTextPrompt"
+                        ToolTip="Show Prompt"
+                        SmallImageSource="/WpfUtility_Call;component/Images/SmallIcon.png"
+                        Click="button_ShowTextPrompt_Click" />
                 </StackPanel>
             </r:Ribbon.HelpPaneContent>
 

@@ -115,6 +115,19 @@ namespace WpfUtility_Call {
             );
         }
 
+        private void button_ShowTextPrompt_Click(object sender, RoutedEventArgs e) {
+            var prompt = new TextPrompt() {
+                Title = "TextPrompt Sample",
+                Message = "'Message' is here.",
+                InputText = "Default text",
+                AcceptsReturn = true,
+            };
+            if (prompt.ShowDialog() != true) {
+                return;
+            }
+            messageButton_QATB.Show("Input:\n" + prompt.InputText);
+        }
+
         private void button_MessageButton_Click(object sender, RoutedEventArgs e) {
             var src = sender as RibbonButton;
             MessageButton target;
