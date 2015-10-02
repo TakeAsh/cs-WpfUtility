@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="RibbonExtensionMethods.cs" />
     <Compile Include="SoftBreak.cs" />
+    <Compile Include="SystemDpi.cs" />
     <Compile Include="TextPrompt.xaml.cs">
       <DependentUpon>TextPrompt.xaml</DependentUpon>
     </Compile>
