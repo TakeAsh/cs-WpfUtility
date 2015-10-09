@@ -103,6 +103,7 @@
       <DependentUpon>TextPrompt.xaml</DependentUpon>
     </Compile>
     <Compile Include="TrExtension.cs" />
+    <Compile Include="TriangleTexture.cs" />
     <Compile Include="UIElementCollectionExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
