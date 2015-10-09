@@ -80,6 +80,7 @@
     <Compile Include="DataGridExAutoFilterItem.cs" />
     <Compile Include="DataGridExAutoFilterSubItem.cs" />
     <Compile Include="DependencyObjectExtensionMethods.cs" />
+    <Compile Include="IServiceProviderExtensionMethods.cs" />
     <Compile Include="MonitorDpi.cs" />
     <Compile Include="ResizeEvent.cs" />
     <Compile Include="ItemCollectionExtensionMethods.cs" />

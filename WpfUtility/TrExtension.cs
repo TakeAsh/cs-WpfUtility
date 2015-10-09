@@ -53,15 +53,4 @@ namespace WpfUtility {
                 _key;
         }
     }
-
-    public static class IServiceProviderExtensionMethods {
-
-        public static T GetService<T>(this IServiceProvider serviceProvider)
-            where T : class {
-
-            return serviceProvider != null ?
-                serviceProvider.GetService(typeof(T)) as T :
-                null;
-        }
-    }
 }
