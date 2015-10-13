@@ -123,4 +123,60 @@ namespace WpfUtility {
             return TriangleTexture.Gradient(_c0, _c1, _c2, Size);
         }
     }
+
+    [MarkupExtensionReturnType(typeof(BitmapSource))]
+    public class TriangleFrameTextureExtension :
+        MarkupExtension {
+
+        public const string TriangleFrameTextureSizeKey = "TriangleFrameTexture_Size";
+        public const string TriangleFrameTextureThicknessKey = "TriangleFrameTexture_Thickness";
+
+        private Color _stroke;
+        private Color _fill;
+        private int _size = TriangleTexture.DefaultSize;
+        private int _thickness = TriangleTexture.DefaultThickness;
+
+        public int Size {
+            get { return _size; }
+            set { _size = value; }
+        }
+
+        public int Thickness {
+            get { return _thickness; }
+            set { _thickness = value; }
+        }
+
+        public TriangleFrameTextureExtension(string stroke, string fill) {
+            _stroke = (Color)ColorConverter.ConvertFromString(stroke);
+            _fill = (Color)ColorConverter.ConvertFromString(fill);
+        }
+
+        public override object ProvideValue(IServiceProvider serviceProvider) {
+            if (Size == TriangleTexture.DefaultSize &&
+                serviceProvider.GetService<IXamlSchemaContextProvider>() != null) {
+                try {
+                    var sizeStatic = new StaticResourceExtension(TriangleFrameTextureSizeKey);
+                    Size = (int)sizeStatic.ProvideValue(serviceProvider);
+                    var thicknessStatic = new StaticResourceExtension(TriangleFrameTextureThicknessKey);
+                    Thickness = (int)thicknessStatic.ProvideValue(serviceProvider);
+                }
+                catch {
+                    // When StaticResource 'TriangleTexture_Size' is not defined, an exception will be thrown.
+                    // Cannot find resource named 'TriangleTexture_Size'. Resource names are case sensitive.
+                    // This exception is ignored, and Size is not changed.
+                }
+            }
+            var sizeDynamic = Application.Current.TryFindResource(TriangleFrameTextureSizeKey);
+            if (Size == TriangleTexture.DefaultSize &&
+                sizeDynamic != null) {
+                Size = (int)sizeDynamic;
+            }
+            var thicknessDynamic = Application.Current.TryFindResource(TriangleFrameTextureThicknessKey);
+            if (Thickness == TriangleTexture.DefaultThickness &&
+                thicknessDynamic != null) {
+                    Thickness = (int)thicknessDynamic;
+            }
+            return TriangleTexture.Frame(_stroke, _fill, Thickness, Size);
+        }
+    }
 }
