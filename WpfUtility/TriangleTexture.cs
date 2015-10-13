@@ -16,7 +16,7 @@ namespace WpfUtility {
         private const double DefaultDpi = 96;
         private const double C0Weight = 0.67;
 
-        public static BitmapSource Create(Color c0, Color c1, Color c2, int size = DefaultSize) {
+        public static BitmapSource Gradient(Color c0, Color c1, Color c2, int size = DefaultSize) {
             if (size <= 0) {
                 return null;
             }
@@ -84,7 +84,7 @@ namespace WpfUtility {
                 sizeDynamic != null) {
                 Size = (int)sizeDynamic;
             }
-            return TriangleTexture.Create(_c0, _c1, _c2, Size);
+            return TriangleTexture.Gradient(_c0, _c1, _c2, Size);
         }
     }
 }
