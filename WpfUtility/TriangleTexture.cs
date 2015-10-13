@@ -41,6 +41,10 @@ namespace WpfUtility {
             return BitmapSource.Create(size, size, DefaultDpi, DefaultDpi, format, null, rawImage, rawStride);
         }
 
+        public static ImageBrush GradientBrush(Color c0, Color c1, Color c2, int size = DefaultSize) {
+            return new ImageBrush(Gradient(c0, c1, c2, size));
+        }
+
         public static BitmapSource Frame(Color stroke, Color fill, int thickness = DefaultThickness, int size = DefaultSize) {
             if (thickness <= 0 || size <= 0) {
                 return null;
@@ -70,6 +74,10 @@ namespace WpfUtility {
                 SetColor(rawImage, (size - thickness - w) * bytesPerPixel + w * rawStride, blendedColor);
             }
             return BitmapSource.Create(size, size, DefaultDpi, DefaultDpi, format, null, rawImage, rawStride);
+        }
+
+        public static ImageBrush FrameBrush(Color stroke, Color fill, int thickness = DefaultThickness, int size = DefaultSize) {
+            return new ImageBrush(Frame(stroke, fill, thickness, size));
         }
 
         private static void SetColor(byte[] image, int index, Color color) {
