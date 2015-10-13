@@ -34,13 +34,17 @@ namespace WpfUtility {
                     var r1 = area1 / areaW;
                     var r2 = area2 / areaW;
                     var c = c0.Blend(c1, r1, c2, r2);
-                    rawImage[u * bytesPerPixel + 0 + v * rawStride] = c.B;
-                    rawImage[u * bytesPerPixel + 1 + v * rawStride] = c.G;
-                    rawImage[u * bytesPerPixel + 2 + v * rawStride] = c.R;
-                    rawImage[u * bytesPerPixel + 3 + v * rawStride] = c.A;
+                    SetColor(rawImage, u * bytesPerPixel + v * rawStride, c);
                 }
             }
             return BitmapSource.Create(size, size, DefaultDpi, DefaultDpi, format, null, rawImage, rawStride);
+        }
+
+        private static void SetColor(byte[] image, int index, Color color) {
+            image[index + 0] = color.B;
+            image[index + 1] = color.G;
+            image[index + 2] = color.R;
+            image[index + 3] = color.A;
         }
     }
 
