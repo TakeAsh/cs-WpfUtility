@@ -13,6 +13,7 @@ namespace WpfUtility {
     public static class TriangleTexture {
 
         public const int DefaultSize = 8;
+        public const int DefaultThickness = 1;
         private const double DefaultDpi = 96;
         private const double C0Weight = 0.67;
 
@@ -36,6 +37,37 @@ namespace WpfUtility {
                     var c = c0.Blend(c1, r1, c2, r2);
                     SetColor(rawImage, u * bytesPerPixel + v * rawStride, c);
                 }
+            }
+            return BitmapSource.Create(size, size, DefaultDpi, DefaultDpi, format, null, rawImage, rawStride);
+        }
+
+        public static BitmapSource Frame(Color stroke, Color fill, int thickness = DefaultThickness, int size = DefaultSize) {
+            if (thickness <= 0 || size <= 0) {
+                return null;
+            }
+            var format = PixelFormats.Bgra32;
+            var bytesPerPixel = (format.BitsPerPixel + 7) / 8;
+            var rawStride = size * bytesPerPixel;
+            var rawImage = new byte[rawStride * size];
+            for (var v = 0; v < size; ++v) {
+                for (var u = 0; u < size - v; ++u) {
+                    SetColor(rawImage, u * bytesPerPixel + v * rawStride, fill);
+                }
+            }
+            for (var t = 0; t < thickness; ++t) {
+                for (var u = 0; u <= size - t; ++u) {
+                    SetColor(rawImage, u * bytesPerPixel + t * rawStride, stroke);
+                }
+                for (var v = 0; v < size - t; ++v) {
+                    SetColor(rawImage, t * bytesPerPixel + v * rawStride, stroke);
+                }
+                for (var w = 0; w < size - t; ++w) {
+                    SetColor(rawImage, (size - t - w) * bytesPerPixel + w * rawStride, stroke);
+                }
+            }
+            var blendedColor = stroke.Blend(fill, 0.5);
+            for (var w = thickness; w < size - thickness - 1; ++w) {
+                SetColor(rawImage, (size - thickness - w) * bytesPerPixel + w * rawStride, blendedColor);
             }
             return BitmapSource.Create(size, size, DefaultDpi, DefaultDpi, format, null, rawImage, rawStride);
         }
