@@ -49,10 +49,10 @@ namespace WpfUtility {
     }
 
     [MarkupExtensionReturnType(typeof(BitmapSource))]
-    public class TriangleTextureExtension :
+    public class TriangleGradientTextureExtension :
         MarkupExtension {
 
-        public const string TriangleTextureSizeKey = "TriangleTexture_Size";
+        public const string TriangleGradientTextureSizeKey = "TriangleGradientTexture_Size";
 
         private Color _c0;
         private Color _c1;
@@ -64,7 +64,7 @@ namespace WpfUtility {
             set { _size = value; }
         }
 
-        public TriangleTextureExtension(string c0, string c1, string c2) {
+        public TriangleGradientTextureExtension(string c0, string c1, string c2) {
             _c0 = (Color)ColorConverter.ConvertFromString(c0);
             _c1 = (Color)ColorConverter.ConvertFromString(c1);
             _c2 = (Color)ColorConverter.ConvertFromString(c2);
@@ -74,7 +74,7 @@ namespace WpfUtility {
             if (Size == TriangleTexture.DefaultSize &&
                 serviceProvider.GetService<IXamlSchemaContextProvider>() != null) {
                 try {
-                    var sizeStatic = new StaticResourceExtension(TriangleTextureSizeKey);
+                    var sizeStatic = new StaticResourceExtension(TriangleGradientTextureSizeKey);
                     Size = (int)sizeStatic.ProvideValue(serviceProvider);
                 }
                 catch {
@@ -83,7 +83,7 @@ namespace WpfUtility {
                     // This exception is ignored, and Size is not changed.
                 }
             }
-            var sizeDynamic = Application.Current.TryFindResource(TriangleTextureSizeKey);
+            var sizeDynamic = Application.Current.TryFindResource(TriangleGradientTextureSizeKey);
             if (Size == TriangleTexture.DefaultSize &&
                 sizeDynamic != null) {
                 Size = (int)sizeDynamic;
