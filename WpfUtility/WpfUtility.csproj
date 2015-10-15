@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="ChildPopup.cs" />
     <Compile Include="ColorExtensionMethods.cs" />
+    <Compile Include="CrossLines3D.cs" />
     <Compile Include="CultureManager.cs" />
     <Compile Include="DataGridEx.xaml.cs">
       <DependentUpon>DataGridEx.xaml</DependentUpon>
