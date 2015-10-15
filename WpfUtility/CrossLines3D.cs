@@ -11,6 +11,8 @@ namespace WpfUtility {
     public class CrossLines3D :
         ModelVisual3D {
 
+        public const double DefaultThickness = 1;
+
         private readonly MeshGeometry3D _mesh;
         private readonly GeometryModel3D _model;
 
@@ -22,6 +24,14 @@ namespace WpfUtility {
             this.Content = _model;
             SetColor(this.Color);
             CompositionTarget.Rendering += OnRender;
+        }
+
+        public CrossLines3D(IEnumerable<Point3D> points, Color color, double thickness = DefaultThickness)
+            : this() {
+
+            this.Points = points;
+            this.Color = color;
+            this.Thickness = thickness;
         }
 
         public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(
@@ -49,7 +59,7 @@ namespace WpfUtility {
             "Thickness",
             typeof(double),
             typeof(CrossLines3D),
-            new PropertyMetadata(1.0, OnThicknessChanged));
+            new PropertyMetadata(DefaultThickness, OnThicknessChanged));
 
         public double Thickness {
             get { return (double)GetValue(ThicknessProperty); }
