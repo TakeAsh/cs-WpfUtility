@@ -20,7 +20,6 @@ namespace WpfUtility {
                 Geometry = _mesh,
             };
             this.Content = _model;
-            this.Points = new Point3DCollection();
             SetColor(this.Color);
             CompositionTarget.Rendering += OnRender;
         }
