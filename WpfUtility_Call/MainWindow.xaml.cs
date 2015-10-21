@@ -55,7 +55,6 @@ namespace WpfUtility_Call {
         }
 
         public MainWindow() {
-            CultureManager.SetCulture(_settings.Culture);
             InitializeComponent();
             ribbonComboBox_comboBox3_GalleryCategory.ItemsSource = NewLineCodesHelper.ValueDescriptionPairs;
             ribbonComboBox_comboBox4_GalleryCategory.ItemsSource = NewLineCodesHelper.ValueDescriptionPairs;
