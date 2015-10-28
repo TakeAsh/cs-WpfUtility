@@ -13,7 +13,8 @@ namespace WpfUtility {
             if (items == null || list == null) {
                 return;
             }
-            list.ToList()
+            list.Where(item => item != null)
+                .ToList()
                 .ForEach(item => items.Add(item));
         }
     }
