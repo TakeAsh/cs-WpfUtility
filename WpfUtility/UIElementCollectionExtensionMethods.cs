@@ -17,5 +17,12 @@ namespace WpfUtility {
                 .ToList()
                 .ForEach(item => items.Add(item));
         }
+
+        public static void SafeAdd(this UIElementCollection items, UIElement element) {
+            if (items == null || element == null) {
+                return;
+            }
+            items.Add(element);
+        }
     }
 }
