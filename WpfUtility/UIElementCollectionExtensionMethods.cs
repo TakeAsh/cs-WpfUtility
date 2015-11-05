@@ -9,7 +9,7 @@ namespace WpfUtility {
 
     public static class UIElementCollectionExtensionMethods {
 
-        public static void Add(this UIElementCollection items, IEnumerable<UIElement> list) {
+        public static void SafeAdd(this UIElementCollection items, IEnumerable<UIElement> list) {
             if (items == null || list == null) {
                 return;
             }
