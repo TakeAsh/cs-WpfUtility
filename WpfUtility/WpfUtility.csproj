@@ -72,6 +72,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationExtensionMethods.cs" />
     <Compile Include="ChildPopup.cs" />
     <Compile Include="ColorExtensionMethods.cs" />
     <Compile Include="CrossLines3D.cs" />
