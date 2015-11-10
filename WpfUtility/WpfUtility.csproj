@@ -86,6 +86,7 @@
     <Compile Include="DependencyObjectExtensionMethods.cs" />
     <Compile Include="IServiceProviderExtensionMethods.cs" />
     <Compile Include="MonitorDpi.cs" />
+    <Compile Include="PointCollectionExtensionMethods.cs" />
     <Compile Include="ResizeEvent.cs" />
     <Compile Include="ItemCollectionExtensionMethods.cs" />
     <Compile Include="MessageButton.cs" />
