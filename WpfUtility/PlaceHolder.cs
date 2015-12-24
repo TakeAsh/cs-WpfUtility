@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Windows.Controls.Ribbon;
+using TakeAshUtility;
 
 namespace WpfUtility {
 
@@ -95,8 +96,8 @@ namespace WpfUtility {
                 var text = comboBox.IsEditable && !String.IsNullOrEmpty(comboBox.Text) ?
                     comboBox.Text :
                     (comboBoxItem != null ?
-                        comboBoxItem.Content.ToString() :
-                        comboBox.SelectedItem.ToString());
+                        comboBoxItem.Content.SafeToString() :
+                        comboBox.SelectedItem.SafeToString());
                 DrawPlaceHolder(comboBox, placeHolder, text);
             };
         }
