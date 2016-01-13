@@ -45,7 +45,7 @@ namespace WpfUtility {
         }
 
         public static Model3DGroup ToOctaHedrons(
-            this List<Point3D> points,
+            this IEnumerable<Point3D> points,
             List<Material> materials,
             double radius = 1,
             Transform3D transform = null
@@ -62,7 +62,7 @@ namespace WpfUtility {
         }
 
         public static GeometryModel3D ToOctaHedrons(
-            this List<Point3D> points,
+            this IEnumerable<Point3D> points,
             Material material,
             double radius = 1,
             Transform3D transform = null
