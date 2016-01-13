@@ -87,6 +87,7 @@
     <Compile Include="IMessageButtonHost.cs" />
     <Compile Include="IServiceProviderExtensionMethods.cs" />
     <Compile Include="MonitorDpi.cs" />
+    <Compile Include="OctaHedronExtensionMethods.cs" />
     <Compile Include="PointCollectionExtensionMethods.cs" />
     <Compile Include="ResizeEvent.cs" />
     <Compile Include="ItemCollectionExtensionMethods.cs" />
