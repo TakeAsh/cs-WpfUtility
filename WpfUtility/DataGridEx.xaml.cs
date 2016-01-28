@@ -148,8 +148,13 @@ namespace WpfUtility {
                 _columnNames.Add(e.PropertyName);
                 _autoFilterItems[e.PropertyName] = new DataGridExAutoFilterItem(e.PropertyName, dataGridEx);
             }
-            e.Cancel = _autoFilterItems[e.PropertyName].DataGridExAttr.Ignore;
-            e.Column.Header = _autoFilterItems[e.PropertyName].DataGridExAttr.Header;
+            var attr = _autoFilterItems[e.PropertyName].DataGridExAttr;
+            e.Cancel = attr.Ignore;
+            e.Column.Header = attr.Header;
+            var textColumn = e.Column as DataGridTextColumn;
+            if (textColumn != null) {
+                textColumn.Binding.StringFormat = attr.StringFormat;
+            }
         }
     }
 }
