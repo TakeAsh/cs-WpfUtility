@@ -17,12 +17,14 @@ namespace WpfUtility {
 
         public string Header { get; set; }
         public bool Ignore { get; set; }
+        public string StringFormat { get; set; }
 
         public override string ToString() {
-            var list = new List<string>();
-            list.Add("Header:'" + Header + "'");
-            list.Add("Ignore:" + Ignore);
-            return String.Join(", ", list);
+            return String.Join(", ", new[] {
+                "Header:{" + Header + "}",
+                "Ignore:" + Ignore,
+                "StringFormat:{" + StringFormat + "}",
+            });
         }
     }
 }
