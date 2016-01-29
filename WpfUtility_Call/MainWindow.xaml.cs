@@ -36,6 +36,7 @@ namespace WpfUtility_Call {
 
         private MessageButton messageButton_HPC;
         private MonitorDpi _monitorDpi;
+        private WindowPlacement _placement;
 
         [TypeConverter(typeof(EnumTypeConverter<NewLineCodes>))]
         public enum NewLineCodes {
@@ -100,6 +101,21 @@ namespace WpfUtility_Call {
                 _resources.MainWindow_method_SetCulture_message_OK,
                 MessageButton.Icons.Beep
             );
+        }
+
+        protected override void OnSourceInitialized(EventArgs e) {
+            base.OnSourceInitialized(e);
+            _placement = new WindowPlacement(this) {
+                Placement = _settings.WindowPlacement,
+            };
+        }
+
+        protected override void OnClosing(CancelEventArgs e) {
+            base.OnClosing(e);
+            if (!e.Cancel) {
+                _settings.WindowPlacement = _placement.Placement;
+                _settings.Save();
+            }
         }
 
         private void RibbonWindow_Loaded(object sender, RoutedEventArgs e) {
