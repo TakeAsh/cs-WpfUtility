@@ -87,6 +87,8 @@
     <Compile Include="IMessageButtonHost.cs" />
     <Compile Include="IServiceProviderExtensionMethods.cs" />
     <Compile Include="MonitorDpi.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="NativeStructs.cs" />
     <Compile Include="OctaHedronExtensionMethods.cs" />
     <Compile Include="PointCollectionExtensionMethods.cs" />
     <Compile Include="ResizeEvent.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="TrExtension.cs" />
     <Compile Include="TriangleTexture.cs" />
     <Compile Include="UIElementCollectionExtensionMethods.cs" />
+    <Compile Include="WindowPlacement.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
