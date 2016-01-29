@@ -22,7 +22,7 @@ namespace WpfUtility.Native {
 
         public uint length;
 
-        [PrintMember("x4")]
+        [PrintMember(Format = "x4")]
         public uint flags;
 
         [PrintMember]
