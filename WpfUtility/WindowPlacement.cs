@@ -39,6 +39,7 @@ namespace WpfUtility {
         /// <summary>
         /// Base64 converted window placement information.
         /// </summary>
+        [PrintMember]
         public string Placement {
             get {
                 WINDOWPLACEMENT placement;
@@ -55,6 +56,10 @@ namespace WpfUtility {
                 }
                 NativeMethods.SetWindowPlacement(_hWnd, ref placement);
             }
+        }
+
+        public override string ToString() {
+            return this.MembersToString();
         }
     }
 }
