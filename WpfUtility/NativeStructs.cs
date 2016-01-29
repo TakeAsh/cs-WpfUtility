@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Runtime.InteropServices;
+using System.Text;
+using TakeAshUtility;
 
 namespace WpfUtility.Native {
 
@@ -18,21 +19,26 @@ namespace WpfUtility.Native {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     struct WINDOWPLACEMENT {
+
         public uint length;
+
+        [PrintMember("x4")]
         public uint flags;
+
+        [PrintMember]
         public SW showCmd;
+
+        [PrintMember]
         public POINT minPosition;
+
+        [PrintMember]
         public POINT maxPosition;
+
+        [PrintMember]
         public RECT normalPosition;
 
         public override string ToString() {
-            return String.Join(", ", new[] {
-                "flags:" + flags,
-                "showCmd:" + showCmd,
-                "minPosition:{" + minPosition + "}",
-                "maxPosition:{" + maxPosition + "}",
-                "normalPosition:{" + normalPosition + "}",
-            });
+            return this.MembersToString();
         }
     }
 
@@ -60,7 +66,11 @@ namespace WpfUtility.Native {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     struct POINT {
+
+        [PrintMember]
         public int X;
+
+        [PrintMember]
         public int Y;
 
         public POINT(int x, int y) {
@@ -69,19 +79,24 @@ namespace WpfUtility.Native {
         }
 
         public override string ToString() {
-            return String.Join(", ", new[] {
-                "X:" + X,
-                "Y:" + Y,
-            });
+            return this.MembersToString();
         }
     }
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     struct RECT {
+
+        [PrintMember]
         public int Left;
+
+        [PrintMember]
         public int Top;
+
+        [PrintMember]
         public int Right;
+
+        [PrintMember]
         public int Bottom;
 
         public RECT(int left, int top, int right, int bottom) {
@@ -92,12 +107,7 @@ namespace WpfUtility.Native {
         }
 
         public override string ToString() {
-            return String.Join(", ", new[] {
-                "Left:" + Left,
-                "Top:" + Top,
-                "Right:" + Right,
-                "Bottom:" + Bottom,
-            });
+            return this.MembersToString();
         }
     }
 }
