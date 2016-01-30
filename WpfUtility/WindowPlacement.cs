@@ -39,7 +39,7 @@ namespace WpfUtility {
         /// <summary>
         /// Base64 converted window placement information.
         /// </summary>
-        [PrintMember]
+        [ToStringMember]
         public string Placement {
             get {
                 WINDOWPLACEMENT placement;
@@ -59,7 +59,7 @@ namespace WpfUtility {
         }
 
         public override string ToString() {
-            return this.MembersToString();
+            return this.ToStringMembers();
         }
     }
 }
