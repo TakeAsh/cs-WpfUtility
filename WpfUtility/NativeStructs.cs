@@ -22,23 +22,23 @@ namespace WpfUtility.Native {
 
         public uint length;
 
-        [PrintMember(Format = "x4")]
+        [ToStringMember(Format = "x4")]
         public uint flags;
 
-        [PrintMember]
+        [ToStringMember]
         public SW showCmd;
 
-        [PrintMember]
+        [ToStringMember]
         public POINT minPosition;
 
-        [PrintMember]
+        [ToStringMember]
         public POINT maxPosition;
 
-        [PrintMember]
+        [ToStringMember]
         public RECT normalPosition;
 
         public override string ToString() {
-            return this.MembersToString();
+            return this.ToStringMembers();
         }
     }
 
@@ -67,10 +67,10 @@ namespace WpfUtility.Native {
     [StructLayout(LayoutKind.Sequential)]
     struct POINT {
 
-        [PrintMember]
+        [ToStringMember]
         public int X;
 
-        [PrintMember]
+        [ToStringMember]
         public int Y;
 
         public POINT(int x, int y) {
@@ -79,7 +79,7 @@ namespace WpfUtility.Native {
         }
 
         public override string ToString() {
-            return this.MembersToString();
+            return this.ToStringMembers();
         }
     }
 
@@ -87,16 +87,16 @@ namespace WpfUtility.Native {
     [StructLayout(LayoutKind.Sequential)]
     struct RECT {
 
-        [PrintMember]
+        [ToStringMember]
         public int Left;
 
-        [PrintMember]
+        [ToStringMember]
         public int Top;
 
-        [PrintMember]
+        [ToStringMember]
         public int Right;
 
-        [PrintMember]
+        [ToStringMember]
         public int Bottom;
 
         public RECT(int left, int top, int right, int bottom) {
@@ -107,7 +107,7 @@ namespace WpfUtility.Native {
         }
 
         public override string ToString() {
-            return this.MembersToString();
+            return this.ToStringMembers();
         }
     }
 }
