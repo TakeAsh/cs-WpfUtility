@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace WpfUtility {
 
@@ -36,6 +37,14 @@ namespace WpfUtility {
                 (byte)(color0.G * ratio0 + color1.G * ratio1 + color2.G * ratio2),
                 (byte)(color0.B * ratio0 + color1.B * ratio1 + color2.B * ratio2)
             );
+        }
+
+        public static Brush ToBrush(this Color color) {
+            return new SolidColorBrush(color);
+        }
+
+        public static Material ToMaterial(this Color color) {
+            return new DiffuseMaterial(color.ToBrush());
         }
     }
 }
