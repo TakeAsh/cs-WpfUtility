@@ -50,7 +50,7 @@ namespace WpfUtility {
         }
 
         private void SetColor(Color color) {
-            var material = new DiffuseMaterial(new SolidColorBrush(color));
+            var material = color.ToMaterial();
             _model.Material = material;
             _model.BackMaterial = material;
         }
