@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationExtensionMethods.cs" />
+    <Compile Include="BrushExtensionMethods.cs" />
     <Compile Include="ChildPopup.cs" />
     <Compile Include="ProfileColorConverter.cs" />
     <Compile Include="ColorExtensionMethods.cs" />
