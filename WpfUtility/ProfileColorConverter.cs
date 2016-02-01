@@ -31,6 +31,27 @@ namespace WpfUtility {
             return cmyk.Select(value => (byte)(value * 255 / 100));
         }
 
+        public static IEnumerable<Color> CmykToColors(
+            this IEnumerable<IEnumerable<byte>> enumerableBytes,
+            string fromProfileName = null,
+            string toProfileName = null
+        ) {
+            fromProfileName = String.IsNullOrEmpty(fromProfileName) ?
+                DefaultCmykProfileName :
+                fromProfileName;
+            toProfileName = String.IsNullOrEmpty(toProfileName) ?
+                DefaultRgbProfileName :
+                toProfileName;
+            return enumerableBytes.ToBuffer(PixelFormats.Cmyk32)
+                .Convert(
+                    PixelFormats.Cmyk32,
+                    fromProfileName,
+                    PixelFormats.Rgb24,
+                    toProfileName
+                ).ToEnumerableBytes(PixelFormats.Rgb24)
+                .ToColors(PixelFormats.Rgb24);
+        }
+
         public static byte[] ToBuffer(this IEnumerable<IEnumerable<byte>> enumerableBytes, PixelFormat format) {
             var bytesPerPixel = format.ToBytesPerPixel();
             var index = 0;
