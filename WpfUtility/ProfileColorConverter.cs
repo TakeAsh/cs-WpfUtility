@@ -83,7 +83,9 @@ namespace WpfUtility {
         ) {
             if (buffer == null ||
                 String.IsNullOrEmpty(fromProfileName) ||
-                String.IsNullOrEmpty(toProfileName)) {
+                !File.Exists(Path.Combine(ProfilePath, fromProfileName)) ||
+                String.IsNullOrEmpty(toProfileName) ||
+                !File.Exists(Path.Combine(ProfilePath, toProfileName))) {
                 return null;
             }
             var fromBytesPerPixel = fromFormat.ToBytesPerPixel();
