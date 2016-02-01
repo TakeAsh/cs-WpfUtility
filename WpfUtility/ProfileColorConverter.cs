@@ -28,7 +28,9 @@ namespace WpfUtility {
         }
 
         public static IEnumerable<byte> CmykToBytes(this IEnumerable<double> cmyk) {
-            return cmyk.Select(value => (byte)(value * 255 / 100));
+            return cmyk == null ?
+                null :
+                cmyk.Select(value => (byte)(value * 255 / 100));
         }
 
         public static IEnumerable<Color> CmykToColors(
@@ -36,6 +38,9 @@ namespace WpfUtility {
             string fromProfileName = null,
             string toProfileName = null
         ) {
+            if (enumerableBytes == null) {
+                return null;
+            }
             fromProfileName = String.IsNullOrEmpty(fromProfileName) ?
                 DefaultCmykProfileName :
                 fromProfileName;
@@ -53,12 +58,16 @@ namespace WpfUtility {
         }
 
         public static byte[] ToBuffer(this IEnumerable<IEnumerable<byte>> enumerableBytes, PixelFormat format) {
+            if (enumerableBytes == null) {
+                return null;
+            }
             var bytesPerPixel = format.ToBytesPerPixel();
             var index = 0;
             return enumerableBytes.Aggregate(
                 new byte[enumerableBytes.Count() * bytesPerPixel],
                 (current, bytes) => {
-                    bytes.ForEach((value, i) => current[index + i] = value);
+                    bytes.Take(bytesPerPixel)
+                        .ForEach((value, i) => current[index + i] = value);
                     index += bytesPerPixel;
                     return current;
                 }
@@ -72,7 +81,9 @@ namespace WpfUtility {
             PixelFormat toFormat,
             string toProfileName
         ) {
-            if (String.IsNullOrEmpty(fromProfileName) || String.IsNullOrEmpty(toProfileName)) {
+            if (buffer == null ||
+                String.IsNullOrEmpty(fromProfileName) ||
+                String.IsNullOrEmpty(toProfileName)) {
                 return null;
             }
             var fromBytesPerPixel = fromFormat.ToBytesPerPixel();
@@ -88,6 +99,9 @@ namespace WpfUtility {
         }
 
         public static IEnumerable<IEnumerable<byte>> ToEnumerableBytes(this byte[] buffer, PixelFormat format) {
+            if (buffer == null) {
+                return null;
+            }
             var bytesPerPixel = format.ToBytesPerPixel();
             var count = buffer.Length / bytesPerPixel;
             var index = -bytesPerPixel;
@@ -100,6 +114,9 @@ namespace WpfUtility {
         }
 
         public static IEnumerable<Color> ToColors(this IEnumerable<IEnumerable<byte>> enumerableBytes, PixelFormat format) {
+            if (enumerableBytes == null) {
+                return null;
+            }
             var toColor =
                 format == PixelFormats.Rgb24 ? (rgb) => Color.FromRgb(rgb[0], rgb[1], rgb[2]) :
                 format == PixelFormats.Bgr24 ? (bgr) => Color.FromRgb(bgr[2], bgr[1], bgr[0]) :
