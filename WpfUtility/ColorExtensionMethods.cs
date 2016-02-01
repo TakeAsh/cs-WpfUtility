@@ -44,7 +44,7 @@ namespace WpfUtility {
         }
 
         public static Material ToMaterial(this Color color) {
-            return new DiffuseMaterial(color.ToBrush());
+            return color.ToBrush().ToMaterial();
         }
     }
 }
