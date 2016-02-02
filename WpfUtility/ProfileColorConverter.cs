@@ -30,7 +30,7 @@ namespace WpfUtility {
         public static IEnumerable<byte> CmykToBytes(this IEnumerable<double> cmyk) {
             return cmyk == null ?
                 null :
-                cmyk.Select(value => (byte)(value * 255 / 100));
+                cmyk.Select(value => (byte)(value.Clamp(0, 100) * 255 / 100));
         }
 
         public static IEnumerable<Color> CmykToColors(
