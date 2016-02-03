@@ -19,6 +19,8 @@ namespace WpfUtility {
         public const string DefaultCmykProfileName = "RSWOP.icm";
         public const string DefaultRgbProfileName = "sRGB Color Space Profile.icm";
 
+        public static string ErrorMessage { get; private set; }
+
         public static int ToBytesPerPixel(this PixelFormat pixelFormat) {
             return (pixelFormat.BitsPerPixel + 7) / 8;
         }
@@ -74,6 +76,20 @@ namespace WpfUtility {
             );
         }
 
+        /// <summary>
+        /// Convert colors from fromFormat to toFormat.
+        /// </summary>
+        /// <param name="buffer">Byte array of colors in fromFormat</param>
+        /// <param name="fromFormat">Format converted from</param>
+        /// <param name="fromProfileName">ICC Profile filename for fromFormat</param>
+        /// <param name="toFormat">Format converted to</param>
+        /// <param name="toProfileName">ICC Profile filename for toFormat</param>
+        /// <returns>Byte array of colors in toFormat</returns>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <item>If conversion fail, retuns null and set error message in ErrorMessage.</item>
+        /// </list>
+        /// </remarks>
         public static byte[] Convert(
             this byte[] buffer,
             PixelFormat fromFormat,
@@ -88,16 +104,23 @@ namespace WpfUtility {
                 !File.Exists(Path.Combine(ProfilePath, toProfileName))) {
                 return null;
             }
-            var fromBytesPerPixel = fromFormat.ToBytesPerPixel();
-            var count = buffer.Length / fromBytesPerPixel;
-            var fromBitmap = BitmapSource.Create(count, 1, 96, 96, fromFormat, null, buffer, buffer.Length);
-            var fromProfile = fromProfileName.ToColorContext();
-            var toProfile = toProfileName.ToColorContext();
-            var toBitmap = new ColorConvertedBitmap(fromBitmap, fromProfile, toProfile, toFormat);
-            var toBytesPerPixel = toFormat.ToBytesPerPixel();
-            var toBuffer = new byte[toBitmap.PixelWidth * toBitmap.PixelHeight * toBytesPerPixel];
-            toBitmap.CopyPixels(toBuffer, toBitmap.PixelWidth * toBytesPerPixel, 0);
-            return toBuffer;
+            ErrorMessage = null;
+            try {
+                var fromBytesPerPixel = fromFormat.ToBytesPerPixel();
+                var count = buffer.Length / fromBytesPerPixel;
+                var fromBitmap = BitmapSource.Create(count, 1, 96, 96, fromFormat, null, buffer, buffer.Length);
+                var fromProfile = fromProfileName.ToColorContext();
+                var toProfile = toProfileName.ToColorContext();
+                var toBitmap = new ColorConvertedBitmap(fromBitmap, fromProfile, toProfile, toFormat);
+                var toBytesPerPixel = toFormat.ToBytesPerPixel();
+                var toBuffer = new byte[toBitmap.PixelWidth * toBitmap.PixelHeight * toBytesPerPixel];
+                toBitmap.CopyPixels(toBuffer, toBitmap.PixelWidth * toBytesPerPixel, 0);
+                return toBuffer;
+            }
+            catch (Exception ex) {
+                ErrorMessage = ex.GetAllMessages();
+                return null;
+            }
         }
 
         public static IEnumerable<IEnumerable<byte>> ToEnumerableBytes(this byte[] buffer, PixelFormat format) {
