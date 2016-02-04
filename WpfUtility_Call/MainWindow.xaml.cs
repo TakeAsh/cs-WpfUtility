@@ -224,7 +224,7 @@ namespace WpfUtility_Call {
             person.FirstName = textBox_PersonFirstName.Text;
             person.LastName = textBox_PersonLastName.Text;
             person.Sex = SexesCodesHelper.Cast(comboBox_PersonSex_Gallery.SelectedValue);
-            _persons.View.Refresh();
+            _persons.Refresh();
         }
 
 #pragma warning disable 0067

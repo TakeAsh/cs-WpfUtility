@@ -186,6 +186,10 @@ namespace WpfUtility_Call {
 
         public ICollectionView View { get { return _view; } }
 
+        public void Refresh() {
+            _view.Refresh();
+        }
+
         private void Init() {
             _view = CollectionViewSource.GetDefaultView(this);
             _view.SortDescriptions.Add(new SortDescription("LastName", ListSortDirection.Ascending));
