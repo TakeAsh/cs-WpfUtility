@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Data;
 using TakeAsh;
 using TakeAshUtility;
 using WpfUtility;
@@ -178,8 +179,18 @@ namespace WpfUtility_Call {
     public class Persons :
         ObservableCollection<Person> {
 
-        public Persons() : base() { }
-        public Persons(IEnumerable<Person> list) : base(list) { }
+        public Persons() : base() { Init(); }
+        public Persons(IEnumerable<Person> list) : base(list) { Init(); }
+
+        private ICollectionView _view;
+
+        public ICollectionView View { get { return _view; } }
+
+        private void Init() {
+            _view = CollectionViewSource.GetDefaultView(this);
+            _view.SortDescriptions.Add(new SortDescription("LastName", ListSortDirection.Ascending));
+            _view.SortDescriptions.Add(new SortDescription("FirstName", ListSortDirection.Ascending));
+        }
     }
 
     public static class PersonExtensionMethods {

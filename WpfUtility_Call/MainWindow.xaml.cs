@@ -37,6 +37,7 @@ namespace WpfUtility_Call {
         private MessageButton messageButton_HPC;
         private MonitorDpi _monitorDpi;
         private WindowPlacement _placement;
+        private Persons _persons;
 
         [TypeConverter(typeof(EnumTypeConverter<NewLineCodes>))]
         public enum NewLineCodes {
@@ -73,7 +74,7 @@ namespace WpfUtility_Call {
             comboBox_Culture_Gallery.SelectedItem = CultureManager.GetCulture(_settings.Culture);
 
             comboBox_PersonSex_GalleryCategory.ItemsSource = SexesCodesHelper.ValueDescriptionPairs;
-            dataGrid_Notify.ItemsSource = ResourceHelper.GetText("Resources/Persons.txt").ToPersons();
+            dataGrid_Notify.ItemsSource = _persons = ResourceHelper.GetText("Resources/Persons.txt").ToPersons();
             this.AddResizeHook();
             this.Resizing += (sender, e) => {
                 var window = sender as RibbonWindow;
@@ -223,6 +224,7 @@ namespace WpfUtility_Call {
             person.FirstName = textBox_PersonFirstName.Text;
             person.LastName = textBox_PersonLastName.Text;
             person.Sex = SexesCodesHelper.Cast(comboBox_PersonSex_Gallery.SelectedValue);
+            _persons.View.Refresh();
         }
 
 #pragma warning disable 0067
