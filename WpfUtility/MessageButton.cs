@@ -212,7 +212,7 @@ namespace WpfUtility {
         /// <item>If text is null or empty, the popup is closed and the button is deactivated.</item>
         /// </list>
         /// </remarks>
-        public void Show(string text, Icons icon = Icons.Beep) {
+        public void Show(string text, Icons icon = default(Icons)) {
             Text = text;
             Icon = icon;
             if (String.IsNullOrEmpty(text)) {
@@ -229,7 +229,7 @@ namespace WpfUtility {
             }
         }
 
-        public void Show(IEnumerable<string> list, Icons icon = Icons.Beep) {
+        public void Show(IEnumerable<string> list, Icons icon = default(Icons)) {
             Show(String.Join("\n", list), icon);
         }
 
