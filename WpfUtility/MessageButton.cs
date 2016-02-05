@@ -195,6 +195,14 @@ namespace WpfUtility {
         }
 
         /// <summary>
+        /// Clear Text and set default icon.
+        /// </summary>
+        public void Reset() {
+            Text = null;
+            Icon = default(Icons);
+        }
+
+        /// <summary>
         /// Displays a message popup and icon with system sound.
         /// </summary>
         /// <param name="text">A String that specifies the text to display.</param>
