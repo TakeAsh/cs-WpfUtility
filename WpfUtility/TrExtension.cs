@@ -36,21 +36,36 @@ namespace WpfUtility {
             if (String.IsNullOrEmpty(_key)) {
                 return NotFoundError;
             }
-            IRootObjectProvider rootObjectProvider;
             var resourceManager = ResourceHelper.GetResourceManager(
-                !String.IsNullOrEmpty(this.Assembly) ?
-                    this.Assembly :
-                    (serviceProvider.GetService<IXamlSchemaContextProvider>() != null ?
-                        new StaticResourceExtension(AssemblyKey).ProvideValue(serviceProvider) :
-                        (Application.Current.TryFindResource(AssemblyKey))) as string
-            ) ?? ResourceHelper.GetResourceManager(
-                (rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>()) != null ?
-                    rootObjectProvider.RootObject.GetType() :
-                    null
-            );
+                this.Assembly ??
+                GetAssemblyNameFromStaticResource(serviceProvider) ??
+                GetAssemblyNameFromDynamicResource()
+            ) ?? ResourceHelper.GetResourceManager(GetTypeOfRootObject(serviceProvider));
             return resourceManager != null ?
                 (resourceManager.GetString(_key) ?? _key) :
                 _key;
+        }
+
+        private string GetAssemblyNameFromStaticResource(IServiceProvider serviceProvider) {
+            try {
+                return serviceProvider.GetService<IXamlSchemaContextProvider>() == null ?
+                    null :
+                    new StaticResourceExtension(AssemblyKey).ProvideValue(serviceProvider) as string;
+            }
+            catch {
+                return null;
+            }
+        }
+
+        private string GetAssemblyNameFromDynamicResource() {
+            return Application.Current.TryFindResource(AssemblyKey) as string;
+        }
+
+        private Type GetTypeOfRootObject(IServiceProvider serviceProvider) {
+            var rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>();
+            return rootObjectProvider == null ?
+                null :
+                rootObjectProvider.RootObject.GetType();
         }
     }
 }
