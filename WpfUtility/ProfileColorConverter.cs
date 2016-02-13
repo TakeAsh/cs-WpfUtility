@@ -27,6 +27,25 @@ namespace WpfUtility {
 
         public static ColorContext ToColorContext(this string profileName) {
             return new ColorContext(new Uri(Path.Combine(ProfilePath, profileName), UriKind.Absolute));
+        public static string ToAvailableProfile(this string profileName, string folder = null) {
+            var paths = String.IsNullOrEmpty(folder) ?
+                new[] {
+                    profileName,
+                    Path.Combine(ProfilePath, profileName),
+                } :
+                new[] {
+                    profileName,
+                    Path.Combine(folder, profileName),
+                    Path.Combine(ProfilePath, profileName),
+                };
+            foreach (var path in paths) {
+                if (File.Exists(path)) {
+                    return path;
+                }
+            }
+            return null;
+        }
+
         }
 
         public static IEnumerable<byte> CmykToBytes(this IEnumerable<double> cmyk) {
