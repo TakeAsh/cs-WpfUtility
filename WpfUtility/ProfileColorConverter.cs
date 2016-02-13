@@ -26,6 +26,9 @@ namespace WpfUtility {
         }
 
         public static string ToAvailableProfile(this string profileName, string folder = null) {
+            if (String.IsNullOrEmpty(profileName)) {
+                return null;
+            }
             var paths = String.IsNullOrEmpty(folder) ?
                 new[] {
                     profileName,
