@@ -25,8 +25,6 @@ namespace WpfUtility {
             return (pixelFormat.BitsPerPixel + 7) / 8;
         }
 
-        public static ColorContext ToColorContext(this string profileName) {
-            return new ColorContext(new Uri(Path.Combine(ProfilePath, profileName), UriKind.Absolute));
         public static string ToAvailableProfile(this string profileName, string folder = null) {
             var paths = String.IsNullOrEmpty(folder) ?
                 new[] {
@@ -46,6 +44,12 @@ namespace WpfUtility {
             return null;
         }
 
+        public static ColorContext ToColorContext(this string profileName, string folder = null) {
+            var file = profileName.ToAvailableProfile(folder);
+            if (file == null) {
+                return null;
+            }
+            return new ColorContext(new Uri(file, UriKind.Absolute));
         }
 
         public static IEnumerable<byte> CmykToBytes(this IEnumerable<double> cmyk) {
