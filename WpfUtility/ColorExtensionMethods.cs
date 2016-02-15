@@ -39,6 +39,10 @@ namespace WpfUtility {
             );
         }
 
+        public static Color Invert(this Color color) {
+            return Color.FromArgb(color.A, (byte)(0xff - color.R), (byte)(0xff - color.G), (byte)(0xff - color.B));
+        }
+
         public static Brush ToBrush(this Color color) {
             return new SolidColorBrush(color);
         }
