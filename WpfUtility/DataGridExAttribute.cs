@@ -25,6 +25,12 @@ namespace WpfUtility {
         [ToStringMember]
         public string StringFormat { get; set; }
 
+        [ToStringMember]
+        public string Foreground { get; set; }
+
+        [ToStringMember]
+        public string Background { get; set; }
+
         public override string ToString() {
             return this.ToStringMembers();
         }
