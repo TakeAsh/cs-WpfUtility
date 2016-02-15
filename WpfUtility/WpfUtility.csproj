@@ -63,6 +63,7 @@
     <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -75,6 +76,7 @@
     <Compile Include="ApplicationExtensionMethods.cs" />
     <Compile Include="BrushExtensionMethods.cs" />
     <Compile Include="ChildPopup.cs" />
+    <Compile Include="FolderBrowser.cs" />
     <Compile Include="ProfileColorConverter.cs" />
     <Compile Include="ColorExtensionMethods.cs" />
     <Compile Include="CrossLines3D.cs" />
