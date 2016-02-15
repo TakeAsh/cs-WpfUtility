@@ -154,6 +154,14 @@ namespace WpfUtility {
             var textColumn = e.Column as DataGridTextColumn;
             if (textColumn != null) {
                 textColumn.Binding.StringFormat = attr.StringFormat;
+                var style = textColumn.getCurrentStyle(typeof(DataGridCell));
+                if (!String.IsNullOrEmpty(attr.Foreground)) {
+                    style.Setters.Add(new Setter(DataGridCell.ForegroundProperty, new Binding(attr.Foreground)));
+                }
+                if (!String.IsNullOrEmpty(attr.Background)) {
+                    style.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new Binding(attr.Background)));
+                }
+                textColumn.CellStyle = style;
             }
         }
     }
