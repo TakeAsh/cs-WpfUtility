@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
+using System.Windows.Media;
 using TakeAsh;
 using TakeAshUtility;
 using WpfUtility;
@@ -74,6 +75,8 @@ namespace WpfUtility_Call {
         }
 
         private string _lastName;
+
+        [DataGridEx(Foreground = "LastNameFGColor", Background = "LastNameBGColor")]
         public string LastName {
             get { return _lastName; }
             set {
@@ -84,6 +87,20 @@ namespace WpfUtility_Call {
 
         public string FullName {
             get { return _firstName + " " + _lastName; }
+        }
+
+        [DataGridEx(Ignore = true)]
+        public Brush LastNameFGColor {
+            get { return Brushes.Green; }
+        }
+
+        [DataGridEx(Ignore = true)]
+        public Brush LastNameBGColor {
+            get {
+                return String.IsNullOrEmpty(_lastName) ?
+                    Brushes.Red :
+                    Brushes.LightCyan;
+            }
         }
 
         private SexesCodes _sex;
