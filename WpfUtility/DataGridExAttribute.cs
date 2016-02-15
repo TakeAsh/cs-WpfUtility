@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TakeAshUtility;
 
 namespace WpfUtility {
 
@@ -15,16 +16,17 @@ namespace WpfUtility {
             Header = header;
         }
 
+        [ToStringMember]
         public string Header { get; set; }
+
+        [ToStringMember]
         public bool Ignore { get; set; }
+
+        [ToStringMember]
         public string StringFormat { get; set; }
 
         public override string ToString() {
-            return String.Join(", ", new[] {
-                "Header:{" + Header + "}",
-                "Ignore:" + Ignore,
-                "StringFormat:{" + StringFormat + "}",
-            });
+            return this.ToStringMembers();
         }
     }
 }
