@@ -155,6 +155,7 @@ namespace WpfUtility {
                 e.Column.ClipboardContentBinding = new Binding(attr.ClipboardContentBinding);
             }
             var textColumn = e.Column as DataGridTextColumn;
+            var checkBoxColumn = e.Column as DataGridCheckBoxColumn;
             if (textColumn != null) {
                 textColumn.Binding.StringFormat = attr.StringFormat;
                 var style = textColumn.getCurrentStyle(typeof(DataGridCell));
@@ -165,6 +166,10 @@ namespace WpfUtility {
                     style.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new Binding(attr.Background)));
                 }
                 textColumn.CellStyle = style;
+            } else if (checkBoxColumn != null) {
+                var style = checkBoxColumn.getCurrentStyle(typeof(CheckBox));
+                style.Setters.Add(new Setter(Control.VerticalAlignmentProperty, VerticalAlignment.Center));
+                checkBoxColumn.ElementStyle = style;
             }
         }
     }
