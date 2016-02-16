@@ -31,6 +31,9 @@ namespace WpfUtility {
         [ToStringMember]
         public string Background { get; set; }
 
+        [ToStringMember]
+        public string ClipboardContentBinding { get; set; }
+
         public override string ToString() {
             return this.ToStringMembers();
         }

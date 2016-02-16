@@ -151,6 +151,9 @@ namespace WpfUtility {
             var attr = _autoFilterItems[e.PropertyName].DataGridExAttr;
             e.Cancel = attr.Ignore;
             e.Column.Header = attr.Header;
+            if (!String.IsNullOrEmpty(attr.ClipboardContentBinding)) {
+                e.Column.ClipboardContentBinding = new Binding(attr.ClipboardContentBinding);
+            }
             var textColumn = e.Column as DataGridTextColumn;
             if (textColumn != null) {
                 textColumn.Binding.StringFormat = attr.StringFormat;
