@@ -76,7 +76,7 @@ namespace WpfUtility_Call {
 
         private string _lastName;
 
-        [DataGridEx(Foreground = "LastNameFGColor", Background = "LastNameBGColor")]
+        [DataGridEx(Foreground = "Green", Background = "Binding LastNameBGColor")]
         public string LastName {
             get { return _lastName; }
             set {
@@ -87,11 +87,6 @@ namespace WpfUtility_Call {
 
         public string FullName {
             get { return _firstName + " " + _lastName; }
-        }
-
-        [DataGridEx(Ignore = true)]
-        public Brush LastNameFGColor {
-            get { return Brushes.Green; }
         }
 
         [DataGridEx(Ignore = true)]
@@ -112,7 +107,7 @@ namespace WpfUtility_Call {
             }
         }
 
-        [DataGridEx("Now")]
+        [DataGridEx("Now", Background = "#FFFFE0B0")]
         public string Dummy1 {
             get { return DateTime.Now.ToString("g"); }
         }
