@@ -10,7 +10,9 @@ namespace WpfUtility {
     public static class BrushExtensionMethods {
 
         public static Material ToMaterial(this Brush brush) {
-            return new DiffuseMaterial(brush);
+            return brush == null ?
+                null :
+                new DiffuseMaterial(brush);
         }
     }
 }
