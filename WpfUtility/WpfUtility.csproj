@@ -116,6 +116,7 @@
     <Compile Include="RibbonExtensionMethods.cs" />
     <Compile Include="RibbonGalleryExtensionMethods.cs" />
     <Compile Include="SoftBreak.cs" />
+    <Compile Include="Surface3D.cs" />
     <Compile Include="SystemDpi.cs" />
     <Compile Include="TextPrompt.xaml.cs">
       <DependentUpon>TextPrompt.xaml</DependentUpon>
