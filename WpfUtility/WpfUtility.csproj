@@ -80,6 +80,7 @@
     <Compile Include="FolderBrowser.cs" />
     <Compile Include="Model3DExtensionMethods.cs" />
     <Compile Include="Point3DHelper.cs" />
+    <Compile Include="PointHelper.cs" />
     <Compile Include="ProfileColorConverter.cs" />
     <Compile Include="ColorExtensionMethods.cs" />
     <Compile Include="CrossLines3D.cs" />
