@@ -53,5 +53,23 @@ namespace WpfUtility {
             return source.ToModel3DGroup()
                 .ToModelVisual3D(transform);
         }
+
+        /// <summary>
+        /// Change BackMaterial automatically when Material is changed.
+        /// </summary>
+        /// <param name="model">Model to be DoubleSidenized</param>
+        public static void DoubleSidenize(this GeometryModel3D model) {
+            model.AddPropertyChanged(GeometryModel3D.MaterialProperty, OnMaterialChanged);
+            model.BackMaterial = model.Material;
+        }
+
+        private static void OnMaterialChanged(object sender, EventArgs e) {
+            var model = sender as GeometryModel3D;
+            if (model == null) {
+                return;
+            }
+            model.BackMaterial = model.Material;
+        }
+
     }
 }
