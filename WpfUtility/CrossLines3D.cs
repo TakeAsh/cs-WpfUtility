@@ -21,7 +21,7 @@ namespace WpfUtility {
             _model = new GeometryModel3D() {
                 Geometry = _mesh,
             };
-            _model.AddPropertyChanged(GeometryModel3D.MaterialProperty, OnMaterialChanged);
+            _model.DoubleSidenize();
             this.Content = _model;
             SetColor(this.Color);
             CompositionTarget.Rendering += OnRender;
@@ -131,14 +131,6 @@ namespace WpfUtility {
             _mesh.TriangleIndices = indices;
 
             IsGeometryDirty = false;
-        }
-
-        private void OnMaterialChanged(object sender, EventArgs e) {
-            var model = sender as GeometryModel3D;
-            if (model == null) {
-                return;
-            }
-            model.BackMaterial = model.Material;
         }
     }
 }
