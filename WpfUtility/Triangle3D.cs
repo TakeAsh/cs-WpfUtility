@@ -13,23 +13,32 @@ namespace WpfUtility {
 
         public static GeometryModel3D Create(
             Point3D angleA, Point3D angleB, Point3D angleC,
-            Material material
+            Material material,
+            bool doubleSide = false,
+            Transform3D transform = null
         ) {
-            return new GeometryModel3D() {
+            var model = new GeometryModel3D() {
                 Geometry = new MeshGeometry3D() {
                     Positions = { angleA, angleB, angleC },
                     TriangleIndices = { 0, 1, 2 },
                     TextureCoordinates = { new Point(0, 0), new Point(0, 1), new Point(1, 0) },
                 },
                 Material = material,
+                Transform = transform,
             };
+            if (doubleSide) {
+                model.DoubleSidenize();
+            }
+            return model;
         }
-        
+
         public static GeometryModel3D Create(
             Point3D angleA,
             IEnumerable<Point3D> sideAB,
             IEnumerable<Point3D> sideAC,
-            Material material
+            Material material,
+            bool doubleSide = false,
+            Transform3D transform = null
         ) {
             var positions = new Point3DCollection() { angleA };
             var stepsAB = new List<double>();
@@ -73,14 +82,19 @@ namespace WpfUtility {
                 }
                 indicies.AddRange(points);
             }
-            return new GeometryModel3D() {
+            var model = new GeometryModel3D() {
                 Geometry = new MeshGeometry3D() {
                     Positions = positions,
                     TriangleIndices = indicies,
                     TextureCoordinates = textureCoordinates,
                 },
                 Material = material,
+                Transform = transform,
             };
+            if (doubleSide) {
+                model.DoubleSidenize();
+            }
+            return model;
         }
     }
 }
