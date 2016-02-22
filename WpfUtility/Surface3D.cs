@@ -13,7 +13,9 @@ namespace WpfUtility {
 
         public static GeometryModel3D Create(
             IEnumerable<IEnumerable<Point3D>> points,
-            Material material
+            Material material,
+            bool doubleSide = false,
+            Transform3D transform = null
         ) {
             var uCount = 0;
             var vCount = 0;
@@ -74,14 +76,19 @@ namespace WpfUtility {
             Enumerable.Range(0, uCount).ForEach(u => textureCoordinates.Add(new Point(1, u * textureDeltaU)));
             positions.AddRange(subPositions);
             textureCoordinates.AddRange(subTextureCoordinates);
-            return new GeometryModel3D() {
+            var model = new GeometryModel3D() {
                 Geometry = new MeshGeometry3D() {
                     Positions = positions,
                     TriangleIndices = triangleIndices,
                     TextureCoordinates = textureCoordinates,
                 },
                 Material = material,
+                Transform = transform,
             };
+            if (doubleSide) {
+                model.DoubleSidenize();
+            }
+            return model;
         }
     }
 }
