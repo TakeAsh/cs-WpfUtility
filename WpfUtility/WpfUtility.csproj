@@ -78,6 +78,7 @@
     <Compile Include="ChildPopup.cs" />
     <Compile Include="DataGridBoundColumnExtensionMethods.cs" />
     <Compile Include="FolderBrowser.cs" />
+    <Compile Include="GradientTexture.cs" />
     <Compile Include="Model3DExtensionMethods.cs" />
     <Compile Include="Point3DHelper.cs" />
     <Compile Include="PointHelper.cs" />
