@@ -22,7 +22,8 @@ namespace WpfUtility {
 
     using _resources = Properties.Resources;
 
-    public class DataGridEx : DataGrid {
+    public class DataGridEx :
+        DataGrid {
 
         private enum FilterItemsActions {
             Add,
@@ -55,11 +56,21 @@ namespace WpfUtility {
             AutoGeneratingColumn += OnAutoGeneratingColumn;
         }
 
+        public DataGridEx(DataGridEx source)
+            : this() {
+            this.Duplicate(source);
+            this.ItemsSource = source.ItemsSource;
+        }
+
         private List<string> _columnNames;
         private Dictionary<string, DataGridExAutoFilterItem> _autoFilterItems;
         private CollectionView _collectionView;
 
         public Type DataType { get; set; }
+
+        public DataGridEx Clone() {
+            return new DataGridEx(this);
+        }
 
         public void Refresh() {
             _collectionView.Refresh();
