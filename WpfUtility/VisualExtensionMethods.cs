@@ -17,11 +17,13 @@ namespace WpfUtility {
         /// Get an Image control from a Visual.
         /// </summary>
         /// <param name="target">Visual.</param>
+        /// <param name="crop">Flag to crop or not</param>
         /// <param name="dpi">dpi for returning image.</param>
         /// <param name="dpiY">dpiY for returning image. If omitted, dpiY is same to dpi.</param>
         /// <returns>Image control created from the visual.</returns>
         public static Image GetImage(
             this Visual target,
+            bool crop = false,
             double dpi = DefaultDpi,
             double dpiY = 0
         ) {
@@ -29,7 +31,7 @@ namespace WpfUtility {
                 return null;
             }
             return new Image() {
-                Source = target.GetBitmap(dpi, dpiY),
+                Source = target.GetBitmap(crop, dpi, dpiY),
             };
         }
 
@@ -37,6 +39,7 @@ namespace WpfUtility {
         /// Get a BitmapSource from a Visual.
         /// </summary>
         /// <param name="target">Visual.</param>
+        /// <param name="crop">Flag to crop or not</param>
         /// <param name="dpi">dpi for returning image.</param>
         /// <param name="dpiY">dpiY for returning image. If omitted, dpiY is same to dpi.</param>
         /// <returns>Bitmap image created from the visual.</returns>
@@ -45,6 +48,7 @@ namespace WpfUtility {
         /// </remarks>
         public static BitmapSource GetBitmap(
             this Visual target,
+            bool crop = false,
             double dpi = DefaultDpi,
             double dpiY = 0
         ) {
@@ -71,7 +75,9 @@ namespace WpfUtility {
                 );
             }
             rtb.Render(dv);
-            return rtb;
+            return crop ?
+                rtb.Crop() :
+                rtb;
         }
     }
 }
