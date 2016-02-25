@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationExtensionMethods.cs" />
+    <Compile Include="BitmapSourceExtensionMethods.cs" />
     <Compile Include="BrushExtensionMethods.cs" />
     <Compile Include="ChildPopup.cs" />
     <Compile Include="DataGridBoundColumnExtensionMethods.cs" />
