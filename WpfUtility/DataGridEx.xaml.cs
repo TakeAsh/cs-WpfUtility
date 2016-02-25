@@ -59,6 +59,11 @@ namespace WpfUtility {
         public DataGridEx(DataGridEx source)
             : this() {
             this.Duplicate(source);
+            this.FontFamily = source.FontFamily;
+            this.FontSize = source.FontSize;
+            this.FontStretch = source.FontStretch;
+            this.FontStyle = source.FontStyle;
+            this.FontWeight = source.FontWeight;
             this.ItemsSource = source.ItemsSource;
         }
 
