@@ -1,0 +1,34 @@
+﻿<Window
+    x:Class="ImageViewer.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:wu="clr-namespace:WpfUtility;assembly=WpfUtility"
+    Title="Image Viewer"
+    Width="640" Height="480" MinWidth="480" MinHeight="360"
+    FontFamily="Noto Sans JP"
+    AllowDrop="True"
+    Drop="Window_Drop">
+
+    <wu:PaneledTab>
+        <wu:PaneledTab.LatterPanel>
+            <StackPanel
+                Orientation="Horizontal">
+                <wu:MessageButton
+                    x:Name="messageButton_Info"
+                    Size="Small" />
+            </StackPanel>
+        </wu:PaneledTab.LatterPanel>
+        
+        <TabItem
+            Header="Original">
+            <Image
+                x:Name="image_Original" />
+        </TabItem>
+
+        <TabItem
+            Header="Crop">
+            <Image
+                x:Name="image_Crop" />
+        </TabItem>
+    </wu:PaneledTab>
+</Window>

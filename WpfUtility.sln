@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializableDictionary", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeAshUtility", "..\cs-TakeAshUtility\TakeAshUtility\TakeAshUtility.csproj", "{26A4A55A-CA4E-455C-8C14-832A73E23DFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer", "ImageViewer\ImageViewer.csproj", "{647F4574-8253-41E0-8F40-84C7415BCD6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -59,6 +61,14 @@ Global
 		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Release|x64.Build.0 = Release|x64
 		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Release|x86.ActiveCfg = Release|x86
 		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Release|x86.Build.0 = Release|x86
+		{647F4574-8253-41E0-8F40-84C7415BCD6E}.Debug|x64.ActiveCfg = Debug|x64
+		{647F4574-8253-41E0-8F40-84C7415BCD6E}.Debug|x64.Build.0 = Debug|x64
+		{647F4574-8253-41E0-8F40-84C7415BCD6E}.Debug|x86.ActiveCfg = Debug|x86
+		{647F4574-8253-41E0-8F40-84C7415BCD6E}.Debug|x86.Build.0 = Debug|x86
+		{647F4574-8253-41E0-8F40-84C7415BCD6E}.Release|x64.ActiveCfg = Release|x64
+		{647F4574-8253-41E0-8F40-84C7415BCD6E}.Release|x64.Build.0 = Release|x64
+		{647F4574-8253-41E0-8F40-84C7415BCD6E}.Release|x86.ActiveCfg = Release|x86
+		{647F4574-8253-41E0-8F40-84C7415BCD6E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
