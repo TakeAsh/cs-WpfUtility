@@ -26,6 +26,10 @@ namespace ImageViewer {
 
         public MainWindow() {
             InitializeComponent();
+            comboBox_BitmapScalingMode.ItemsSource = Enum.GetValues(typeof(BitmapScalingMode))
+                .OfType<BitmapScalingMode>()
+                .Distinct();
+            comboBox_BitmapScalingMode.SelectedItem = default(BitmapScalingMode);
         }
 
         private void LoadImage(string filename) {
@@ -53,6 +57,15 @@ namespace ImageViewer {
                 LoadImage(files);
                 return;
             }
+        }
+
+        private void comboBox_BitmapScalingMode_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (comboBox_BitmapScalingMode.SelectedItem == null) {
+                return;
+            }
+            var bitmapScalingMode = (BitmapScalingMode)comboBox_BitmapScalingMode.SelectedItem;
+            RenderOptions.SetBitmapScalingMode(image_Original, bitmapScalingMode);
+            RenderOptions.SetBitmapScalingMode(image_Crop, bitmapScalingMode);
         }
     }
 }

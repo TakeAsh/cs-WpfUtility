@@ -13,6 +13,10 @@
         <wu:PaneledTab.LatterPanel>
             <StackPanel
                 Orientation="Horizontal">
+                <ComboBox
+                    x:Name="comboBox_BitmapScalingMode"
+                    ToolTip="BitmapScalingMode"
+                    SelectionChanged="comboBox_BitmapScalingMode_SelectionChanged" />
                 <wu:MessageButton
                     x:Name="messageButton_Info"
                     Size="Small" />
@@ -22,15 +26,13 @@
         <TabItem
             Header="Original">
             <Image
-                x:Name="image_Original"
-                RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                x:Name="image_Original" />
         </TabItem>
 
         <TabItem
             Header="Crop">
             <Image
-                x:Name="image_Crop"
-                RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                x:Name="image_Crop" />
         </TabItem>
     </wu:PaneledTab>
 </Window>
