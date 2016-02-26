@@ -22,13 +22,15 @@
         <TabItem
             Header="Original">
             <Image
-                x:Name="image_Original" />
+                x:Name="image_Original"
+                RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </TabItem>
 
         <TabItem
             Header="Crop">
             <Image
-                x:Name="image_Crop" />
+                x:Name="image_Crop"
+                RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </TabItem>
     </wu:PaneledTab>
 </Window>
