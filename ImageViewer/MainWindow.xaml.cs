@@ -38,6 +38,7 @@ namespace ImageViewer {
         }
 
         private void LoadImage(string filename) {
+            label_Notice.Visibility = Visibility.Collapsed;
             messageButton_Info.Show(filename, MessageButton.Icons.Asterisk);
             BitmapSource bitmap = null;
             try {

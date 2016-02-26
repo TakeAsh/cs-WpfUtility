@@ -9,30 +9,40 @@
     AllowDrop="True"
     Drop="Window_Drop">
 
-    <wu:PaneledTab>
-        <wu:PaneledTab.LatterPanel>
-            <StackPanel
-                Orientation="Horizontal">
-                <ComboBox
-                    x:Name="comboBox_BitmapScalingMode"
-                    ToolTip="BitmapScalingMode"
-                    SelectionChanged="comboBox_BitmapScalingMode_SelectionChanged" />
-                <wu:MessageButton
-                    x:Name="messageButton_Info"
-                    Size="Small" />
-            </StackPanel>
-        </wu:PaneledTab.LatterPanel>
-        
-        <TabItem
-            Header="Original">
-            <Image
-                x:Name="image_Original" />
-        </TabItem>
+    <Grid>
+        <wu:PaneledTab>
+            <wu:PaneledTab.LatterPanel>
+                <StackPanel
+                    Orientation="Horizontal">
+                    <ComboBox
+                        x:Name="comboBox_BitmapScalingMode"
+                        ToolTip="BitmapScalingMode"
+                        SelectionChanged="comboBox_BitmapScalingMode_SelectionChanged" />
+                    <wu:MessageButton
+                        x:Name="messageButton_Info"
+                        Size="Small" />
+                </StackPanel>
+            </wu:PaneledTab.LatterPanel>
 
-        <TabItem
-            Header="Crop">
-            <Image
-                x:Name="image_Crop" />
-        </TabItem>
-    </wu:PaneledTab>
+            <TabItem
+                Header="Original">
+                <Image
+                    x:Name="image_Original" />
+            </TabItem>
+
+            <TabItem
+                Header="Crop">
+                <Image
+                    x:Name="image_Crop" />
+            </TabItem>
+        </wu:PaneledTab>
+        
+        <TextBlock
+            x:Name="label_Notice"
+            Text="Drop image file here"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="32"
+            TextWrapping="Wrap" />
+    </Grid>
 </Window>
