@@ -21,7 +21,6 @@ namespace WpfUtility {
         public enum Results {
             OK,
             Canceled,
-            TooSmall,
         }
 
         private const string _packageUriString = "application:///temp.xps";
@@ -55,14 +54,73 @@ namespace WpfUtility {
         private static readonly double _defaultMediaWidth = Math.Floor(DefaultMediaWidth * MmToPixel);
         private static readonly double _defaultMediaHeight = Math.Floor(DefaultMediaHeight * MmToPixel);
 
+        private static readonly Lazy<XpsPrinter> _lazy = new Lazy<XpsPrinter>(() => new XpsPrinter());
+
         private double _printMarginLeft = DefaultPrintMargin * MmToPixel;
         private double _printMarginRight = DefaultPrintMargin * MmToPixel;
         private double _printMarginTop = DefaultPrintMargin * MmToPixel;
         private double _printMarginBottom = DefaultPrintMargin * MmToPixel;
 
-        private PrintDocumentImageableArea _imgArea;
-        private PrintTicket _ticket;
+        private LocalPrintServer _printServer;
+        private PrintQueue _queue;
         private XpsDocumentWriter _xpsdw;
+        private bool _useSystemDialog;
+        private PrintDocumentImageableArea _imgArea;
+
+        private XpsPrinter() {
+            _printServer = new LocalPrintServer();
+            QueueNames = _printServer.GetPrintQueues()
+                .Select(queue => queue.Name)
+                .OrderBy(name => name)
+                .SafeToArray();
+            SelectedQueueName = _printServer.DefaultPrintQueue.Name;
+        }
+
+        public static XpsPrinter Instance { get { return _lazy.Value; } }
+
+        public string[] QueueNames { get; private set; }
+
+        public string SelectedQueueName {
+            get {
+                return _queue == null ?
+                    null :
+                    _queue.Name;
+            }
+            set {
+                var queueName = value;
+                if (String.IsNullOrEmpty(queueName) ||
+                    QueueNames == null ||
+                    !QueueNames.Contains(queueName)) {
+                    return;
+                }
+                _queue = _printServer.GetPrintQueues()
+                    .FirstOrDefault(queue => queue.Name == queueName);
+                _xpsdw = PrintQueue.CreateXpsDocumentWriter(_queue);
+                _useSystemDialog = false;
+            }
+        }
+
+        public PrintTicket Ticket {
+            get {
+                return _queue == null ?
+                    null :
+                    _queue.UserPrintTicket;
+            }
+        }
+
+        public string DocumentName {
+            get {
+                return _queue == null ?
+                    null :
+                    _queue.CurrentJobSettings.Description;
+            }
+            set {
+                if (_queue == null) {
+                    return;
+                }
+                _queue.CurrentJobSettings.Description = value;
+            }
+        }
 
         /// <summary>
         /// Print Margin Left in mm
@@ -100,57 +158,38 @@ namespace WpfUtility {
             get { return _imgArea; }
         }
 
-        public PrintTicket Ticket {
-            get {
-                return _ticket ??
-                    (_ticket = new PrintTicket() {
-                        PageMediaSize = new PageMediaSize(
-                            PageMediaSizeName.ISOA4,
-                            _defaultMediaWidth,
-                            _defaultMediaHeight
-                        ),
-                        PageOrientation = PageOrientation.Portrait,
-                    });
-            }
-            set { _ticket = value; }
-        }
-
         /// <summary>
-        /// Select printer
+        /// Select printer by system dialog
         /// </summary>
         /// <param name="docName">Document name</param>
         /// <returns>
         /// <list type="table">
         /// <item><term>OK</term><description>User selected suitable printer.</description></item>
         /// <item><term>Canceled</term><description>User canceled to print.</description></item>
-        /// <item><term>TooSmall</term><description>Printer which user selected has too small ImageableArea for Ticket.</description></item>
         /// </list>
         /// </returns>
-        /// <remarks>
-        /// You should set Ticket before calling this method.
-        /// </remarks>
         public Results SelectPrinter(string docName) {
             _xpsdw = PrintQueue.CreateXpsDocumentWriter(docName, ref _imgArea);
-            return IsCanceled() ? Results.Canceled :
-                IsTooSmall() ? Results.TooSmall :
-                    Results.OK;
+            _useSystemDialog = true;
+            return IsCanceled() ?
+                Results.Canceled :
+                Results.OK;
         }
 
         private bool IsCanceled() {
             return _xpsdw == null || _imgArea == null;
         }
 
-        private bool IsTooSmall() {
-            return _imgArea.MediaSizeWidth < (Ticket.PageMediaSize.Width ?? _defaultMediaWidth) ||
-                _imgArea.MediaSizeHeight < (Ticket.PageMediaSize.Height ?? _defaultMediaHeight);
-        }
-
         public void Print(IEnumerable<UIElement> elements) {
             if (elements == null) {
                 return;
             }
-            var mediaWidth = Ticket.PageMediaSize.Width ?? _defaultMediaWidth;
-            var mediaHeight = Ticket.PageMediaSize.Height ?? _defaultMediaHeight;
+            var mediaWidth = _useSystemDialog ?
+                _imgArea.MediaSizeWidth :
+                Ticket.PageMediaSize.Width ?? _defaultMediaWidth;
+            var mediaHeight = _useSystemDialog ?
+                _imgArea.MediaSizeHeight :
+                Ticket.PageMediaSize.Height ?? _defaultMediaHeight;
             var printWidth = mediaWidth - (_printMarginLeft + _printMarginRight);
             var printHeight = mediaHeight - (_printMarginTop + _printMarginBottom);
             var fixedDoc = new FixedDocument();
@@ -198,6 +237,7 @@ namespace WpfUtility {
                 }
                 PackageStore.RemovePackage(_packageUri);
             }
+            _xpsdw = null;
         }
 
         public void Print(Visual visual) {
@@ -221,6 +261,7 @@ namespace WpfUtility {
                 }
                 PackageStore.RemovePackage(_packageUri);
             }
+            _xpsdw = null;
         }
     }
 }
