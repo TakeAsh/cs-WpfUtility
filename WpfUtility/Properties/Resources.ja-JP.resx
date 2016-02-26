@@ -120,6 +120,18 @@
   <data name="DataGridEx_ColumnHeader_All" xml:space="preserve">
     <value>全て</value>
   </data>
+  <data name="PageOrientation_Landscape" xml:space="preserve">
+    <value>横</value>
+  </data>
+  <data name="PageOrientation_Portrait" xml:space="preserve">
+    <value>縦</value>
+  </data>
+  <data name="PrintStatus_Printing" xml:space="preserve">
+    <value>印刷中...</value>
+  </data>
+  <data name="PrintStatus_Ready" xml:space="preserve">
+    <value>印刷可能</value>
+  </data>
   <data name="RibbonExtensionMethods_MinimizeButton_ToolTip_Hide" xml:space="preserve">
     <value>リボンを隠す</value>
   </data>
