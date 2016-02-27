@@ -48,9 +48,9 @@ namespace WpfUtility {
                         return;
                     }
                     dataGridEx.ColumnHeaderStyle = new Style();
-                    _collectionView = CollectionViewSource.GetDefaultView(dataGridEx.ItemsSource) as ListCollectionView;
-                    ((INotifyCollectionChanged)_collectionView).CollectionChanged += OnUpdateItems;
-                    _collectionView.Filter = PredicateAutoFilter;
+                    var view = dataGridEx._collectionView = CollectionViewSource.GetDefaultView(dataGridEx.ItemsSource) as ListCollectionView;
+                    ((INotifyCollectionChanged)view).CollectionChanged += OnUpdateItems;
+                    view.Filter = PredicateAutoFilter;
                 }
             );
             AutoGeneratingColumn += OnAutoGeneratingColumn;
