@@ -64,7 +64,6 @@ namespace WpfUtility {
             this.FontStretch = source.FontStretch;
             this.FontStyle = source.FontStyle;
             this.FontWeight = source.FontWeight;
-            this.ItemsSource = source.ItemsSource;
         }
 
         private List<string> _columnNames;
