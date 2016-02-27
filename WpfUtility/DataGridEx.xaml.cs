@@ -156,14 +156,16 @@ namespace WpfUtility {
 
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e) {
             var dataGridEx = sender as DataGridEx;
-            if (dataGridEx == null || _columnNames == null) {
+            if (dataGridEx == null || dataGridEx._columnNames == null) {
                 return;
             }
-            if (!_columnNames.Contains(e.PropertyName)) {
-                _columnNames.Add(e.PropertyName);
-                _autoFilterItems[e.PropertyName] = new DataGridExAutoFilterItem(e.PropertyName, dataGridEx);
+            var columnNames = dataGridEx._columnNames;
+            var autoFilterItems = dataGridEx._autoFilterItems;
+            if (!columnNames.Contains(e.PropertyName)) {
+                columnNames.Add(e.PropertyName);
+                autoFilterItems[e.PropertyName] = new DataGridExAutoFilterItem(e.PropertyName, dataGridEx);
             }
-            var attr = _autoFilterItems[e.PropertyName].DataGridExAttr;
+            var attr = autoFilterItems[e.PropertyName].DataGridExAttr;
             e.Cancel = attr.Ignore;
             e.Column.Header = attr.Header;
             if (!String.IsNullOrEmpty(attr.ClipboardContentBinding)) {
