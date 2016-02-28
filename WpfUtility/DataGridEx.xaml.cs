@@ -40,19 +40,7 @@ namespace WpfUtility {
         public DataGridEx()
             : base() {
 
-            this.AddPropertyChanged(
-                ItemsControl.ItemsSourceProperty,
-                (sender, e) => {
-                    var dataGridEx = sender as DataGridEx;
-                    if (dataGridEx == null || dataGridEx.ItemsSource == null) {
-                        return;
-                    }
-                    dataGridEx.ColumnHeaderStyle = new Style();
-                    var view = dataGridEx._collectionView = CollectionViewSource.GetDefaultView(dataGridEx.ItemsSource) as ListCollectionView;
-                    ((INotifyCollectionChanged)view).CollectionChanged += OnUpdateItems;
-                    view.Filter = PredicateAutoFilter;
-                }
-            );
+            this.AddPropertyChanged(ItemsControl.ItemsSourceProperty, OnItemsSourceUpdated);
             AutoGeneratingColumn += OnAutoGeneratingColumn;
         }
 
@@ -78,26 +66,6 @@ namespace WpfUtility {
 
         public void Refresh() {
             _collectionView.Refresh();
-        }
-
-        private bool PredicateAutoFilter(object item) {
-            if (_autoFilterItems == null) {
-                return true;
-            }
-            foreach (var p in _columnNames) {
-                foreach (var kvp in _autoFilterItems[p].Values) {
-                    if (kvp.Value.IsChecked == true) {
-                        continue;
-                    }
-                    var pi = (DataType ?? item.GetType())
-                        .GetProperty(p, BindingFlags.Instance | BindingFlags.Public);
-                    var value = pi.GetValue(item, null).SafeToString();
-                    if (value != null && value == kvp.Key) {
-                        return false;
-                    }
-                }
-            }
-            return true;
         }
 
         private void ModifyFilterItems(FilterItemsActions action, IEnumerable items) {
@@ -128,33 +96,69 @@ namespace WpfUtility {
             _columnNames.ForEach(columnName => _autoFilterItems[columnName].Update());
         }
 
-        private void OnUpdateItems(object sender, NotifyCollectionChangedEventArgs e) {
-            var view = sender as ListCollectionView;
-            if (view == null || view.ItemProperties == null) {
-                return;
-            }
-            switch (e.Action) {
-                case NotifyCollectionChangedAction.Reset:
-                    if (_columnNames == null) {
-                        _columnNames = view.ItemProperties
-                            .Select(info => info.Name).ToList();
-                        _autoFilterItems = _columnNames.Select(name => new DataGridExAutoFilterItem(name, this))
-                            .ToDictionary(filterItem => filterItem.Name);
-                        if (view.Count > 0) {
-                            ModifyFilterItems(FilterItemsActions.Add, view);
+        private static NotifyCollectionChangedEventHandler CreateNotifyCollectionChangedEventHandler(DataGridEx dataGridEx) {
+            return (sender, e) => {
+                var view = sender as ListCollectionView;
+                if (view == null || view.ItemProperties == null) {
+                    return;
+                }
+                switch (e.Action) {
+                    case NotifyCollectionChangedAction.Reset:
+                        if (dataGridEx._columnNames == null) {
+                            dataGridEx._columnNames = view.ItemProperties
+                                .Select(info => info.Name).ToList();
+                            dataGridEx._autoFilterItems = dataGridEx._columnNames
+                                .Select(name => new DataGridExAutoFilterItem(name, dataGridEx))
+                                .ToDictionary(filterItem => filterItem.Name);
+                            if (view.Count > 0) {
+                                dataGridEx.ModifyFilterItems(FilterItemsActions.Add, view);
+                            }
                         }
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Add:
-                    ModifyFilterItems(FilterItemsActions.Add, e.NewItems);
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    ModifyFilterItems(FilterItemsActions.Remove, e.OldItems);
-                    break;
-            }
+                        break;
+                    case NotifyCollectionChangedAction.Add:
+                        dataGridEx.ModifyFilterItems(FilterItemsActions.Add, e.NewItems);
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        dataGridEx.ModifyFilterItems(FilterItemsActions.Remove, e.OldItems);
+                        break;
+                }
+            };
         }
 
-        private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e) {
+        private static Predicate<object> CreatePredicate(DataGridEx dataGridEx) {
+            return (item) => {
+                if (dataGridEx._autoFilterItems == null) {
+                    return true;
+                }
+                foreach (var p in dataGridEx._columnNames) {
+                    foreach (var kvp in dataGridEx._autoFilterItems[p].Values) {
+                        if (kvp.Value.IsChecked == true) {
+                            continue;
+                        }
+                        var pi = (dataGridEx.DataType ?? item.GetType())
+                            .GetProperty(p, BindingFlags.Instance | BindingFlags.Public);
+                        var value = pi.GetValue(item, null).SafeToString();
+                        if (value != null && value == kvp.Key) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            };
+        }
+
+        private static void OnItemsSourceUpdated(object sender, EventArgs e) {
+            var dataGridEx = sender as DataGridEx;
+            if (dataGridEx == null || dataGridEx.ItemsSource == null) {
+                return;
+            }
+            dataGridEx.ColumnHeaderStyle = new Style();
+            var view = dataGridEx._collectionView = CollectionViewSource.GetDefaultView(dataGridEx.ItemsSource) as ListCollectionView;
+            ((INotifyCollectionChanged)view).CollectionChanged += CreateNotifyCollectionChangedEventHandler(dataGridEx);
+            view.Filter = CreatePredicate(dataGridEx);
+        }
+
+        private static void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e) {
             var dataGridEx = sender as DataGridEx;
             if (dataGridEx == null || dataGridEx._columnNames == null) {
                 return;
