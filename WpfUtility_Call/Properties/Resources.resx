@@ -165,4 +165,28 @@
   <data name="MainWindow_menuItem_ShowMonitorDpi_Header" xml:space="preserve">
     <value>Show Monitor DPI</value>
   </data>
+  <data name="MainWindow_comboBox_PageOrientation_ToolTip" xml:space="preserve">
+    <value>Orientation</value>
+  </data>
+  <data name="MainWindow_comboBox_PageSize_ToolTip" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="MainWindow_comboBox_Printer_ToolTip" xml:space="preserve">
+    <value>Printer</value>
+  </data>
+  <data name="MainWindow_comboBox_Printer_UseSystemDialog" xml:space="preserve">
+    <value>Use System Dialog</value>
+  </data>
+  <data name="MainWindow_group_Page_Header" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="MainWindow_group_Printer_Header" xml:space="preserve">
+    <value>Printer</value>
+  </data>
+  <data name="MainWindow_group_Print_Header" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="MainWindow_tab_Print_Header" xml:space="preserve">
+    <value>Print</value>
+  </data>
 </root>

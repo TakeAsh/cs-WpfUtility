@@ -209,6 +209,29 @@
                         Click="button_ApplyPerson_Click" />
                 </r:RibbonGroup>
             </r:RibbonTab>
+            <r:RibbonTab Header="{wu:Tr MainWindow_tab_Print_Header}">
+                <r:RibbonGroup Header="{wu:Tr MainWindow_group_Print_Header}">
+                    <r:RibbonButton
+                        x:Name="button_Print"
+                        LargeImageSource="/WpfUtility_Call;component/Images/PrintL.png"
+                        SmallImageSource="/WpfUtility_Call;component/Images/PrintS.png" Click="button_Print_Click" />
+                </r:RibbonGroup>
+                <r:RibbonGroup
+                    Header="{wu:Tr MainWindow_group_Printer_Header}">
+                    <ComboBox
+                        x:Name="comboBox_Printer"
+                        ToolTip="{wu:Tr MainWindow_comboBox_Printer_ToolTip}" />
+                </r:RibbonGroup>
+                <r:RibbonGroup
+                    Header="{wu:Tr MainWindow_group_Page_Header}">
+                    <ComboBox
+                        x:Name="comboBox_PageSize"
+                        ToolTip="{wu:Tr MainWindow_comboBox_PageSize_ToolTip}" />
+                    <ComboBox
+                        x:Name="comboBox_PageOrientation"
+                        ToolTip="{wu:Tr MainWindow_comboBox_PageOrientation_ToolTip}" />
+                </r:RibbonGroup>
+            </r:RibbonTab>
         </r:Ribbon>
         <Grid>
             <Grid.ColumnDefinitions>

@@ -165,4 +165,28 @@
   <data name="MainWindow_menuItem_ShowMonitorDpi_Header" xml:space="preserve">
     <value>モニタDPIを表示</value>
   </data>
+  <data name="MainWindow_comboBox_PageOrientation_ToolTip" xml:space="preserve">
+    <value>向き</value>
+  </data>
+  <data name="MainWindow_comboBox_PageSize_ToolTip" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="MainWindow_comboBox_Printer_ToolTip" xml:space="preserve">
+    <value>プリンタ</value>
+  </data>
+  <data name="MainWindow_comboBox_Printer_UseSystemDialog" xml:space="preserve">
+    <value>システムダイアログを使用</value>
+  </data>
+  <data name="MainWindow_group_Page_Header" xml:space="preserve">
+    <value>用紙</value>
+  </data>
+  <data name="MainWindow_group_Printer_Header" xml:space="preserve">
+    <value>プリンタ</value>
+  </data>
+  <data name="MainWindow_group_Print_Header" xml:space="preserve">
+    <value>印刷</value>
+  </data>
+  <data name="MainWindow_tab_Print_Header" xml:space="preserve">
+    <value>印刷</value>
+  </data>
 </root>

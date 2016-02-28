@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Microsoft.Windows.Controls.Ribbon;
 using TakeAsh;
 using TakeAshUtility;
@@ -32,12 +33,16 @@ namespace WpfUtility_Call {
         RibbonWindow,
         IResizeEvent {
 
+        const string DocumentName = "WpfUtility Sample";
+
         private static Properties.Settings _settings = Properties.Settings.Default;
 
         private MessageButton messageButton_HPC;
         private MonitorDpi _monitorDpi;
         private WindowPlacement _placement;
         private Persons _persons;
+        private XpsPrinter _printer = XpsPrinter.Instance;
+        private PrintStatus _printStatus;
 
         [TypeConverter(typeof(EnumTypeConverter<NewLineCodes>))]
         public enum NewLineCodes {
@@ -74,7 +79,23 @@ namespace WpfUtility_Call {
             comboBox_Culture_Gallery.SelectedItem = CultureManager.GetCulture(_settings.Culture);
 
             comboBox_PersonSex_GalleryCategory.ItemsSource = SexesCodesHelper.ValueDescriptionPairs;
+
+            dataGrid_Notify.CloneItemsSource = (source) => new Persons((Persons)source);
             dataGrid_Notify.ItemsSource = _persons = ResourceHelper.GetText("Resources/Persons.txt").ToPersons();
+
+            this.PrintStatus = PrintStatus.Ready;
+            comboBox_Printer.ItemsSource = new[] {
+                _resources.MainWindow_comboBox_Printer_UseSystemDialog,
+            }.Concat(_printer.QueueNames);
+            comboBox_Printer.AdjustMaxItemWidth();
+            comboBox_Printer.SelectedItem = _printer.SelectedQueueName;
+            comboBox_PageSize.ItemsSource = PageMediaSizeHelper.Values;
+            comboBox_PageSize.AdjustMaxItemWidth();
+            comboBox_PageSize.SelectedItem = PageMediaSizeHelper.Default;
+            comboBox_PageOrientation.ItemsSource = PageOrientationHelper.Values;
+            comboBox_PageOrientation.AdjustMaxItemWidth();
+            comboBox_PageOrientation.SelectedItem = PageOrientationHelper.Default;
+
             this.AddResizeHook();
             this.Resizing += (sender, e) => {
                 var window = sender as RibbonWindow;
@@ -95,12 +116,61 @@ namespace WpfUtility_Call {
             };
         }
 
+        public PrintStatus PrintStatus {
+            get { return _printStatus; }
+            set {
+                _printStatus = value;
+                button_Print.Label = _printStatus.ToDescription();
+                switch (_printStatus) {
+                    case PrintStatus.Ready:
+                        button_Print.LargeImageSource = ResourceHelper.GetImage("Images/PrintL.png");
+                        button_Print.SmallImageSource = ResourceHelper.GetImage("Images/PrintS.png");
+                        break;
+                    case PrintStatus.Printing:
+                        button_Print.LargeImageSource = ResourceHelper.GetImage("Images/PrintingL.png");
+                        button_Print.SmallImageSource = ResourceHelper.GetImage("Images/PrintingS.png");
+                        break;
+                }
+            }
+        }
+
         private void SetCulture() {
             _settings.Culture = (comboBox_Culture_Gallery.SelectedItem as CultureInfo).Name;
             _settings.Save();
             messageButton_QATB.Show(
                 _resources.MainWindow_method_SetCulture_message_OK,
                 MessageButton.Icons.Beep
+            );
+        }
+
+        private void Print() {
+            if (comboBox_Printer.SelectedItem == null ||
+                comboBox_PageSize.SelectedItem == null ||
+                comboBox_PageOrientation.SelectedItem == null) {
+                return;
+            }
+            if (comboBox_Printer.SelectedIndex == 0) {
+                if (_printer.SelectPrinter(DocumentName) != XpsPrinter.Results.OK) {
+                    return;
+                }
+            } else {
+                _printer.SelectedQueueName = comboBox_Printer.SelectedItem as string;
+                var pageOrientation = (PageOrientation)comboBox_PageOrientation.SelectedItem;
+                var pageMediaSize = (PageMediaSize)comboBox_PageSize.SelectedItem;
+                _printer.Ticket.PageOrientation = pageOrientation.ToSystemPageOrientation();
+                _printer.Ticket.PageMediaSize = pageMediaSize.ToSystemPageMediaSize(pageOrientation);
+                _printer.DocumentName = DocumentName;
+            }
+            PrintStatus = PrintStatus.Printing;
+            Dispatcher.BeginInvoke(
+                DispatcherPriority.Background,
+                new Action(() => {
+                    _printer.Print(new UIElement[] {
+                        dataGrid_Notify.Clone(), // work wrong
+                        dataGrid_Notify.GetImage(),
+                    });
+                    PrintStatus = PrintStatus.Ready;
+                })
             );
         }
 
@@ -225,6 +295,10 @@ namespace WpfUtility_Call {
             person.LastName = textBox_PersonLastName.Text;
             person.Sex = SexesCodesHelper.Cast(comboBox_PersonSex_Gallery.SelectedValue);
             _persons.Refresh();
+        }
+
+        private void button_Print_Click(object sender, RoutedEventArgs e) {
+            Print();
         }
 
 #pragma warning disable 0067

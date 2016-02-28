@@ -69,6 +69,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -191,6 +192,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Persons.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PrintingL.png" />
+    <Resource Include="Images\PrintingS.png" />
+    <Resource Include="Images\PrintL.png" />
+    <Resource Include="Images\PrintS.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
