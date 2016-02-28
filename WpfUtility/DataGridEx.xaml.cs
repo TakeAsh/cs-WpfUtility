@@ -52,6 +52,9 @@ namespace WpfUtility {
             this.FontStretch = source.FontStretch;
             this.FontStyle = source.FontStyle;
             this.FontWeight = source.FontWeight;
+            this.ItemsSource = CloneItemsSource == null ?
+                source.ItemsSource :
+                CloneItemsSource(source.ItemsSource);
         }
 
         private List<string> _columnNames;
@@ -59,6 +62,8 @@ namespace WpfUtility {
         private CollectionView _collectionView;
 
         public Type DataType { get; set; }
+
+        public Func<IEnumerable, IEnumerable> CloneItemsSource { get; set; }
 
         public DataGridEx Clone() {
             return new DataGridEx(this);
