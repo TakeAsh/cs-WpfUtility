@@ -10,18 +10,6 @@
 	Width="720" Height="300" MinWidth="320" MinHeight="260"
     Loaded="RibbonWindow_Loaded">
 
-    <r:RibbonWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <sys:String x:Key="TrExtension_Assembly">WpfUtility_Call</sys:String>
-                </ResourceDictionary>
-                <ResourceDictionary Source="/WpfUtility;component/PaneledTab.xaml" />
-                <ResourceDictionary Source="/WpfUtility;component/DataGridEx.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </r:RibbonWindow.Resources>
-    
     <DockPanel>
         <r:Ribbon x:Name="ribbon_Main" DockPanel.Dock="Top">
             <r:Ribbon.ApplicationMenu>

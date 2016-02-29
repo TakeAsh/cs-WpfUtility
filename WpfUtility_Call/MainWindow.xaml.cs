@@ -172,7 +172,7 @@ namespace WpfUtility_Call {
                 DispatcherPriority.Background,
                 new Action(() => {
                     _printer.Print(new UIElement[] {
-                        dataGrid_Notify.Clone(), // work wrong
+                        dataGrid_Notify.Clone(),
                         dataGrid_Notify.GetImage(),
                     });
                     PrintStatus = PrintStatus.Ready;

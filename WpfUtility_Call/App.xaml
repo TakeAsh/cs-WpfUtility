@@ -5,7 +5,14 @@
     StartupUri="MainWindow.xaml">
     
     <Application.Resources>
-		<!-- Resources scoped at the Application level should be defined here. -->
-        <sys:String x:Key="TrExtension_Assembly">WpfUtility_Call</sys:String>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <sys:String x:Key="TrExtension_Assembly">WpfUtility_Call</sys:String>
+                </ResourceDictionary>
+                <ResourceDictionary Source="/WpfUtility;component/PaneledTab.xaml" />
+                <ResourceDictionary Source="/WpfUtility;component/DataGridEx.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
