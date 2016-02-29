@@ -88,6 +88,42 @@ namespace WpfUtility.Properties {
         }
         
         /// <summary>
+        ///   Color に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PrintOutputColor_Color {
+            get {
+                return ResourceManager.GetString("PrintOutputColor_Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Grayscale に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PrintOutputColor_Grayscale {
+            get {
+                return ResourceManager.GetString("PrintOutputColor_Grayscale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Monochrome に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PrintOutputColor_Monochrome {
+            get {
+                return ResourceManager.GetString("PrintOutputColor_Monochrome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unknown に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PrintOutputColor_Unknown {
+            get {
+                return ResourceManager.GetString("PrintOutputColor_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Printing... に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string PrintStatus_Printing {

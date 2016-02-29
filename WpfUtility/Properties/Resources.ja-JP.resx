@@ -126,6 +126,18 @@
   <data name="PageOrientation_Portrait" xml:space="preserve">
     <value>縦</value>
   </data>
+  <data name="PrintOutputColor_Color" xml:space="preserve">
+    <value>カラー</value>
+  </data>
+  <data name="PrintOutputColor_Grayscale" xml:space="preserve">
+    <value>グレースケール</value>
+  </data>
+  <data name="PrintOutputColor_Monochrome" xml:space="preserve">
+    <value>単色</value>
+  </data>
+  <data name="PrintOutputColor_Unknown" xml:space="preserve">
+    <value>未定義</value>
+  </data>
   <data name="PrintStatus_Printing" xml:space="preserve">
     <value>印刷中...</value>
   </data>

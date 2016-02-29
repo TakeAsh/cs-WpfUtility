@@ -87,6 +87,7 @@
     <Compile Include="PageOrientation.cs" />
     <Compile Include="Point3DHelper.cs" />
     <Compile Include="PointHelper.cs" />
+    <Compile Include="PrintOutputColor.cs" />
     <Compile Include="PrintStatus.cs" />
     <Compile Include="ProfileColorConverter.cs" />
     <Compile Include="ColorExtensionMethods.cs" />
