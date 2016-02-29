@@ -231,6 +231,11 @@
                         x:Name="comboBox_PageOrientation"
                         ToolTip="{wu:Tr MainWindow_comboBox_PageOrientation_ToolTip}" />
                 </r:RibbonGroup>
+                <r:RibbonGroup
+                    Header="{wu:Tr MainWindow_group_PrintColor}">
+                    <ComboBox
+                        x:Name="comboBox_PrintColor" />
+                </r:RibbonGroup>
             </r:RibbonTab>
         </r:Ribbon>
         <Grid>

@@ -160,6 +160,15 @@ namespace WpfUtility_Call.Properties {
         }
         
         /// <summary>
+        ///   Color に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_group_PrintColor {
+            get {
+                return ResourceManager.GetString("MainWindow_group_PrintColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Printer に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWindow_group_Printer_Header {

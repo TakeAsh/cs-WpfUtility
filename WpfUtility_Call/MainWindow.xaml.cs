@@ -95,6 +95,9 @@ namespace WpfUtility_Call {
             comboBox_PageOrientation.ItemsSource = PageOrientationHelper.Values;
             comboBox_PageOrientation.AdjustMaxItemWidth();
             comboBox_PageOrientation.SelectedItem = PageOrientationHelper.Default;
+            comboBox_PrintColor.ItemsSource = PrintOutputColorHelper.Values;
+            comboBox_PrintColor.AdjustMaxItemWidth();
+            comboBox_PrintColor.SelectedItem = PrintOutputColorHelper.Default;
 
             this.AddResizeHook();
             this.Resizing += (sender, e) => {
@@ -146,7 +149,8 @@ namespace WpfUtility_Call {
         private void Print() {
             if (comboBox_Printer.SelectedItem == null ||
                 comboBox_PageSize.SelectedItem == null ||
-                comboBox_PageOrientation.SelectedItem == null) {
+                comboBox_PageOrientation.SelectedItem == null ||
+                comboBox_PrintColor.SelectedItem == null) {
                 return;
             }
             if (comboBox_Printer.SelectedIndex == 0) {
@@ -157,8 +161,10 @@ namespace WpfUtility_Call {
                 _printer.SelectedQueueName = comboBox_Printer.SelectedItem as string;
                 var pageOrientation = (PageOrientation)comboBox_PageOrientation.SelectedItem;
                 var pageMediaSize = (PageMediaSize)comboBox_PageSize.SelectedItem;
+                var printColor = (PrintOutputColor)comboBox_PrintColor.SelectedItem;
                 _printer.Ticket.PageOrientation = pageOrientation.ToSystemPageOrientation();
                 _printer.Ticket.PageMediaSize = pageMediaSize.ToSystemPageMediaSize(pageOrientation);
+                _printer.Ticket.OutputColor = printColor.ToSystemOutputColor();
                 _printer.DocumentName = DocumentName;
             }
             PrintStatus = PrintStatus.Printing;
