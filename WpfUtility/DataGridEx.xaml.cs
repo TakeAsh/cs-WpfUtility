@@ -30,6 +30,21 @@ namespace WpfUtility {
             Remove,
         }
 
+        private static readonly string[] _duplicatedProperties = new[] {
+            "FontFamily",
+            "FontSize",
+            "FontStretch",
+            "FontStyle",
+            "FontWeight",
+            "IsReadOnly",
+            "CanUserAddRows",
+            "CanUserDeleteRows",
+            "CanUserReorderColumns",
+            "CanUserResizeColumns",
+            "CanUserResizeRows",
+            "CanUserSortColumns",
+        };
+
         static DataGridEx() {
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(DataGridEx),
@@ -47,11 +62,7 @@ namespace WpfUtility {
         public DataGridEx(DataGridEx source)
             : this() {
             this.Duplicate(source);
-            this.FontFamily = source.FontFamily;
-            this.FontSize = source.FontSize;
-            this.FontStretch = source.FontStretch;
-            this.FontStyle = source.FontStyle;
-            this.FontWeight = source.FontWeight;
+            this.Duplicate(source, _duplicatedProperties);
             this.ItemsSource = CloneItemsSource == null ?
                 source.ItemsSource :
                 CloneItemsSource(source.ItemsSource);
