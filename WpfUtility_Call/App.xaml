@@ -7,12 +7,10 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <sys:String x:Key="TrExtension_Assembly">WpfUtility_Call</sys:String>
-                </ResourceDictionary>
                 <ResourceDictionary Source="/WpfUtility;component/PaneledTab.xaml" />
                 <ResourceDictionary Source="/WpfUtility;component/DataGridEx.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <sys:String x:Key="TrExtension_Assembly">WpfUtility_Call</sys:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
