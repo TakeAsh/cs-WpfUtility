@@ -34,5 +34,29 @@ namespace ImageViewer.Properties {
                 this["WindowPlacement"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("96")]
+        public double MonitorDpi {
+            get {
+                return ((double)(this["MonitorDpi"]));
+            }
+            set {
+                this["MonitorDpi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400")]
+        public string ZoomItems {
+            get {
+                return ((string)(this["ZoomItems"]));
+            }
+            set {
+                this["ZoomItems"] = value;
+            }
+        }
     }
 }
