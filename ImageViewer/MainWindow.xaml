@@ -23,6 +23,12 @@
                         x:Name="comboBox_BitmapScalingMode"
                         ToolTip="BitmapScalingMode"
                         SelectionChanged="comboBox_BitmapScalingMode_SelectionChanged" />
+                    <Button
+                        x:Name="button_Config"
+                        ToolTip="Config" Click="button_Config_Click">
+                        <Image
+                            Source="/ImageViewer;component/Images/ConfigS.png" />
+                    </Button>
                     <wu:MessageButton
                         x:Name="messageButton_Info"
                         Size="Small" />

@@ -158,5 +158,22 @@ namespace ImageViewer {
             RenderOptions.SetBitmapScalingMode(image_Original, bitmapScalingMode);
             RenderOptions.SetBitmapScalingMode(image_Crop, bitmapScalingMode);
         }
+
+        private void button_Config_Click(object sender, RoutedEventArgs e) {
+            var prompt = new TextPrompt() {
+                Title = "Enter Monitor DPI",
+                Message = "Min:" + MinDpi + " - Max:" + MaxDpi,
+                InputText = _settings.MonitorDpi.ToString(),
+            };
+            if (prompt.ShowDialog() != true) {
+                return;
+            }
+            MonitorDpi = prompt.InputText.TryParse<double>(DefaultDpi);
+            _settings.MonitorDpi = MonitorDpi;
+            messageButton_Info.Show(
+                "Monitor DPI updated: " + _settings.MonitorDpi,
+                MessageButton.Icons.Asterisk
+            );
+        }
     }
 }
