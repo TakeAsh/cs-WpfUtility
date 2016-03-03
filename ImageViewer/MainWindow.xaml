@@ -15,6 +15,11 @@
                 <StackPanel
                     Orientation="Horizontal">
                     <ComboBox
+                        x:Name="comboBox_Zoom"
+                        ToolTip="Zoom"
+                        HorizontalContentAlignment="Right"
+                        SelectionChanged="comboBox_Zoom_SelectionChanged" />
+                    <ComboBox
                         x:Name="comboBox_BitmapScalingMode"
                         ToolTip="BitmapScalingMode"
                         SelectionChanged="comboBox_BitmapScalingMode_SelectionChanged" />
@@ -26,8 +31,13 @@
 
             <TabItem
                 Header="Original">
-                <Image
-                    x:Name="image_Original" />
+                <ScrollViewer
+                    x:Name="scrollViewer"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <Image
+                        x:Name="image_Original" />
+                </ScrollViewer>
             </TabItem>
 
             <TabItem

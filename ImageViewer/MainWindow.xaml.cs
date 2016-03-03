@@ -23,18 +23,53 @@ namespace ImageViewer {
     public partial class MainWindow :
         Window {
 
+        const double DefaultDpi = 96;
+        const double MinDpi = DefaultDpi * 0.75;
+        const double MaxDpi = DefaultDpi * 5;
+        const double MaxZoom = 800;
+
         private static Properties.Settings _settings = Properties.Settings.Default;
 
         private static readonly Uri _failedImageUri = new Uri("/ImageViewer;component/Images/FailedL.png", UriKind.Relative);
 
         private WindowPlacement _placement;
+        private double _monitorDpi = DefaultDpi;
+        private double _monitorDpiRate = 1;
+        private double _zoom = 0;
+        private double _imageDpiX;
+        private double _imageDpiY;
+        private int _imageWidth;
+        private int _imageHeight;
 
         public MainWindow() {
             InitializeComponent();
+
+            MonitorDpi = _settings.MonitorDpi;
+
+            comboBox_Zoom.ItemsSource = _settings.ZoomItems.ToZoomItems();
+            comboBox_Zoom.SelectedIndex = 0;
+
             comboBox_BitmapScalingMode.ItemsSource = Enum.GetValues(typeof(BitmapScalingMode))
                 .OfType<BitmapScalingMode>()
                 .Distinct();
             comboBox_BitmapScalingMode.SelectedItem = default(BitmapScalingMode);
+        }
+
+        public double MonitorDpi {
+            get { return _monitorDpi; }
+            set {
+                _monitorDpi = value.Clamp(MinDpi, MaxDpi);
+                _monitorDpiRate = _monitorDpi / DefaultDpi;
+                ApplyZoom();
+            }
+        }
+
+        public double Zoom {
+            get { return _zoom; }
+            set {
+                _zoom = value.Clamp(0, MaxZoom);
+                ApplyZoom();
+            }
         }
 
         private void LoadImage(string filename) {
@@ -47,13 +82,41 @@ namespace ImageViewer {
                    BitmapCreateOptions.None,
                    BitmapCacheOption.OnLoad
                );
+                _imageDpiX = bitmap.DpiX > 0 ?
+                    bitmap.DpiX :
+                    DefaultDpi;
+                _imageDpiY = bitmap.DpiY > 0 ?
+                    bitmap.DpiY :
+                    DefaultDpi;
+                _imageWidth = bitmap.PixelWidth;
+                _imageHeight = bitmap.PixelHeight;
             }
             catch (Exception ex) {
                 messageButton_Info.Show(ex.GetAllMessages(), MessageButton.Icons.Hand);
                 bitmap = new BitmapImage(_failedImageUri);
+                _imageDpiX = _imageDpiY = DefaultDpi;
+                _imageWidth = _imageHeight = 0;
             }
             image_Original.Source = bitmap;
             image_Crop.Source = bitmap.Crop();
+            ApplyZoom();
+        }
+
+        private void ApplyZoom() {
+            if (_zoom <= 0 && _imageWidth != 0 && _imageHeight != 0) {
+                var zw = scrollViewer.ActualWidth != 0 ?
+                    scrollViewer.ActualWidth * 100 / _imageWidth :
+                    100;
+                var zh = scrollViewer.ActualHeight != 0 ?
+                    scrollViewer.ActualHeight * 100 / _imageHeight :
+                    100;
+                var zoom = Math.Min(zw, zh);
+                image_Original.Width = _imageWidth * zoom / 100.0;
+                image_Original.Height = _imageHeight * zoom / 100.0;
+            } else {
+                image_Original.Width = _imageWidth * DefaultDpi * _monitorDpiRate * _zoom / (_imageDpiX * 100.0);
+                image_Original.Height = _imageHeight * DefaultDpi * _monitorDpiRate * _zoom / (_imageDpiY * 100.0);
+            }
         }
 
         protected override void OnSourceInitialized(EventArgs e) {
@@ -78,6 +141,13 @@ namespace ImageViewer {
                 LoadImage(files);
                 return;
             }
+        }
+
+        private void comboBox_Zoom_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (comboBox_Zoom.SelectedItem == null) {
+                return;
+            }
+            Zoom = ((ZoomItem)comboBox_Zoom.SelectedItem).Value;
         }
 
         private void comboBox_BitmapScalingMode_SelectionChanged(object sender, SelectionChangedEventArgs e) {
