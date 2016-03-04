@@ -9,6 +9,23 @@ namespace WpfUtility {
 
     public static class BitmapSourceExtensionMethods {
 
+        public static int GetStride(this BitmapSource source) {
+            if (source == null) {
+                return -1;
+            }
+            return source.PixelWidth * source.Format.ToBytesPerPixel();
+        }
+
+        public static byte[] GetPixels(this BitmapSource source) {
+            if (source == null) {
+                return null;
+            }
+            var stride = source.GetStride();
+            var pixels = new byte[stride * source.PixelHeight];
+            source.CopyPixels(pixels, stride, 0);
+            return pixels;
+        }
+
         /// <summary>
         /// Remove surrounding color that equals to top left from an image
         /// </summary>
