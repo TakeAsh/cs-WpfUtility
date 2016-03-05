@@ -99,7 +99,7 @@ namespace ImageViewer {
                 messageButton_Info.Show(ex.GetAllMessages(), MessageButton.Icons.Hand);
                 bitmap = new BitmapImage(_failedImageUri);
                 _imageDpiX = _imageDpiY = DefaultDpi;
-                _imageWidth = _imageHeight = 0;
+                _imageWidth = _imageHeight = 32;
                 label_Info_Pixel.Text = _format = "-";
                 _getPixel = null;
             }
