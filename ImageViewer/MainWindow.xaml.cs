@@ -40,6 +40,8 @@ namespace ImageViewer {
         private double _imageDpiY;
         private int _imageWidth;
         private int _imageHeight;
+        private string _format;
+        private Func<int, int, byte[]> _getPixel;
 
         public MainWindow() {
             InitializeComponent();
@@ -79,7 +81,7 @@ namespace ImageViewer {
             try {
                 bitmap = BitmapFrame.Create(
                    new Uri(filename, UriKind.Absolute),
-                   BitmapCreateOptions.None,
+                   BitmapCreateOptions.PreservePixelFormat,
                    BitmapCacheOption.OnLoad
                );
                 _imageDpiX = bitmap.DpiX > 0 ?
@@ -90,12 +92,16 @@ namespace ImageViewer {
                     DefaultDpi;
                 _imageWidth = bitmap.PixelWidth;
                 _imageHeight = bitmap.PixelHeight;
+                label_Info_Pixel.Text = _format = bitmap.Format.ToString();
+                _getPixel = bitmap.GetGetPixel();
             }
             catch (Exception ex) {
                 messageButton_Info.Show(ex.GetAllMessages(), MessageButton.Icons.Hand);
                 bitmap = new BitmapImage(_failedImageUri);
                 _imageDpiX = _imageDpiY = DefaultDpi;
                 _imageWidth = _imageHeight = 0;
+                label_Info_Pixel.Text = _format = "-";
+                _getPixel = null;
             }
             image_Original.Source = bitmap;
             image_Crop.Source = bitmap.Crop();
@@ -117,6 +123,22 @@ namespace ImageViewer {
                 image_Original.Width = _imageWidth * DefaultDpi * _monitorDpiRate * _zoom / (_imageDpiX * 100.0);
                 image_Original.Height = _imageHeight * DefaultDpi * _monitorDpiRate * _zoom / (_imageDpiY * 100.0);
             }
+        }
+
+        private void UpdateInfo(double x, double y) {
+            label_Info_XY.Text = "XY";
+            label_Info_Pixel.Text = _format;
+            if (x < 0 || y < 0 || _getPixel == null) {
+                return;
+            }
+            var pixelX = (int)(_imageWidth * x / image_Original.ActualWidth);
+            var pixelY = (int)(_imageHeight * y / image_Original.ActualHeight);
+            var pixel = _getPixel(pixelX, pixelY);
+            if (pixel == null) {
+                return;
+            }
+            label_Info_XY.Text = String.Join(", ", new[] { pixelX, pixelY });
+            label_Info_Pixel.Text = String.Join(", ", pixel);
         }
 
         protected override void OnSourceInitialized(EventArgs e) {
@@ -174,6 +196,32 @@ namespace ImageViewer {
                 "Monitor DPI updated: " + _settings.MonitorDpi,
                 MessageButton.Icons.Asterisk
             );
+        }
+
+        private void image_Original_MouseEnter(object sender, MouseEventArgs e) {
+            var image = sender as Image;
+            if (image == null) {
+                return;
+            }
+            var position = e.GetPosition(image);
+            UpdateInfo(position.X, position.Y);
+        }
+
+        private void image_Original_MouseMove(object sender, MouseEventArgs e) {
+            var image = sender as Image;
+            if (image == null) {
+                return;
+            }
+            var position = e.GetPosition(image);
+            UpdateInfo(position.X, position.Y);
+        }
+
+        private void image_Original_MouseLeave(object sender, MouseEventArgs e) {
+            var image = sender as Image;
+            if (image == null) {
+                return;
+            }
+            UpdateInfo(-1, -1);
         }
     }
 }

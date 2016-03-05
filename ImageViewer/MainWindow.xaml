@@ -20,22 +20,37 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
+                    <TextBlock
+                        x:Name="label_Info_XY"
+                        ToolTip="XY"
+                        Text="XY"
+                        Grid.Row="0" Grid.Column="0"
+                        TextAlignment="Right"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        x:Name="label_Info_Pixel"
+                        ToolTip="Pixel"
+                        Text="-"
+                        Grid.Row="1" Grid.Column="0"
+                        TextAlignment="Right"
+                        VerticalAlignment="Center" />
                     <ComboBox
                         x:Name="comboBox_Zoom"
                         ToolTip="Zoom"
-                        Grid.Row="0" Grid.Column="0"
+                        Grid.Row="0" Grid.Column="1"
                         HorizontalContentAlignment="Right"
                         SelectionChanged="comboBox_Zoom_SelectionChanged" />
                     <ComboBox
                         x:Name="comboBox_BitmapScalingMode"
                         ToolTip="BitmapScalingMode"
-                        Grid.Row="1" Grid.Column="0"
+                        Grid.Row="1" Grid.Column="1"
                         SelectionChanged="comboBox_BitmapScalingMode_SelectionChanged" />
                     <Button
                         x:Name="button_Config"
                         ToolTip="Config"
-                        Grid.Row="0" Grid.Column="1"
+                        Grid.Row="0" Grid.Column="2"
                         Click="button_Config_Click">
                         <Image
                             Source="/ImageViewer;component/Images/ConfigS.png" />
@@ -43,7 +58,7 @@
                     <wu:MessageButton
                         x:Name="messageButton_Info"
                         Size="Small"
-                        Grid.Row="1" Grid.Column="1" />
+                        Grid.Row="1" Grid.Column="2" />
                 </Grid>
             </wu:PaneledTab.LatterPanel>
 
@@ -54,7 +69,10 @@
                     HorizontalScrollBarVisibility="Auto"
                     VerticalScrollBarVisibility="Auto">
                     <Image
-                        x:Name="image_Original" />
+                        x:Name="image_Original"
+                        MouseEnter="image_Original_MouseEnter"
+                        MouseMove="image_Original_MouseMove"
+                        MouseLeave="image_Original_MouseLeave" />
                 </ScrollViewer>
             </TabItem>
 
