@@ -27,6 +27,40 @@ namespace WpfUtility {
         }
 
         /// <summary>
+        /// Return GetPixel(x,y) function
+        /// </summary>
+        /// <param name="source">Bitmap source</param>
+        /// <param name="pixels">Bitmap pixel flat array</param>
+        /// <returns>GetPixel(x,y) function</returns>
+        public static Func<int, int, byte[]> GetGetPixel(
+            this BitmapSource source,
+            byte[] pixels = null
+        ) {
+            if (source == null) {
+                return null;
+            }
+            var bytesPerPixel = source.Format.ToBytesPerPixel();
+            var stride = source.GetStride();
+            if (pixels == null) {
+                pixels = source.GetPixels();
+            } else if (pixels.Length != source.PixelWidth * source.PixelHeight * bytesPerPixel) {
+                return null;
+            }
+            return (x, y) => {
+                if (x < 0 || x >= source.PixelWidth ||
+                    y < 0 || y >= source.PixelHeight) {
+                    return null;
+                }
+                var position = x * bytesPerPixel + y * stride;
+                var pixel = new byte[bytesPerPixel];
+                for (var i = 0; i < bytesPerPixel; ++i) {
+                    pixel[i] = pixels[position + i];
+                }
+                return pixel;
+            };
+        }
+
+        /// <summary>
         /// Remove surrounding color that equals to top left from an image
         /// </summary>
         /// <param name="source">BitmapSource to be cropped.</param>
@@ -44,9 +78,8 @@ namespace WpfUtility {
             var width = source.PixelWidth;
             var height = source.PixelHeight;
             var bytesPerPixel = source.Format.ToBytesPerPixel();
-            var stride = width * bytesPerPixel;
-            var pixels = new byte[stride * height];
-            source.CopyPixels(pixels, stride, 0);
+            var stride = source.GetStride();
+            var pixels = source.GetPixels();
             Func<int, bool> equalsToTopLeft = (position) => {
                 for (var i = 0; i < bytesPerPixel; ++i) {
                     if (pixels[position + i] != pixels[i]) {
