@@ -12,27 +12,39 @@
     <Grid>
         <wu:PaneledTab>
             <wu:PaneledTab.LatterPanel>
-                <StackPanel
-                    Orientation="Horizontal">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <ComboBox
                         x:Name="comboBox_Zoom"
                         ToolTip="Zoom"
+                        Grid.Row="0" Grid.Column="0"
                         HorizontalContentAlignment="Right"
                         SelectionChanged="comboBox_Zoom_SelectionChanged" />
                     <ComboBox
                         x:Name="comboBox_BitmapScalingMode"
                         ToolTip="BitmapScalingMode"
+                        Grid.Row="1" Grid.Column="0"
                         SelectionChanged="comboBox_BitmapScalingMode_SelectionChanged" />
                     <Button
                         x:Name="button_Config"
-                        ToolTip="Config" Click="button_Config_Click">
+                        ToolTip="Config"
+                        Grid.Row="0" Grid.Column="1"
+                        Click="button_Config_Click">
                         <Image
                             Source="/ImageViewer;component/Images/ConfigS.png" />
                     </Button>
                     <wu:MessageButton
                         x:Name="messageButton_Info"
-                        Size="Small" />
-                </StackPanel>
+                        Size="Small"
+                        Grid.Row="1" Grid.Column="1" />
+                </Grid>
             </wu:PaneledTab.LatterPanel>
 
             <TabItem
