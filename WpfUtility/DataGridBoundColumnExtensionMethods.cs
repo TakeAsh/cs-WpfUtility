@@ -10,10 +10,13 @@ namespace WpfUtility {
 
     public static class DataGridBoundColumnExtensionMethods {
 
-        public static Style getCurrentStyle(
+        public static Style GetCurrentStyle(
             this DataGridBoundColumn column,
             Type type
         ) {
+            if (column == null) {
+                return null;
+            }
             return column.ElementStyle.Setters.Aggregate(
                 new Style(type),
                 (current, setter) => {

@@ -195,7 +195,7 @@ namespace WpfUtility {
             var checkBoxColumn = e.Column as DataGridCheckBoxColumn;
             if (textColumn != null) {
                 textColumn.Binding.StringFormat = attr.StringFormat;
-                var style = textColumn.getCurrentStyle(typeof(DataGridCell));
+                var style = textColumn.GetCurrentStyle(typeof(DataGridCell));
                 if (attr.ForegroundValue != null) {
                     style.Setters.Add(new Setter(DataGridCell.ForegroundProperty, attr.ForegroundValue));
                 }
@@ -204,7 +204,7 @@ namespace WpfUtility {
                 }
                 textColumn.CellStyle = style;
             } else if (checkBoxColumn != null) {
-                var style = checkBoxColumn.getCurrentStyle(typeof(CheckBox));
+                var style = checkBoxColumn.GetCurrentStyle(typeof(CheckBox));
                 style.Setters.Add(new Setter(Control.VerticalAlignmentProperty, VerticalAlignment.Center));
                 checkBoxColumn.ElementStyle = style;
             }
