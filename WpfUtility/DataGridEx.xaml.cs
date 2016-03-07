@@ -201,6 +201,12 @@ namespace WpfUtility {
                 }
                 if (attr.BackgroundValue != null) {
                     style.Setters.Add(new Setter(DataGridCell.BackgroundProperty, attr.BackgroundValue));
+                    for (var i = style.Setters.Count - 1; i >= 0; --i) {
+                        var setter = style.Setters[i] as Setter;
+                        if (setter.Property == FrameworkElement.MarginProperty) {
+                            style.Setters.RemoveAt(i);
+                        }
+                    }
                 }
                 textColumn.CellStyle = style;
             } else if (checkBoxColumn != null) {
