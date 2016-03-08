@@ -192,4 +192,7 @@
   <data name="MainWindow_group_PrintColor" xml:space="preserve">
     <value>カラー</value>
   </data>
+  <data name="MainWindow_menuItem_Quit_Header" xml:space="preserve">
+    <value>終了</value>
+  </data>
 </root>

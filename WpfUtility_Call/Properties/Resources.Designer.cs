@@ -178,6 +178,15 @@ namespace WpfUtility_Call.Properties {
         }
         
         /// <summary>
+        ///   Quit に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_menuItem_Quit_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_menuItem_Quit_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Show Monitor DPI に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWindow_menuItem_ShowMonitorDpi_Header {

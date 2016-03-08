@@ -21,6 +21,11 @@
                         Header="{wu:Tr MainWindow_menuItem_ShowMonitorDpi_Header}"
                         ImageSource="Images\LargeIcon.png"
                         Click="menuItem_ShowMonitorDpi_Click" />
+                    <r:RibbonApplicationMenuItem
+                        x:Name="menuItem_Quit"
+                        Header="{wu:Tr MainWindow_menuItem_Quit_Header}"
+                        ImageSource="/WpfUtility_Call;component/Images/LargeIcon.png"
+                        Click="menuItem_Quit_Click" />
                 </r:RibbonApplicationMenu>
             </r:Ribbon.ApplicationMenu>
 

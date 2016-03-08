@@ -199,6 +199,10 @@ namespace WpfUtility_Call {
             _monitorDpi = new MonitorDpi(this);
         }
 
+        private void menuItem_Quit_Click(object sender, RoutedEventArgs e) {
+            this.Close();
+        }
+
         private void menuItem_ShowMonitorDpi_Click(object sender, RoutedEventArgs e) {
             _monitorDpi.Update();
             messageButton_QATB.Show(
