@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using TakeAshUtility;
 using WpfUtility;
 
@@ -75,37 +76,45 @@ namespace ImageViewer {
         }
 
         private void LoadImage(string filename) {
-            label_Notice.Visibility = Visibility.Collapsed;
+            label_Notice.Text = "Processing...";
+            label_Notice.Visibility = Visibility.Visible;
             messageButton_Info.Show(filename, MessageButton.Icons.Asterisk);
-            BitmapSource bitmap = null;
-            try {
-                bitmap = BitmapFrame.Create(
-                   new Uri(filename, UriKind.Absolute),
-                   BitmapCreateOptions.PreservePixelFormat,
-                   BitmapCacheOption.OnLoad
-               );
-                _imageDpiX = bitmap.DpiX > 0 ?
-                    bitmap.DpiX :
-                    DefaultDpi;
-                _imageDpiY = bitmap.DpiY > 0 ?
-                    bitmap.DpiY :
-                    DefaultDpi;
-                _imageWidth = bitmap.PixelWidth;
-                _imageHeight = bitmap.PixelHeight;
-                label_Info_Pixel.Text = _format = bitmap.Format.ToString();
-                _getPixel = bitmap.GetGetPixel();
-            }
-            catch (Exception ex) {
-                messageButton_Info.Show(ex.GetAllMessages(), MessageButton.Icons.Hand);
-                bitmap = new BitmapImage(_failedImageUri);
-                _imageDpiX = _imageDpiY = DefaultDpi;
-                _imageWidth = _imageHeight = 32;
-                label_Info_Pixel.Text = _format = "-";
-                _getPixel = null;
-            }
-            image_Original.Source = bitmap;
-            image_Crop.Source = bitmap.Crop();
-            ApplyZoom();
+            Dispatcher.BeginInvoke(
+                DispatcherPriority.Background,
+                new Action(() => {
+                    BitmapSource bitmap = null;
+                    try {
+                        bitmap = BitmapFrame.Create(
+                           new Uri(filename, UriKind.Absolute),
+                           BitmapCreateOptions.PreservePixelFormat,
+                           BitmapCacheOption.OnLoad
+                       );
+                        _imageDpiX = bitmap.DpiX > 0 ?
+                            bitmap.DpiX :
+                            DefaultDpi;
+                        _imageDpiY = bitmap.DpiY > 0 ?
+                            bitmap.DpiY :
+                            DefaultDpi;
+                        _imageWidth = bitmap.PixelWidth;
+                        _imageHeight = bitmap.PixelHeight;
+                        label_Info_Pixel.Text = _format = bitmap.Format.ToString();
+                        _getPixel = bitmap.GetGetPixel();
+                    }
+                    catch (Exception ex) {
+                        messageButton_Info.Show(ex.GetAllMessages(), MessageButton.Icons.Hand);
+                        bitmap = new BitmapImage(_failedImageUri);
+                        _imageDpiX = _imageDpiY = DefaultDpi;
+                        _imageWidth = _imageHeight = 32;
+                        label_Info_Pixel.Text = _format = "-";
+                        _getPixel = null;
+                    }
+                    image_Original.Source = bitmap;
+                    image_Crop.Source = bitmap.Crop();
+                    ApplyZoom();
+                    label_Notice.Text = null;
+                    label_Notice.Visibility = Visibility.Collapsed;
+                })
+            );
         }
 
         private void ApplyZoom() {

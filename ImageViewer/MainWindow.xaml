@@ -89,6 +89,8 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="32"
-            TextWrapping="Wrap" />
+            TextWrapping="Wrap"
+            Background="#C0FFFFFF"
+            Padding="8" />
     </Grid>
 </Window>
