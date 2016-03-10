@@ -114,6 +114,7 @@ namespace WpfUtility {
 
         public MessageButton() {
             InitializeComponent();
+            CompositionTarget.Rendering += OnRender;
             Text = null;
             UpdateIcon();
         }
@@ -148,6 +149,8 @@ namespace WpfUtility {
             };
         }
 
+        public bool IsDirty { get; set; }
+
         public ButtonSizes Size {
             get { return _size; }
             set { _size = value; UpdateIcon(); }
@@ -178,6 +181,7 @@ namespace WpfUtility {
                     this.IsChecked = false;
                     this.IsEnabled = false;
                 }
+                IsDirty = true;
             }
         }
 
@@ -215,7 +219,18 @@ namespace WpfUtility {
         public void Show(string text, Icons icon = default(Icons)) {
             Text = text;
             Icon = icon;
-            if (String.IsNullOrEmpty(text)) {
+        }
+
+        public void Show(IEnumerable<string> list, Icons icon = default(Icons)) {
+            Show(String.Join("\n", list), icon);
+        }
+
+        private void OnRender(object sender, EventArgs e) {
+            if (!IsDirty) {
+                return;
+            }
+            IsDirty = false;
+            if (String.IsNullOrEmpty(Text)) {
                 this.IsChecked = false;
                 return;
             }
@@ -224,13 +239,9 @@ namespace WpfUtility {
             } else {
                 this.IsChecked = true;
             }
-            if (SoundDictionary.ContainsKey(icon)) {
-                SoundDictionary[icon].Play();
+            if (SoundDictionary.ContainsKey(Icon)) {
+                SoundDictionary[Icon].Play();
             }
-        }
-
-        public void Show(IEnumerable<string> list, Icons icon = default(Icons)) {
-            Show(String.Join("\n", list), icon);
         }
 
         private void UpdateIcon() {
