@@ -25,8 +25,11 @@ namespace WpfUtility {
         /// </summary>
         /// <typeparam name="TWindow">Window type with IResizeEvent</typeparam>
         /// <param name="window">Window</param>
-        public static void AddResizeHook<TWindow>(this TWindow window)
-            where TWindow : Window, IResizeEvent {
+        public static void AddResizeHook<TWindow>(
+            this TWindow window,
+            EventHandler resizingEventHandler = null,
+            EventHandler resizedEventHandler = null
+        ) where TWindow : Window, IResizeEvent {
 
             if (window == null) {
                 return;
@@ -53,6 +56,12 @@ namespace WpfUtility {
                     return IntPtr.Zero;
                 });
             };
+            if (resizingEventHandler != null) {
+                window.Resizing += resizingEventHandler;
+            }
+            if (resizedEventHandler != null) {
+                window.Resized += resizedEventHandler;
+            }
         }
     }
 }
