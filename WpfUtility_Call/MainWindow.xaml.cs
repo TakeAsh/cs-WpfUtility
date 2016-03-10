@@ -99,24 +99,27 @@ namespace WpfUtility_Call {
             comboBox_PrintColor.AdjustMaxItemWidth();
             comboBox_PrintColor.SelectedItem = PrintOutputColorHelper.Default;
 
-            this.AddResizeHook();
-            this.Resizing += (sender, e) => {
-                var window = sender as RibbonWindow;
-                if (window == null) {
-                    return;
+            this.AddResizeHook(
+                (sender, e) => {
+                    var window = sender as RibbonWindow;
+                    if (window == null) {
+                        return;
+                    }
+                    window.Title = String.Join(", ", new[] {
+                        Application.Current.MainWindow.Left,
+                        Application.Current.MainWindow.Top,
+                        Application.Current.MainWindow.ActualWidth,
+                        Application.Current.MainWindow.ActualHeight,
+                    });
+                },
+                (sender, e) => {
+                    var window = sender as RibbonWindow;
+                    if (window == null) {
+                        return;
+                    }
+                    window.Title = "WpfUtility";
                 }
-                window.Title = Application.Current.MainWindow.Left + ", " +
-                    Application.Current.MainWindow.Top + ", " +
-                    Application.Current.MainWindow.ActualWidth + ", " +
-                    Application.Current.MainWindow.ActualHeight;
-            };
-            this.Resized += (sender, e) => {
-                var window = sender as RibbonWindow;
-                if (window == null) {
-                    return;
-                }
-                window.Title = "WpfUtility";
-            };
+            );
         }
 
         public PrintStatus PrintStatus {
