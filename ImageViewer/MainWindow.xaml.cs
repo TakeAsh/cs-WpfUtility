@@ -22,7 +22,8 @@ namespace ImageViewer {
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
     public partial class MainWindow :
-        Window {
+        Window,
+        IMouseHWheelEvent {
 
         const double DefaultDpi = 96;
         const double MinDpi = DefaultDpi * 0.75;
@@ -46,6 +47,13 @@ namespace ImageViewer {
 
         public MainWindow() {
             InitializeComponent();
+
+            this.AddMouseHWheelHook((sender, e) => {
+                this.Title = "H:" + e.Delta.ToString();
+            });
+            this.MouseWheel += (sender, e) => {
+                this.Title = "V:" + e.Delta.ToString();
+            };
 
             MonitorDpi = _settings.MonitorDpi;
 
@@ -232,5 +240,16 @@ namespace ImageViewer {
             }
             UpdateInfo(-1, -1);
         }
+
+#pragma warning disable 0067
+
+        #region IMouseHWheelEvent
+
+        public event MouseWheelEventHandler MouseHWheel;
+
+        #endregion
+
+#pragma warning restore 0067
+
     }
 }
