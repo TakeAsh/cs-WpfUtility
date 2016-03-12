@@ -258,6 +258,13 @@ namespace ImageViewer {
             comboBox_Zoom.SelectedIndex = (comboBox_Zoom.SelectedIndex + delta).Clamp(1, _zoomItems.Count - 1);
         }
 
+        private void OnMouseDown(object sender, MouseButtonEventArgs e) {
+            if (e.MiddleButton != MouseButtonState.Pressed) {
+                return;
+            }
+            comboBox_Zoom.SelectedIndex = 0;
+        }
+
 #pragma warning disable 0067
 
         #region IMouseHWheelEvent
