@@ -49,10 +49,18 @@ namespace ImageViewer {
             InitializeComponent();
 
             this.AddMouseHWheelHook((sender, e) => {
-                this.Title = "H:" + e.Delta.ToString();
+                var message = "H:" + e.Delta.ToString();
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) {
+                    message += " Ctrl";
+                }
+                this.Title = message;
             });
             this.MouseWheel += (sender, e) => {
-                this.Title = "V:" + e.Delta.ToString();
+                var message = "V:" + e.Delta.ToString();
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) {
+                    message += " Ctrl";
+                }
+                this.Title = message;
             };
 
             MonitorDpi = _settings.MonitorDpi;
