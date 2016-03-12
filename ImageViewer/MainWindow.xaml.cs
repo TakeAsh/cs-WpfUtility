@@ -35,6 +35,7 @@ namespace ImageViewer {
         private static readonly Uri _failedImageUri = new Uri("/ImageViewer;component/Images/FailedL.png", UriKind.Relative);
 
         private WindowPlacement _placement;
+        private List<ZoomItem> _zoomItems;
         private double _monitorDpi = DefaultDpi;
         private double _monitorDpiRate = 1;
         private double _zoom = 0;
@@ -65,7 +66,7 @@ namespace ImageViewer {
 
             MonitorDpi = _settings.MonitorDpi;
 
-            comboBox_Zoom.ItemsSource = _settings.ZoomItems.ToZoomItems();
+            comboBox_Zoom.ItemsSource = _zoomItems = _settings.ZoomItems.ToZoomItems();
             comboBox_Zoom.SelectedIndex = 0;
 
             comboBox_BitmapScalingMode.ItemsSource = Enum.GetValues(typeof(BitmapScalingMode))
@@ -247,6 +248,14 @@ namespace ImageViewer {
                 return;
             }
             UpdateInfo(-1, -1);
+        }
+
+        private void OnMouseWheel(object sender, MouseWheelEventArgs e) {
+            if (!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl)) {
+                return;
+            }
+            var delta = Math.Sign(e.Delta);
+            comboBox_Zoom.SelectedIndex = (comboBox_Zoom.SelectedIndex + delta).Clamp(1, _zoomItems.Count - 1);
         }
 
 #pragma warning disable 0067
