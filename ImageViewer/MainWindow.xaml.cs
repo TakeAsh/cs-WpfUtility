@@ -256,6 +256,7 @@ namespace ImageViewer {
             }
             var delta = Math.Sign(e.Delta);
             comboBox_Zoom.SelectedIndex = (comboBox_Zoom.SelectedIndex + delta).Clamp(1, _zoomItems.Count - 1);
+            e.Handled = true;
         }
 
         private void OnMouseUp(object sender, MouseButtonEventArgs e) {
@@ -263,6 +264,7 @@ namespace ImageViewer {
                 return;
             }
             comboBox_Zoom.SelectedIndex = 0;
+            e.Handled = true;
         }
 
 #pragma warning disable 0067
