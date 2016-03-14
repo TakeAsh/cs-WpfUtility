@@ -243,12 +243,17 @@ namespace ImageViewer {
         }
 
         private void OnMouseWheel(object sender, MouseWheelEventArgs e) {
-            if (!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl)) {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) {
+                var delta = Math.Sign(e.Delta);
+                comboBox_Zoom.SelectedIndex = (comboBox_Zoom.SelectedIndex + delta).Clamp(1, _zoomItems.Count - 1);
+                e.Handled = true;
                 return;
             }
-            var delta = Math.Sign(e.Delta);
-            comboBox_Zoom.SelectedIndex = (comboBox_Zoom.SelectedIndex + delta).Clamp(1, _zoomItems.Count - 1);
-            e.Handled = true;
+            if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)) {
+                scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + e.Delta / 2);
+                e.Handled = true;
+                return;
+            }
         }
 
         private void OnMouseUp(object sender, MouseButtonEventArgs e) {
