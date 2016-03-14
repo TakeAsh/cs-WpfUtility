@@ -36,6 +36,7 @@ namespace ImageViewer {
 
         private WindowPlacement _placement;
         private List<ZoomItem> _zoomItems;
+        private ZoomItem _zoom100;
         private double _monitorDpi = DefaultDpi;
         private double _monitorDpiRate = 1;
         private double _zoom = 0;
@@ -58,6 +59,7 @@ namespace ImageViewer {
 
             comboBox_Zoom.ItemsSource = _zoomItems = _settings.ZoomItems.ToZoomItems();
             comboBox_Zoom.SelectedIndex = 0;
+            _zoom100 = _zoomItems.FirstOrDefault(item => item.Value == 100);
 
             comboBox_BitmapScalingMode.ItemsSource = Enum.GetValues(typeof(BitmapScalingMode))
                 .OfType<BitmapScalingMode>()
@@ -253,7 +255,11 @@ namespace ImageViewer {
             if (e.ChangedButton != MouseButton.Middle) {
                 return;
             }
-            comboBox_Zoom.SelectedIndex = 0;
+            if (comboBox_Zoom.SelectedIndex == 0) {
+                comboBox_Zoom.SelectedItem = _zoom100;
+            } else {
+                comboBox_Zoom.SelectedIndex = 0;
+            }
             e.Handled = true;
         }
 
