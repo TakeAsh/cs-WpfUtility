@@ -73,8 +73,8 @@
                         MouseEnter="image_Original_MouseEnter"
                         MouseMove="image_Original_MouseMove"
                         MouseLeave="image_Original_MouseLeave"
-                        MouseWheel="OnMouseWheel"
-                        MouseUp="OnMouseUp" />
+                        MouseWheel="image_Original_MouseWheel"
+                        MouseUp="image_Original_MouseUp" />
                 </ScrollViewer>
             </TabItem>
 

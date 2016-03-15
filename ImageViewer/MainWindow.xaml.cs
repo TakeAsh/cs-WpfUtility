@@ -242,7 +242,7 @@ namespace ImageViewer {
             UpdateInfo(-1, -1);
         }
 
-        private void OnMouseWheel(object sender, MouseWheelEventArgs e) {
+        private void image_Original_MouseWheel(object sender, MouseWheelEventArgs e) {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) {
                 var delta = Math.Sign(e.Delta);
                 comboBox_Zoom.SelectedIndex = (comboBox_Zoom.SelectedIndex + delta).Clamp(1, _zoomItems.Count - 1);
@@ -256,7 +256,7 @@ namespace ImageViewer {
             }
         }
 
-        private void OnMouseUp(object sender, MouseButtonEventArgs e) {
+        private void image_Original_MouseUp(object sender, MouseButtonEventArgs e) {
             if (e.ChangedButton != MouseButton.Middle) {
                 return;
             }
