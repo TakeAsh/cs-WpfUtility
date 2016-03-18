@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using TakeAshUtility;
 
 namespace WpfUtility {
 
     public static class BitmapSourceExtensionMethods {
+
+        public static string Message { get; private set; }
 
         public static int GetStride(this BitmapSource source) {
             if (source == null) {
@@ -16,14 +19,31 @@ namespace WpfUtility {
             return source.PixelWidth * source.Format.ToBytesPerPixel();
         }
 
+        /// <summary>
+        /// Get pixels from BitmapSource as byte[].
+        /// </summary>
+        /// <param name="source">BitmapSource</param>
+        /// <returns>
+        /// <list type="bullet">
+        /// <item>byte[], if success.</item>
+        /// <item>null, if fail, and set error message to Message.</item>
+        /// </list>
+        /// </returns>
         public static byte[] GetPixels(this BitmapSource source) {
+            Message = null;
             if (source == null) {
                 return null;
             }
             var stride = source.GetStride();
-            var pixels = new byte[stride * source.PixelHeight];
-            source.CopyPixels(pixels, stride, 0);
-            return pixels;
+            try {
+                var pixels = new byte[stride * source.PixelHeight];
+                source.CopyPixels(pixels, stride, 0);
+                return pixels;
+            }
+            catch (Exception ex) {
+                Message = ex.GetAllMessages();
+                return null;
+            }
         }
 
         /// <summary>
