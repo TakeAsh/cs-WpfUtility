@@ -83,6 +83,26 @@
                 <Image
                     x:Name="image_Crop" />
             </TabItem>
+
+            <TabItem
+                Header="Frame">
+                <DockPanel>
+                    <Slider
+                        x:Name="slider_Frame"
+                        DockPanel.Dock="Left"
+                        AutoToolTipPlacement="TopLeft"
+                        IsDirectionReversed="True"
+                        IsMoveToPointEnabled="True"
+                        IsSnapToTickEnabled="True"
+                        Maximum="0"
+                        Orientation="Vertical"
+                        TickPlacement="TopLeft"
+                        ValueChanged="slider_Frame_ValueChanged"
+                        MouseWheel="slider_Frame_MouseWheel" />
+                    <Image
+                        x:Name="image_Frame" />
+                </DockPanel>
+            </TabItem>
         </wu:PaneledTab>
         
         <TextBlock
