@@ -93,11 +93,12 @@ namespace ImageViewer {
                 new Action(() => {
                     BitmapSource bitmap = null;
                     try {
-                        bitmap = BitmapFrame.Create(
-                           new Uri(filename, UriKind.Absolute),
-                           BitmapCreateOptions.PreservePixelFormat,
-                           BitmapCacheOption.OnLoad
-                       );
+                        var decoder = BitmapDecoder.Create(
+                            new Uri(filename, UriKind.Absolute),
+                            BitmapCreateOptions.PreservePixelFormat,
+                            BitmapCacheOption.OnLoad
+                        );
+                        bitmap = decoder.Frames.LastOrDefault();
                         _imageDpiX = bitmap.DpiX > 0 ?
                             bitmap.DpiX :
                             DefaultDpi;
