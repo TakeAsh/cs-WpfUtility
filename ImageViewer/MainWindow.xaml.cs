@@ -284,7 +284,7 @@ namespace ImageViewer {
             image_Frame.Source = _frames[(int)slider_Frame.Value];
         }
 
-        private void slider_Frame_MouseWheel(object sender, MouseWheelEventArgs e) {
+        private void Frame_MouseWheel(object sender, MouseWheelEventArgs e) {
             slider_Frame.Value = (slider_Frame.Value - Math.Sign(e.Delta)).Clamp(0, _frames.Count - 1);
         }
 

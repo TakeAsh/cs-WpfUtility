@@ -98,9 +98,10 @@
                         Orientation="Vertical"
                         TickPlacement="TopLeft"
                         ValueChanged="slider_Frame_ValueChanged"
-                        MouseWheel="slider_Frame_MouseWheel" />
+                        MouseWheel="Frame_MouseWheel" />
                     <Image
-                        x:Name="image_Frame" />
+                        x:Name="image_Frame"
+                        MouseWheel="Frame_MouseWheel" />
                 </DockPanel>
             </TabItem>
         </wu:PaneledTab>
