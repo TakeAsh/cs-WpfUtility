@@ -166,7 +166,7 @@ namespace WpfUtility {
                 source.DpiX,
                 source.DpiY,
                 source.Format,
-                null,
+                source.Palette,
                 croppedPexels,
                 croppedStride
             );
