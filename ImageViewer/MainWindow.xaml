@@ -99,9 +99,9 @@
                         TickPlacement="TopLeft"
                         ValueChanged="slider_Frame_ValueChanged"
                         MouseWheel="Frame_MouseWheel" />
-                    <Image
-                        x:Name="image_Frame"
-                        MouseWheel="Frame_MouseWheel" />
+                    <Grid
+                        x:Name="panel_Frames">
+                    </Grid>
                 </DockPanel>
             </TabItem>
         </wu:PaneledTab>

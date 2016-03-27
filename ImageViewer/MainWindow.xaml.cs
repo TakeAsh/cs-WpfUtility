@@ -46,7 +46,7 @@ namespace ImageViewer {
         private int _imageHeight;
         private string _format;
         private Func<int, int, byte[]> _getPixel;
-        private List<BitmapFrame> _frames;
+        private List<Image> _frames;
 
         public MainWindow() {
             InitializeComponent();
@@ -110,9 +110,21 @@ namespace ImageViewer {
                         _imageHeight = bitmap.PixelHeight;
                         label_Info_Pixel.Text = _format = bitmap.Format.ToString();
                         _getPixel = bitmap.GetGetPixel();
+                        if (_frames != null) {
+                            _frames.ForEach(image => image.MouseWheel -= Frame_MouseWheel);
+                        }
+                        panel_Frames.Children.Clear();
                         _frames = decoder.Frames
                             .OfType<BitmapFrame>()
-                            .ToList();
+                            .Select(frame => {
+                                var image = new Image() {
+                                    Source = frame,
+                                    Visibility = Visibility.Collapsed,
+                                };
+                                image.MouseWheel += Frame_MouseWheel;
+                                return image;
+                            }).ToList();
+                        panel_Frames.Children.SafeAdd(_frames);
                     }
                     catch (Exception ex) {
                         messageButton_Info.Show(ex.GetAllMessages(), MessageButton.Icons.Hand);
@@ -129,7 +141,7 @@ namespace ImageViewer {
                     label_Notice.Visibility = Visibility.Collapsed;
                     slider_Frame.Maximum = _frames.Count - 1;
                     slider_Frame.Value = 0;
-                    image_Frame.Source = _frames[0];
+                    _frames[0].Visibility = Visibility.Visible;
                 })
             );
         }
@@ -205,7 +217,10 @@ namespace ImageViewer {
             var bitmapScalingMode = (BitmapScalingMode)comboBox_BitmapScalingMode.SelectedItem;
             RenderOptions.SetBitmapScalingMode(image_Original, bitmapScalingMode);
             RenderOptions.SetBitmapScalingMode(image_Crop, bitmapScalingMode);
-            RenderOptions.SetBitmapScalingMode(image_Frame, bitmapScalingMode);
+            if (_frames == null) {
+                return;
+            }
+            _frames.ForEach(frame => RenderOptions.SetBitmapScalingMode(frame, bitmapScalingMode));
         }
 
         private void button_Config_Click(object sender, RoutedEventArgs e) {
@@ -281,7 +296,12 @@ namespace ImageViewer {
             if (_frames == null || _frames.Count == 0) {
                 return;
             }
-            image_Frame.Source = _frames[(int)slider_Frame.Value];
+            var index = (int)slider_Frame.Value;
+            for (var i = 0; i < _frames.Count; ++i) {
+                _frames[i].Visibility = i <= index ?
+                    Visibility.Visible :
+                    Visibility.Collapsed;
+            }
         }
 
         private void Frame_MouseWheel(object sender, MouseWheelEventArgs e) {
