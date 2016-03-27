@@ -110,19 +110,12 @@ namespace ImageViewer {
                         _imageHeight = bitmap.PixelHeight;
                         label_Info_Pixel.Text = _format = bitmap.Format.ToString();
                         _getPixel = bitmap.GetGetPixel();
-                        if (_frames != null) {
-                            _frames.ForEach(image => image.MouseWheel -= Frame_MouseWheel);
-                        }
                         panel_Frames.Children.Clear();
                         _frames = decoder.Frames
                             .OfType<BitmapFrame>()
-                            .Select(frame => {
-                                var image = new Image() {
-                                    Source = frame,
-                                    Visibility = Visibility.Collapsed,
-                                };
-                                image.MouseWheel += Frame_MouseWheel;
-                                return image;
+                            .Select(frame => new Image() {
+                                Source = frame,
+                                Visibility = Visibility.Collapsed,
                             }).ToList();
                         panel_Frames.Children.SafeAdd(_frames);
                     }

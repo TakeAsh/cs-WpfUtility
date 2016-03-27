@@ -100,7 +100,8 @@
                         ValueChanged="slider_Frame_ValueChanged"
                         MouseWheel="Frame_MouseWheel" />
                     <Grid
-                        x:Name="panel_Frames">
+                        x:Name="panel_Frames"
+                        MouseWheel="Frame_MouseWheel">
                     </Grid>
                 </DockPanel>
             </TabItem>
