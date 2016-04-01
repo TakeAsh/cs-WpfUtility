@@ -202,6 +202,9 @@ namespace WpfUtility {
                     };
                     FixedPage.SetLeft(panel, _printMarginLeft);
                     FixedPage.SetTop(panel, _printMarginTop);
+                    panel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    panel.Arrange(new Rect(0, 0, printWidth, printHeight));
+                    panel.UpdateLayout();
                     return panel;
                 }).Select(panel => new FixedPage() {
                     Width = mediaWidth,
