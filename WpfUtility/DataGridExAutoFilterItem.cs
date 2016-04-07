@@ -30,7 +30,7 @@ namespace WpfUtility {
                 UpdateToolTip();
                 Parent.Refresh();
             };
-            Menu.Items.Add<UIElement>(InitialMenuItems);
+            Menu.Items.AddRange<UIElement>(InitialMenuItems);
             ToolTipText = new TextBlock() {
                 Text = _resources.DataGridEx_ColumnHeader_All,
             };
@@ -120,8 +120,8 @@ namespace WpfUtility {
 
         public void Update() {
             Menu.Items.Clear();
-            Menu.Items.Add<UIElement>(InitialMenuItems);
-            Menu.Items.Add<UIElement>(Values
+            Menu.Items.AddRange<UIElement>(InitialMenuItems);
+            Menu.Items.AddRange<UIElement>(Values
                 .Keys
                 .OrderBy(item => item)
                 .Select(item => CreateValueSelectCheckBox(item))
