@@ -14,12 +14,6 @@
         <Setter Property="Margin" Value="1" />
     </Style>
 
-    <Image x:Key="LeftTriangle" Source="Images/LeftTriangle16.png" />
-    <Image x:Key="RightTriangle" Source="Images/RightTriangle16.png" />
-    <Image x:Key="UpTriangle" Source="Images/UpTriangle16.png" />
-    <Image x:Key="DownTriangle" Source="Images/DownTriangle16.png" />
-    <Image x:Key="Square" Source="Images/Square16.png" />
-    
     <Style TargetType="{x:Type wu:GridSplitterEx}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="IsTabStop" Value="true" />
@@ -101,15 +95,15 @@
                                 <Image
                                     x:Name="HorizontalUpButton"
                                     Style="{StaticResource SplitterButtonStyle}"
-                                    Source="Images/UpTriangle16.png" />
+                                    Source="Images/UpTriangle16_Black.png" />
                                 <Image
                                     x:Name="HorizontalMiddleButton"
                                     Style="{StaticResource SplitterButtonStyle}"
-                                    Source="Images/Square16.png" />
+                                    Source="Images/Square16_Black.png" />
                                 <Image
                                     x:Name="HorizontalDownButton"
                                     Style="{StaticResource SplitterButtonStyle}"
-                                    Source="Images/DownTriangle16.png" />
+                                    Source="Images/DownTriangle16_Black.png" />
                             </StackPanel>
                         </Grid>
 
@@ -123,15 +117,15 @@
                                 <Image
                                     x:Name="VerticalLeftButton"
                                     Style="{DynamicResource SplitterButtonStyle}"
-                                    Source="Images/LeftTriangle16.png" />
+                                    Source="Images/LeftTriangle16_Black.png" />
                                 <Image
                                     x:Name="VerticalMiddleButton"
                                     Style="{StaticResource SplitterButtonStyle}"
-                                    Source="Images/Square16.png" />
+                                    Source="Images/Square16_Black.png" />
                                 <Image
                                     x:Name="VerticalRightButton"
                                     Style="{StaticResource SplitterButtonStyle}"
-                                    Source="Images/RightTriangle16.png" />
+                                    Source="Images/RightTriangle16_Black.png" />
                             </StackPanel>
                         </Grid>
 

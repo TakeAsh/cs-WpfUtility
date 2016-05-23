@@ -30,12 +30,22 @@ namespace WpfUtility {
 
         #region Constants
 
+        public enum ButtonColors {
+            Black,
+            White,
+        }
+
         const string HorizontalUpButtonName = "HorizontalUpButton";
         const string HorizontalMiddleButtonName = "HorizontalMiddleButton";
         const string HorizontalDownButtonName = "HorizontalDownButton";
         const string VerticalLeftButtonName = "VerticalLeftButton";
         const string VerticalMiddleButtonName = "VerticalMiddleButton";
         const string VerticalRightButtonName = "VerticalRightButton";
+
+        private static readonly string[] _buttonNames = new[] {
+            HorizontalUpButtonName, HorizontalMiddleButtonName, HorizontalDownButtonName,
+            VerticalLeftButtonName, VerticalMiddleButtonName, VerticalRightButtonName,
+        };
 
         #endregion
 
@@ -86,6 +96,62 @@ namespace WpfUtility {
         public bool UseHorizontally {
             get { return (bool)GetValue(UseHorizontallyProperty); }
             set { SetValue(UseHorizontallyProperty, value); }
+        }
+
+        #endregion
+
+        #region Button Color
+
+        public static readonly DependencyProperty ButtonColorProperty = DependencyProperty.Register(
+            "ButtonColor",
+            typeof(ButtonColors),
+            typeof(GridSplitterEx),
+            new FrameworkPropertyMetadata(ButtonColors.Black, OnButtonColorsChanged)
+        );
+
+        public ButtonColors ButtonColor {
+            get { return (ButtonColors)GetValue(ButtonColorProperty); }
+            set { SetValue(ButtonColorProperty, value); }
+        }
+
+        private static void OnButtonColorsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            var gridSplitterEx = d as GridSplitterEx;
+            if (gridSplitterEx == null) {
+                return;
+            }
+            gridSplitterEx.SetButtonColor((ButtonColors)e.NewValue);
+        }
+
+        private void SetButtonColor(ButtonColors color) {
+            var colorName = color.ToString();
+            _buttonNames.ForEach(name => {
+                var button = GetTemplateChild(name) as Image;
+                if (button == null) {
+                    return;
+                }
+                var resource = "";
+                switch (name) {
+                    case HorizontalUpButtonName:
+                        resource = "UpTriangle16_" + colorName + ".png";
+                        break;
+                    case HorizontalMiddleButtonName:
+                        resource = "Square16_" + colorName + ".png";
+                        break;
+                    case HorizontalDownButtonName:
+                        resource = "DownTriangle16_" + colorName + ".png";
+                        break;
+                    case VerticalLeftButtonName:
+                        resource = "LeftTriangle16_" + colorName + ".png";
+                        break;
+                    case VerticalMiddleButtonName:
+                        resource = "Square16_" + colorName + ".png";
+                        break;
+                    case VerticalRightButtonName:
+                        resource = "RightTriangle16_" + colorName + ".png";
+                        break;
+                }
+                button.Source = ResourceHelper.GetImage("Images/" + resource);
+            });
         }
 
         #endregion
@@ -221,10 +287,7 @@ namespace WpfUtility {
         public override void OnApplyTemplate() {
             base.OnApplyTemplate();
 
-            new[] {
-                HorizontalUpButtonName, HorizontalMiddleButtonName, HorizontalDownButtonName,
-                VerticalLeftButtonName, VerticalMiddleButtonName, VerticalRightButtonName,
-            }.ForEach(name => {
+            _buttonNames.ForEach(name => {
                 var button = GetTemplateChild(name) as Image;
                 if (button == null) {
                     return;
@@ -264,6 +327,7 @@ namespace WpfUtility {
                         break;
                 }
             });
+            SetButtonColor(ButtonColor);
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e) {

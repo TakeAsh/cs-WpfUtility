@@ -196,13 +196,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\DownTriangle16.png" />
-    <Resource Include="Images\HorizontalCenter16.png" />
-    <Resource Include="Images\LeftTriangle16.png" />
-    <Resource Include="Images\RightTriangle16.png" />
-    <Resource Include="Images\Square16.png" />
-    <Resource Include="Images\UpTriangle16.png" />
-    <Resource Include="Images\VerticalCenter16.png" />
+    <Resource Include="Images\DownTriangle16_Black.png" />
+    <Resource Include="Images\DownTriangle16_White.png" />
+    <Resource Include="Images\HorizontalCenter16_Black.png" />
+    <Resource Include="Images\HorizontalCenter16_White.png" />
+    <Resource Include="Images\LeftTriangle16_Black.png" />
+    <Resource Include="Images\LeftTriangle16_White.png" />
+    <Resource Include="Images\RightTriangle16_Black.png" />
+    <Resource Include="Images\RightTriangle16_White.png" />
+    <Resource Include="Images\Square16_Black.png" />
+    <Resource Include="Images\Square16_White.png" />
+    <Resource Include="Images\UpTriangle16_Black.png" />
+    <Resource Include="Images\UpTriangle16_White.png" />
+    <Resource Include="Images\VerticalCenter16_Black.png" />
+    <Resource Include="Images\VerticalCenter16_White.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
