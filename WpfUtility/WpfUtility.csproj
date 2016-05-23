@@ -77,6 +77,8 @@
   <ItemGroup>
     <Compile Include="ApplicationExtensionMethods.cs" />
     <Compile Include="BitmapSourceExtensionMethods.cs" />
+    <Compile Include="BooleanConverter.cs" />
+    <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="BrushExtensionMethods.cs" />
     <Compile Include="ChildPopup.cs" />
     <Compile Include="DataGridBoundColumnExtensionMethods.cs" />
