@@ -17,7 +17,8 @@
     <Style TargetType="{x:Type wu:GridSplitterEx}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="IsTabStop" Value="true" />
-        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="FontFamily" Value="Noto Sans JP" />
         <Setter Property="PreviewStyle">
             <Setter.Value>
