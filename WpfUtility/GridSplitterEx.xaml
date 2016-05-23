@@ -1,0 +1,150 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
+    xmlns:wu="clr-namespace:WpfUtility">
+
+    <wu:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <wu:NotBooleanToVisibilityConverter x:Key="NotBoolToVisibilityConverter" />
+
+    <Style x:Key="SplitterButtonStyle" TargetType="{x:Type Image}">
+        <Setter Property="Width" Value="6" />
+        <Setter Property="Height" Value="6" />
+        <Setter Property="Margin" Value="1" />
+    </Style>
+
+    <Image x:Key="LeftTriangle" Source="Images/LeftTriangle16.png" />
+    <Image x:Key="RightTriangle" Source="Images/RightTriangle16.png" />
+    <Image x:Key="UpTriangle" Source="Images/UpTriangle16.png" />
+    <Image x:Key="DownTriangle" Source="Images/DownTriangle16.png" />
+    <Image x:Key="Square" Source="Images/Square16.png" />
+    
+    <Style TargetType="{x:Type wu:GridSplitterEx}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="IsTabStop" Value="true" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="Noto Sans JP" />
+        <Setter Property="PreviewStyle">
+            <Setter.Value>
+                <Style TargetType="Control">
+                    <Setter Property="Background" Value="#FF868686" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Control">
+                                <Grid x:Name="Root" Opacity=".5">
+
+                                    <!-- Background -->
+                                    <Rectangle Fill="{TemplateBinding Background}" />
+
+                                    <!-- Horizontal Template -->
+                                    <Grid
+                                        x:Name="HorizontalTemplate"
+                                        Height="{DynamicResource DefaultGridSplitterWidth}">
+                                        <!-- Just show the faint gray grid splitter rectangle with no other details -->
+                                    </Grid>
+
+                                    <!-- Vertical Template -->
+                                    <Grid
+                                        x:Name="VerticalTemplate"
+                                        Width="{DynamicResource DefaultGridSplitterWidth}"
+                                        Visibility="Collapsed">
+                                        <!-- Just show the faint gray grid splitter rectangle with no other details -->
+                                    </Grid>
+
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type wu:GridSplitterEx}">
+                    <Grid x:Name="Root" IsHitTestVisible="{TemplateBinding IsEnabled}">
+
+                        <!-- VSM -->
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Root" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="FocusVisual" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <!-- Background -->
+                        <Rectangle Fill="{TemplateBinding Background}" StrokeThickness="0" />
+
+                        <!-- Horizontal Template -->
+                        <Grid
+                            x:Name="HorizontalTemplate" 
+                            Visibility="{Binding UseHorizontally, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Image
+                                    x:Name="HorizontalUpButton"
+                                    Style="{StaticResource SplitterButtonStyle}"
+                                    Source="Images/UpTriangle16.png" />
+                                <Image
+                                    x:Name="HorizontalMiddleButton"
+                                    Style="{StaticResource SplitterButtonStyle}"
+                                    Source="Images/Square16.png" />
+                                <Image
+                                    x:Name="HorizontalDownButton"
+                                    Style="{StaticResource SplitterButtonStyle}"
+                                    Source="Images/DownTriangle16.png" />
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Vertical Template -->
+                        <Grid
+                            x:Name="VerticalTemplate"
+                            Visibility="{Binding UseHorizontally, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NotBoolToVisibilityConverter}}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel
+                                Orientation="Vertical">
+                                <Image
+                                    x:Name="VerticalLeftButton"
+                                    Style="{DynamicResource SplitterButtonStyle}"
+                                    Source="Images/LeftTriangle16.png" />
+                                <Image
+                                    x:Name="VerticalMiddleButton"
+                                    Style="{StaticResource SplitterButtonStyle}"
+                                    Source="Images/Square16.png" />
+                                <Image
+                                    x:Name="VerticalRightButton"
+                                    Style="{StaticResource SplitterButtonStyle}"
+                                    Source="Images/RightTriangle16.png" />
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Focus Visual -->
+                        <Rectangle
+                            x:Name="FocusVisual"
+                            Stroke="#FF45D6FA"
+                            StrokeThickness="1"
+                            Opacity="0"
+                            IsHitTestVisible="false" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
