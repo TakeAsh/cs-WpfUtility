@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer", "ImageViewer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeViewSample", "TreeViewSample\TreeViewSample.csproj", "{1294E46E-FE1E-448E-8910-FF98B53A3308}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridSplitterExSample", "GridSplitterExSample\GridSplitterExSample.csproj", "{2CC0C2ED-8E5F-40E5-B8D3-C5D27E74A181}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -79,6 +81,14 @@ Global
 		{1294E46E-FE1E-448E-8910-FF98B53A3308}.Release|x64.Build.0 = Release|x64
 		{1294E46E-FE1E-448E-8910-FF98B53A3308}.Release|x86.ActiveCfg = Release|x86
 		{1294E46E-FE1E-448E-8910-FF98B53A3308}.Release|x86.Build.0 = Release|x86
+		{2CC0C2ED-8E5F-40E5-B8D3-C5D27E74A181}.Debug|x64.ActiveCfg = Debug|x64
+		{2CC0C2ED-8E5F-40E5-B8D3-C5D27E74A181}.Debug|x64.Build.0 = Debug|x64
+		{2CC0C2ED-8E5F-40E5-B8D3-C5D27E74A181}.Debug|x86.ActiveCfg = Debug|x86
+		{2CC0C2ED-8E5F-40E5-B8D3-C5D27E74A181}.Debug|x86.Build.0 = Debug|x86
+		{2CC0C2ED-8E5F-40E5-B8D3-C5D27E74A181}.Release|x64.ActiveCfg = Release|x64
+		{2CC0C2ED-8E5F-40E5-B8D3-C5D27E74A181}.Release|x64.Build.0 = Release|x64
+		{2CC0C2ED-8E5F-40E5-B8D3-C5D27E74A181}.Release|x86.ActiveCfg = Release|x86
+		{2CC0C2ED-8E5F-40E5-B8D3-C5D27E74A181}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

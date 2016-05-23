@@ -1,0 +1,58 @@
+﻿<Window
+    x:Class="GridSplitterExSample.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:wu="clr-namespace:WpfUtility;assembly=WpfUtility"
+    Title="GridSplitterEx Sample"
+    Width="640" Height="480"
+    FontFamily="Noto Sans JP">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="rowDefinition_B1" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition x:Name="rowDefinition_B2" />
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="columnDefinition_A1" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition x:Name="columnDefinition_A2" />
+            </Grid.ColumnDefinitions>
+            <Rectangle
+                Grid.Column="0"
+                Fill="Red" />
+            <wu:GridSplitterEx
+                x:Name="gridSplitter_A"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch" />
+            <Rectangle
+                Grid.Column="2"
+                Fill="Lime" />
+        </Grid>
+        <wu:GridSplitterEx
+            x:Name="gridSplitter_B"
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            UseHorizontally="True" />
+        <Grid
+            Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="columnDefinition_C1" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition x:Name="columnDefinition_C2" />
+            </Grid.ColumnDefinitions>
+            <Rectangle
+                Grid.Column="0"
+                Fill="Blue" />
+            <wu:GridSplitterEx
+                x:Name="gridSplitter_C"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch" />
+            <Rectangle
+                Grid.Column="2"
+                Fill="Gray" />
+        </Grid>
+    </Grid>
+</Window>
