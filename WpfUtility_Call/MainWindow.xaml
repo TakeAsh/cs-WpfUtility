@@ -252,10 +252,25 @@
                     </WrapPanel>
                 </wu:PaneledTab.LatterPanel>
                 <TabItem Header="Notify">
-                    <wu:DataGridEx x:Name="dataGrid_Notify"
+                    <wu:DataGridEx
+                        x:Name="dataGrid_Notify"
                         IsReadOnly="True" SelectionMode="Single"
                         DataType="{x:Type wuc:Person}"
-                        SelectionChanged="dataGrid_Notify_SelectionChanged" />
+                        AlternationCount="2"
+                        SelectionChanged="dataGrid_Notify_SelectionChanged">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                        <Setter Property="Background" Value="#FFFFFFE0" />
+                                    </Trigger>
+                                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                        <Setter Property="Background" Value="#FFE0FFE0" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                    </wu:DataGridEx>
                 </TabItem>
                 <TabItem Header="Item1">
                     <TextBlock Text="Item1" />
