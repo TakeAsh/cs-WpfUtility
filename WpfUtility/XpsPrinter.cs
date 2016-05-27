@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Threading;
 using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 using TakeAshUtility;
@@ -25,6 +26,7 @@ namespace WpfUtility {
 
         private const string _packageUriString = "application:///temp.xps";
         private static readonly Uri _packageUri = new Uri(_packageUriString, UriKind.Absolute);
+        private static readonly Action _emptyDelegate = new Action(() => { });
 
         /// <summary>
         /// Conversion factor from mm to pixel
@@ -223,6 +225,7 @@ namespace WpfUtility {
                 document.Pages.Count == 0) {
                 return;
             }
+            document.Dispatcher.Invoke(DispatcherPriority.Render, _emptyDelegate);
             using (var stream = new MemoryStream())
             using (var package = Package.Open(stream, FileMode.Create, FileAccess.ReadWrite)) {
                 PackageStore.AddPackage(_packageUri, package);
@@ -244,9 +247,11 @@ namespace WpfUtility {
         }
 
         public void Print(Visual visual) {
-            if (_xpsdw == null) {
+            if (_xpsdw == null ||
+                visual == null) {
                 return;
             }
+            visual.Dispatcher.Invoke(DispatcherPriority.Render, _emptyDelegate);
             using (var stream = new MemoryStream())
             using (var package = Package.Open(stream, FileMode.Create, FileAccess.ReadWrite)) {
                 PackageStore.AddPackage(_packageUri, package);
