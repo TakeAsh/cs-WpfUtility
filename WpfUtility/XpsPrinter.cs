@@ -24,6 +24,7 @@ namespace WpfUtility {
             Canceled,
         }
 
+        private const int _renderHierarchy = 16;
         private const string _packageUriString = "application:///temp.xps";
         private static readonly Uri _packageUri = new Uri(_packageUriString, UriKind.Absolute);
         private static readonly Action _emptyDelegate = new Action(() => { });
@@ -225,7 +226,9 @@ namespace WpfUtility {
                 document.Pages.Count == 0) {
                 return;
             }
-            document.Dispatcher.Invoke(DispatcherPriority.Render, _emptyDelegate);
+            for (var i = 0; i < _renderHierarchy; ++i) {
+                document.Dispatcher.Invoke(DispatcherPriority.Render, _emptyDelegate);
+            }
             using (var stream = new MemoryStream())
             using (var package = Package.Open(stream, FileMode.Create, FileAccess.ReadWrite)) {
                 PackageStore.AddPackage(_packageUri, package);
@@ -251,7 +254,9 @@ namespace WpfUtility {
                 visual == null) {
                 return;
             }
-            visual.Dispatcher.Invoke(DispatcherPriority.Render, _emptyDelegate);
+            for (var i = 0; i < _renderHierarchy; ++i) {
+                visual.Dispatcher.Invoke(DispatcherPriority.Render, _emptyDelegate);
+            }
             using (var stream = new MemoryStream())
             using (var package = Package.Open(stream, FileMode.Create, FileAccess.ReadWrite)) {
                 PackageStore.AddPackage(_packageUri, package);
