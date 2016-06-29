@@ -110,6 +110,14 @@ namespace WpfUtility {
             }
         }
 
+        public PrintCapabilities Capabilities {
+            get {
+                return _queue == null ?
+                    null :
+                    _queue.GetPrintCapabilities();
+            }
+        }
+
         public string DocumentName {
             get {
                 return _queue == null ?
