@@ -17,6 +17,8 @@ using TakeAshUtility;
 
 namespace WpfUtility {
 
+    using MediaSizeAndOrientation = Tuple<System.Printing.PageMediaSize, System.Printing.PageOrientation>;
+
     public class XpsPrinter {
 
         public enum Results {
@@ -188,6 +190,64 @@ namespace WpfUtility {
 
         private bool IsCanceled() {
             return _xpsdw == null || _imgArea == null;
+        }
+
+        /// <summary>
+        /// Select suitable MediaSize from PageMediaSizeCapability.
+        /// </summary>
+        /// <param name="width">The media width in mm.</param>
+        /// <param name="height">The media height in mm.</param>
+        public void SelectMediaSize(double width, double height) {
+            if (Ticket == null) {
+                return;
+            }
+            var candidate = GetMinimumMediaSize((int)(width * MmToPixel), (int)(height * MmToPixel));
+            if (candidate == null) {
+                SetCustomMediaSize(width, height);
+                return;
+            }
+            Ticket.PageMediaSize = candidate.Item2 == System.Printing.PageOrientation.Portrait ?
+                candidate.Item1 :
+                new System.Printing.PageMediaSize(
+                    candidate.Item1.PageMediaSizeName.Value,
+                    candidate.Item1.Height.Value,
+                    candidate.Item1.Width.Value
+                );
+            Ticket.PageOrientation = candidate.Item2;
+        }
+
+        /// <summary>
+        /// Get minimum MediaSize from PageMediaSizeCapability.
+        /// </summary>
+        /// <param name="pixelWidth">The media width in pixel.</param>
+        /// <param name="pixelHeight">The media height in pixel.</param>
+        /// <returns></returns>
+        private MediaSizeAndOrientation GetMinimumMediaSize(double pixelWidth, double pixelHeight) {
+            var orderedMediaSizes = Capabilities.PageMediaSizeCapability
+                .OrderBy(item => item.Width * item.Height);
+            var allowLandscape = Capabilities.PageOrientationCapability
+                .Contains(System.Printing.PageOrientation.Landscape);
+            foreach (var mediaSize in orderedMediaSizes) {
+                if (mediaSize.Width >= pixelWidth && mediaSize.Height >= pixelHeight) {
+                    return new MediaSizeAndOrientation(mediaSize, System.Printing.PageOrientation.Portrait);
+                } else if (allowLandscape && mediaSize.Height >= pixelWidth && mediaSize.Width >= pixelHeight) {
+                    return new MediaSizeAndOrientation(mediaSize, System.Printing.PageOrientation.Landscape);
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Set custom MediaSize.
+        /// </summary>
+        /// <param name="width">The media width in mm.</param>
+        /// <param name="height">The media height in mm.</param>
+        public void SetCustomMediaSize(double width, double height) {
+            if (Ticket == null) {
+                return;
+            }
+            Ticket.PageMediaSize = new System.Printing.PageMediaSize(width * MmToPixel, height * MmToPixel);
+            Ticket.PageOrientation = System.Printing.PageOrientation.Portrait;
         }
 
         public void Print(IEnumerable<UIElement> elements) {
