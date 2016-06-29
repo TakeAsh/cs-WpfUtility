@@ -102,19 +102,19 @@ namespace WpfUtility {
             }
         }
 
-        public PrintTicket Ticket {
-            get {
-                return _queue == null ?
-                    null :
-                    _queue.UserPrintTicket;
-            }
-        }
-
         public PrintCapabilities Capabilities {
             get {
                 return _queue == null ?
                     null :
                     _queue.GetPrintCapabilities();
+            }
+        }
+
+        public PrintTicket Ticket {
+            get {
+                return _queue == null ?
+                    null :
+                    _queue.UserPrintTicket;
             }
         }
 
