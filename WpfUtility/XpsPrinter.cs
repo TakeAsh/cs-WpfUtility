@@ -27,7 +27,6 @@ namespace WpfUtility {
         private const int _renderHierarchy = 16;
         private const string _packageUriString = "application:///temp.xps";
         private static readonly Uri _packageUri = new Uri(_packageUriString, UriKind.Absolute);
-        private static readonly Action _emptyDelegate = new Action(() => { });
 
         /// <summary>
         /// Conversion factor from mm to pixel
@@ -205,9 +204,6 @@ namespace WpfUtility {
                     };
                     FixedPage.SetLeft(panel, _printMarginLeft);
                     FixedPage.SetTop(panel, _printMarginTop);
-                    panel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                    panel.Arrange(new Rect(0, 0, printWidth, printHeight));
-                    panel.UpdateLayout();
                     return panel;
                 }).Select(panel => new FixedPage() {
                     Width = mediaWidth,
@@ -227,7 +223,7 @@ namespace WpfUtility {
                 return;
             }
             for (var i = 0; i < _renderHierarchy; ++i) {
-                document.Dispatcher.Invoke(DispatcherPriority.Render, _emptyDelegate);
+                document.Pages.ForEach(page => (page.Child as FrameworkElement).UpdateLayoutEx());
             }
             using (var stream = new MemoryStream())
             using (var package = Package.Open(stream, FileMode.Create, FileAccess.ReadWrite)) {
@@ -255,7 +251,7 @@ namespace WpfUtility {
                 return;
             }
             for (var i = 0; i < _renderHierarchy; ++i) {
-                visual.Dispatcher.Invoke(DispatcherPriority.Render, _emptyDelegate);
+                (visual as FrameworkElement).UpdateLayoutEx();
             }
             using (var stream = new MemoryStream())
             using (var package = Package.Open(stream, FileMode.Create, FileAccess.ReadWrite)) {
