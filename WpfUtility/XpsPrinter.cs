@@ -70,6 +70,8 @@ namespace WpfUtility {
         private XpsDocumentWriter _xpsdw;
         private bool _useSystemDialog;
         private PrintDocumentImageableArea _imgArea;
+        private string _fontFamilyName = null;
+        private FontFamily _fontFamily = null;
 
         private XpsPrinter() {
             _printServer = new LocalPrintServer();
@@ -170,6 +172,19 @@ namespace WpfUtility {
             get { return _imgArea; }
         }
 
+        public string FontFamily {
+            get { return _fontFamilyName; }
+            set {
+                var fontFamily = Fonts.SystemFontFamilies
+                    .FirstOrDefault(family => family.FamilyNames.Values.Contains(value));
+                if (fontFamily == null) {
+                    return;
+                }
+                _fontFamilyName = value;
+                _fontFamily = fontFamily;
+            }
+        }
+
         /// <summary>
         /// Select printer by system dialog
         /// </summary>
@@ -265,11 +280,14 @@ namespace WpfUtility {
             var fixedDoc = new FixedDocument();
             elements.Where(element => element != null)
                 .Select(element => {
-                    var panel = new DockPanel() {
+                    var panel = new UserControl() {
                         Width = printWidth,
                         Height = printHeight,
-                        Children = { element },
+                        Content = element,
                     };
+                    if (_fontFamily != null) {
+                        panel.FontFamily = _fontFamily;
+                    }
                     FixedPage.SetLeft(panel, _printMarginLeft);
                     FixedPage.SetTop(panel, _printMarginTop);
                     return panel;
