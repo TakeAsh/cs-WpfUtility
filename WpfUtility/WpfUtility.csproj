@@ -83,6 +83,7 @@
     <Compile Include="ChildPopup.cs" />
     <Compile Include="FrameworkElementExtensionMethods.cs" />
     <Compile Include="GeometryExtensionMethods.cs" />
+    <Compile Include="GridHelper.cs" />
     <Compile Include="GridSplitterEx.xaml.cs">
       <DependentUpon>GridSplitterEx.xaml</DependentUpon>
     </Compile>
