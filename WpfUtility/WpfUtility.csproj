@@ -81,6 +81,7 @@
     <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="BrushExtensionMethods.cs" />
     <Compile Include="ChildPopup.cs" />
+    <Compile Include="FontFamilyHelper.cs" />
     <Compile Include="FrameworkElementExtensionMethods.cs" />
     <Compile Include="GeometryExtensionMethods.cs" />
     <Compile Include="GridHelper.cs" />
