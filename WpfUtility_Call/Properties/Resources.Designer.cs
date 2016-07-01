@@ -142,6 +142,15 @@ namespace WpfUtility_Call.Properties {
         }
         
         /// <summary>
+        ///   Font に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_group_Font {
+            get {
+                return ResourceManager.GetString("MainWindow_group_Font", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Page に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWindow_group_Page_Header {

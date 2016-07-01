@@ -209,7 +209,8 @@
                     <r:RibbonButton
                         x:Name="button_Print"
                         LargeImageSource="/WpfUtility_Call;component/Images/PrintL.png"
-                        SmallImageSource="/WpfUtility_Call;component/Images/PrintS.png" Click="button_Print_Click" />
+                        SmallImageSource="/WpfUtility_Call;component/Images/PrintS.png"
+                        Click="button_Print_Click" />
                 </r:RibbonGroup>
                 <r:RibbonGroup
                     Header="{wu:Tr MainWindow_group_Printer_Header}">
@@ -230,6 +231,14 @@
                     Header="{wu:Tr MainWindow_group_PrintColor}">
                     <ComboBox
                         x:Name="comboBox_PrintColor" />
+                </r:RibbonGroup>
+                <r:RibbonGroup
+                    Header="{wu:Tr MainWindow_group_Font}">
+                    <ComboBox
+                        x:Name="comboBox_FontFamilies"
+                        DisplayMemberPath="Value"
+                        SelectedValuePath="Key"
+                        SelectionChanged="comboBox_FontFamilies_SelectionChanged" />
                 </r:RibbonGroup>
             </r:RibbonTab>
         </r:Ribbon>

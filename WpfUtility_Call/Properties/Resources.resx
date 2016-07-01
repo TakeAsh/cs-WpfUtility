@@ -195,4 +195,7 @@
   <data name="MainWindow_menuItem_Quit_Header" xml:space="preserve">
     <value>Quit</value>
   </data>
+  <data name="MainWindow_group_Font" xml:space="preserve">
+    <value>Font</value>
+  </data>
 </root>

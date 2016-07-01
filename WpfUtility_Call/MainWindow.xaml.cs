@@ -23,6 +23,7 @@ using WpfUtility;
 namespace WpfUtility_Call {
 
     using _resources = Properties.Resources;
+    using FontFamilyPair = KeyValuePair<FontFamily, string>;
     using NewLineCodesHelper = EnumHelper<MainWindow.NewLineCodes>;
     using SexesCodesHelper = EnumHelper<Person.SexesCodes>;
 
@@ -98,6 +99,8 @@ namespace WpfUtility_Call {
             comboBox_PrintColor.ItemsSource = PrintOutputColorHelper.Values;
             comboBox_PrintColor.AdjustMaxItemWidth();
             comboBox_PrintColor.SelectedItem = PrintOutputColorHelper.Default;
+            comboBox_FontFamilies.ItemsSource = FontFamilyHelper.FontFamilyPairs;
+            comboBox_FontFamilies.SelectedItem = FontFamilyHelper.GetFontFamilyPair(_settings.FontFamily);
 
             this.AddResizeHook(
                 (sender, e) => {
@@ -156,6 +159,7 @@ namespace WpfUtility_Call {
                 comboBox_PrintColor.SelectedItem == null) {
                 return;
             }
+            _printer.FontFamily = _settings.FontFamily;
             if (comboBox_Printer.SelectedIndex == 0) {
                 if (_printer.SelectPrinter(DocumentName) != XpsPrinter.Results.OK) {
                     return;
@@ -314,13 +318,21 @@ namespace WpfUtility_Call {
             Print();
         }
 
+        private void comboBox_FontFamilies_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (comboBox_FontFamilies.SelectedItem == null) {
+                return;
+            }
+            _settings.FontFamily = ((FontFamilyPair)comboBox_FontFamilies.SelectedItem).GetDefaultFamilyName();
+            _settings.Save();
+        }
+
 #pragma warning disable 0067
 
         #region IResizeEvent
 
         public event EventHandler Resizing;
         public event EventHandler Resized;
-        
+
         #endregion
 
 #pragma warning restore 0067
