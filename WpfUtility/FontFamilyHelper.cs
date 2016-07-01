@@ -29,7 +29,9 @@ namespace WpfUtility {
         }
 
         public static FontFamilyPair GetFontFamilyPair(string defaultFamilyName = null) {
-            defaultFamilyName = defaultFamilyName ?? SystemFonts.MessageFontFamily.FamilyNames[_defaultLang];
+            if (String.IsNullOrEmpty(defaultFamilyName)) {
+                defaultFamilyName = SystemFonts.MessageFontFamily.FamilyNames[_defaultLang];
+            }
             return FontFamilyPairs.FirstOrDefault(pair => pair.GetDefaultFamilyName() == defaultFamilyName);
         }
 
