@@ -322,7 +322,9 @@ namespace WpfUtility_Call {
             if (comboBox_FontFamilies.SelectedItem == null) {
                 return;
             }
-            _settings.FontFamily = ((FontFamilyPair)comboBox_FontFamilies.SelectedItem).GetDefaultFamilyName();
+            var fontFamilyPair = (FontFamilyPair)comboBox_FontFamilies.SelectedItem;
+            this.FontFamily = fontFamilyPair.Key;
+            _settings.FontFamily = fontFamilyPair.GetDefaultFamilyName();
             _settings.Save();
         }
 
