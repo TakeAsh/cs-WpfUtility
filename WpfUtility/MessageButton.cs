@@ -97,6 +97,13 @@ namespace WpfUtility {
             new FrameworkPropertyMetadata(Icons.Beep, OnIconChanged)
         );
 
+        public static readonly DependencyProperty MessageFontSizeProperty = DependencyProperty.Register(
+            "MessageFontSize",
+            typeof(double),
+            typeof(MessageButton),
+            new FrameworkPropertyMetadata(SystemFonts.MessageFontSize, OnMessageFontSizeChanged)
+        );
+
         private static readonly Dictionary<Icons, System.Media.SystemSound> SoundDictionary =
             new Dictionary<Icons, System.Media.SystemSound>() {
                 {Icons.Beep, System.Media.SystemSounds.Beep},
@@ -173,6 +180,11 @@ namespace WpfUtility {
             set { SetValue(IconProperty, value); }
         }
 
+        public double MessageFontSize {
+            get { return (double)GetValue(MessageFontSizeProperty); }
+            set { SetValue(MessageFontSizeProperty, value); }
+        }
+
         /// <summary>
         /// A String that specifies the text to display.
         /// </summary>
@@ -182,7 +194,7 @@ namespace WpfUtility {
         /// </list>
         /// </remarks>
         public string Text {
-            get { return _textBlock.Text; }
+            get { return _text; }
             set {
                 _text = value;
                 if (!String.IsNullOrEmpty(_text)) {
@@ -320,6 +332,15 @@ namespace WpfUtility {
                 return;
             }
             messageButton.UpdateIcon();
+        }
+
+        private static void OnMessageFontSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            var messageButton = d as MessageButton;
+            if (messageButton == null ||
+                messageButton._textBlock == null) {
+                return;
+            }
+            messageButton._textBlock.FontSize = (double)e.NewValue;
         }
     }
 }
