@@ -83,6 +83,20 @@ namespace WpfUtility {
             Hand,
         }
 
+        public static readonly DependencyProperty SizeProperty = DependencyProperty.Register(
+            "Size",
+            typeof(ButtonSizes),
+            typeof(MessageButton),
+            new FrameworkPropertyMetadata(ButtonSizes.Large, OnSizeChanged)
+        );
+
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
+            "Icon",
+            typeof(Icons),
+            typeof(MessageButton),
+            new FrameworkPropertyMetadata(Icons.Beep, OnIconChanged)
+        );
+
         private static readonly Dictionary<Icons, System.Media.SystemSound> SoundDictionary =
             new Dictionary<Icons, System.Media.SystemSound>() {
                 {Icons.Beep, System.Media.SystemSounds.Beep},
@@ -92,8 +106,6 @@ namespace WpfUtility {
                 {Icons.Hand, System.Media.SystemSounds.Hand},
             };
 
-        private ButtonSizes _size = ButtonSizes.Large;
-        private Icons _icon = Icons.Beep;
         private string _text = null;
         private long _autoPopDelayTicks = DefaultAutoPopDelay * TimeSpan.TicksPerMillisecond;
         private BackgroundWorker _autoCloseWorker;
@@ -152,13 +164,13 @@ namespace WpfUtility {
         public bool IsDirty { get; set; }
 
         public ButtonSizes Size {
-            get { return _size; }
-            set { _size = value; UpdateIcon(); }
+            get { return (ButtonSizes)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
         }
 
         public Icons Icon {
-            get { return _icon; }
-            set { _icon = value; UpdateIcon(); }
+            get { return (Icons)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
         }
 
         /// <summary>
@@ -245,9 +257,9 @@ namespace WpfUtility {
         }
 
         private void UpdateIcon() {
-            this.SmallImageSource = GetImageResource(_icon, ButtonSizes.Small);
-            this.LargeImageSource = (_size == ButtonSizes.Large) ?
-                GetImageResource(_icon, ButtonSizes.Large) :
+            this.SmallImageSource = GetImageResource(Icon, ButtonSizes.Small);
+            this.LargeImageSource = (Size == ButtonSizes.Large) ?
+                GetImageResource(Icon, ButtonSizes.Large) :
                 null;
         }
 
@@ -292,6 +304,22 @@ namespace WpfUtility {
                 return;
             }
             _autoCloseWorker.CancelAsync();
+        }
+
+        private static void OnSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            var messageButton = d as MessageButton;
+            if (messageButton == null) {
+                return;
+            }
+            messageButton.UpdateIcon();
+        }
+
+        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            var messageButton = d as MessageButton;
+            if (messageButton == null) {
+                return;
+            }
+            messageButton.UpdateIcon();
         }
     }
 }
