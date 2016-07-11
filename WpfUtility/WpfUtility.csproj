@@ -91,6 +91,7 @@
     <Compile Include="DataGridBoundColumnExtensionMethods.cs" />
     <Compile Include="FolderBrowser.cs" />
     <Compile Include="GradientTexture.cs" />
+    <Compile Include="MethodToValueConverter.cs" />
     <Compile Include="Model3DExtensionMethods.cs" />
     <Compile Include="MouseHWheelEvent.cs" />
     <Compile Include="ObservableCollectionExtensionMethods.cs" />
