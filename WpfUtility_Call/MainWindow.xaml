@@ -172,15 +172,13 @@
                 </r:RibbonGroup>
                 <r:RibbonGroup Header="RibbonComboBox">
                     <r:RibbonComboBox wu:Placeholder.Text="Object1" IsEditable="True">
-                        <r:RibbonGallery SelectedValuePath="Key">
-                            <r:RibbonGalleryCategory x:Name="ribbonComboBox_comboBox3_GalleryCategory"
-                                DisplayMemberPath="Value" />
+                        <r:RibbonGallery>
+                            <r:RibbonGalleryCategory x:Name="ribbonComboBox_comboBox3_GalleryCategory" />
                         </r:RibbonGallery>
                     </r:RibbonComboBox>
                     <r:RibbonComboBox wu:Placeholder.Text="Object2" IsEditable="False">
-                        <r:RibbonGallery SelectedValuePath="Key">
-                            <r:RibbonGalleryCategory x:Name="ribbonComboBox_comboBox4_GalleryCategory"
-                                DisplayMemberPath="Value" />
+                        <r:RibbonGallery>
+                            <r:RibbonGalleryCategory x:Name="ribbonComboBox_comboBox4_GalleryCategory" />
                         </r:RibbonGallery>
                     </r:RibbonComboBox>
                 </r:RibbonGroup>
@@ -191,10 +189,8 @@
                     <r:RibbonTextBox x:Name="textBox_PersonFirstName" />
                     <r:RibbonTextBox x:Name="textBox_PersonLastName" />
                     <r:RibbonComboBox x:Name="comboBox_PersonSex">
-                        <r:RibbonGallery x:Name="comboBox_PersonSex_Gallery"
-                            SelectedValuePath="Key">
-                            <r:RibbonGalleryCategory x:Name="comboBox_PersonSex_GalleryCategory"
-                                DisplayMemberPath="Value" />
+                        <r:RibbonGallery x:Name="comboBox_PersonSex_Gallery">
+                            <r:RibbonGalleryCategory x:Name="comboBox_PersonSex_GalleryCategory" />
                         </r:RibbonGallery>
                     </r:RibbonComboBox>
                     <r:RibbonButton x:Name="button_ApplyPerson"

@@ -4,26 +4,23 @@ using System.ComponentModel;
 using System.Linq;
 using System.Printing;
 using System.Text;
-using TakeAsh;
 using TakeAshUtility;
 
 namespace WpfUtility {
 
-    using _PrintOutputColorHelper = EnumHelper<PrintOutputColor>;
-
     [TypeConverter(typeof(EnumTypeConverter<PrintOutputColor>))]
     public enum PrintOutputColor {
 
-        [ExtraProperties(PrintOutputColorHelper.ExPropIsUsual + ":'false'")]
+        [EnumProperty(PrintOutputColorHelper.ExPropIsUsual + ":'false'")]
         Unknown,
 
-        [ExtraProperties(PrintOutputColorHelper.ExPropIsUsual + ":'true'")]
+        [EnumProperty(PrintOutputColorHelper.ExPropIsUsual + ":'true'")]
         Color,
 
-        [ExtraProperties(PrintOutputColorHelper.ExPropIsUsual + ":'false'")]
+        [EnumProperty(PrintOutputColorHelper.ExPropIsUsual + ":'false'")]
         Grayscale,
 
-        [ExtraProperties(PrintOutputColorHelper.ExPropIsUsual + ":'true'")]
+        [EnumProperty(PrintOutputColorHelper.ExPropIsUsual + ":'true'")]
         Monochrome,
     }
 
@@ -39,7 +36,7 @@ namespace WpfUtility {
         }
 
         public static PrintOutputColor[] AllValues {
-            get { return _PrintOutputColorHelper.Values; }
+            get { return EnumHelper.GetValues<PrintOutputColor>(); }
         }
 
         public static PrintOutputColor[] Values {
@@ -47,7 +44,7 @@ namespace WpfUtility {
         }
 
         public static bool IsUsual(this PrintOutputColor color) {
-            return color.GetExtraProperty(ExPropIsUsual).TryParse<bool>();
+            return color.GetEnumProperty(ExPropIsUsual).TryParse<bool>();
         }
 
         public static System.Printing.OutputColor ToSystemOutputColor(this PrintOutputColor color) {

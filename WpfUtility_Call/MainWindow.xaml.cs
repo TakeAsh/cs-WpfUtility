@@ -16,7 +16,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.Windows.Controls.Ribbon;
-using TakeAsh;
 using TakeAshUtility;
 using WpfUtility;
 
@@ -24,8 +23,6 @@ namespace WpfUtility_Call {
 
     using _resources = Properties.Resources;
     using FontFamilyPair = KeyValuePair<FontFamily, string>;
-    using NewLineCodesHelper = EnumHelper<MainWindow.NewLineCodes>;
-    using SexesCodesHelper = EnumHelper<Person.SexesCodes>;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -47,25 +44,25 @@ namespace WpfUtility_Call {
 
         [TypeConverter(typeof(EnumTypeConverter<NewLineCodes>))]
         public enum NewLineCodes {
-            [ExtraProperties("Entity:'\n', Escaped:'\\x22\\u0027\t'")]
+            [EnumProperty("Entity:'\n', Escaped:'\\x22\\u0027\t'")]
             Lf = 1,
 
-            [ExtraProperties("Entity : \"\r\"Escaped : '\\x0027\\x0022'")]
+            [EnumProperty("Entity : \"\r\"Escaped : '\\x0027\\x0022'")]
             [Description("[A] Mac(CR)")]
             Cr = 2,
 
-            [ExtraProperties("Entity:\t'\r\n';;;Escaped:\t\"\\x3042\"")] // U+3042 あ
+            [EnumProperty("Entity:\t'\r\n';;;Escaped:\t\"\\x3042\"")] // U+3042 あ
             [Description("[A] Windows(CR+LF)")]
             CrLf = 4,
 
-            [ExtraProperties("Entity:\n\t'\n\r'\nEscaped:\n\t'\\uD842\\uDFB7'")] // U+00020BB7 𠮷
+            [EnumProperty("Entity:\n\t'\n\r'\nEscaped:\n\t'\\uD842\\uDFB7'")] // U+00020BB7 𠮷
             LfCr = 8,
         }
 
         public MainWindow() {
             InitializeComponent();
-            ribbonComboBox_comboBox3_GalleryCategory.ItemsSource = NewLineCodesHelper.ValueDescriptionPairs;
-            ribbonComboBox_comboBox4_GalleryCategory.ItemsSource = NewLineCodesHelper.ValueDescriptionPairs;
+            ribbonComboBox_comboBox3_GalleryCategory.ItemsSource = EnumHelper.GetValues<NewLineCodes>();
+            ribbonComboBox_comboBox4_GalleryCategory.ItemsSource = EnumHelper.GetValues<NewLineCodes>();
 
             // Insert code required on object creation below this point.
             messageButton_HPC = ribbon_Main.AddMessageButton("Infinity", 0);
@@ -79,7 +76,7 @@ namespace WpfUtility_Call {
             comboBox_Culture_GalleryCategory.ItemsSource = CultureManager.AvailableCultures;
             comboBox_Culture_Gallery.SelectedItem = CultureManager.GetCulture(_settings.Culture);
 
-            comboBox_PersonSex_GalleryCategory.ItemsSource = SexesCodesHelper.ValueDescriptionPairs;
+            comboBox_PersonSex_GalleryCategory.ItemsSource = EnumHelper.GetValues<Person.SexesCodes>();
 
             dataGrid_Notify.CloneItemsSource = (source) => new Persons((Persons)source);
             dataGrid_Notify.ItemsSource = _persons = ResourceHelper.GetText("Resources/Persons.txt").ToPersons();
@@ -88,16 +85,16 @@ namespace WpfUtility_Call {
             comboBox_Printer.ItemsSource = new[] {
                 _resources.MainWindow_comboBox_Printer_UseSystemDialog,
             }.Concat(_printer.QueueNames);
-            comboBox_Printer.AdjustMaxItemWidth();
+            //comboBox_Printer.AdjustMaxItemWidth();
             comboBox_Printer.SelectedItem = _printer.SelectedQueueName;
             comboBox_PageSize.ItemsSource = PageMediaSizeHelper.Values;
-            comboBox_PageSize.AdjustMaxItemWidth();
+            //comboBox_PageSize.AdjustMaxItemWidth();
             comboBox_PageSize.SelectedItem = PageMediaSizeHelper.Default;
             comboBox_PageOrientation.ItemsSource = PageOrientationHelper.Values;
-            comboBox_PageOrientation.AdjustMaxItemWidth();
+            //comboBox_PageOrientation.AdjustMaxItemWidth();
             comboBox_PageOrientation.SelectedItem = PageOrientationHelper.Default;
             comboBox_PrintColor.ItemsSource = PrintOutputColorHelper.Values;
-            comboBox_PrintColor.AdjustMaxItemWidth();
+            //comboBox_PrintColor.AdjustMaxItemWidth();
             comboBox_PrintColor.SelectedItem = PrintOutputColorHelper.Default;
             comboBox_FontFamilies.ItemsSource = FontFamilyHelper.FontFamilyPairs;
             comboBox_FontFamilies.SelectedItem = FontFamilyHelper.GetFontFamilyPair(_settings.FontFamily);
@@ -108,12 +105,12 @@ namespace WpfUtility_Call {
                     if (window == null) {
                         return;
                     }
-                    window.Title = String.Join(", ", new[] {
+                    window.Title = new[] {
                         Application.Current.MainWindow.Left,
                         Application.Current.MainWindow.Top,
                         Application.Current.MainWindow.ActualWidth,
                         Application.Current.MainWindow.ActualHeight,
-                    });
+                    }.JoinToString(", ");
                 },
                 (sender, e) => {
                     var window = sender as RibbonWindow;
@@ -299,7 +296,7 @@ namespace WpfUtility_Call {
             textBox_PersonId.Text = person.ID.ToString();
             textBox_PersonFirstName.Text = person.FirstName;
             textBox_PersonLastName.Text = person.LastName;
-            comboBox_PersonSex_Gallery.SelectedValue = person.Sex;
+            comboBox_PersonSex_Gallery.SelectedItem = person.Sex;
         }
 
         private void button_ApplyPerson_Click(object sender, RoutedEventArgs e) {
@@ -310,7 +307,7 @@ namespace WpfUtility_Call {
             person.ID = textBox_PersonId.Text.TryParse<int>();
             person.FirstName = textBox_PersonFirstName.Text;
             person.LastName = textBox_PersonLastName.Text;
-            person.Sex = SexesCodesHelper.Cast(comboBox_PersonSex_Gallery.SelectedValue);
+            person.Sex = ((Person.SexesCodes?)comboBox_PersonSex_Gallery.SelectedItem).ToDefaultIfNull();
             _persons.Refresh();
         }
 

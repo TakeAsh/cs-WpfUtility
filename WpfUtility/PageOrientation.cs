@@ -4,12 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Printing;
 using System.Text;
-using TakeAsh;
 using TakeAshUtility;
 
 namespace WpfUtility {
-
-    using _PageOrientationHelper = EnumHelper<PageOrientation>;
 
     [TypeConverter(typeof(EnumTypeConverter<PageOrientation>))]
     public enum PageOrientation {
@@ -24,7 +21,7 @@ namespace WpfUtility {
         }
 
         public static PageOrientation[] Values {
-            get { return _PageOrientationHelper.Values; }
+            get { return EnumHelper.GetValues<PageOrientation>(); }
         }
 
         public static System.Printing.PageOrientation ToSystemPageOrientation(this PageOrientation orientation) {

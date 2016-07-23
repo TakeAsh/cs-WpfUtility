@@ -7,13 +7,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
 using System.Windows.Media;
-using TakeAsh;
 using TakeAshUtility;
 using WpfUtility;
 
 namespace WpfUtility_Call {
-
-    using ItemsHelper = EnumHelper<Person.Items>;
 
     public class Person :
         INotifyPropertyChanged {
@@ -51,8 +48,7 @@ namespace WpfUtility_Call {
             if (tmp == null) {
                 return;
             }
-            ItemsHelper.Values
-                .ToList()
+            EnumHelper.GetValues<Items>()
                 .ForEach(key => this[key] = tmp[key]);
         }
 
@@ -153,11 +149,9 @@ namespace WpfUtility_Call {
         }
 
         public override string ToString() {
-            return String.Join(
-                "\t",
-                ItemsHelper.Values
-                    .Select(value => value.ToString() + ":" + this[value])
-            );
+            return EnumHelper.GetValues<Items>()
+                .Select(value => value.ToString() + ":" + this[value])
+                .JoinToString("\t");
         }
 
         public static Person FromString(string text) {

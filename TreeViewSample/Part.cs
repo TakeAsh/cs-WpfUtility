@@ -28,7 +28,7 @@ namespace TreeViewSample {
                         }
                     );
                     return Name + "\n" +
-                        String.Join(", ", counter.Select(kv => kv.Key + ":" + kv.Value));
+                        counter.Select(kv => kv.Key + ":" + kv.Value).JoinToString(", ");
                 } else {
                     return Name;
                 }

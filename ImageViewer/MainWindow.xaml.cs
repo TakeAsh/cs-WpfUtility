@@ -168,8 +168,8 @@ namespace ImageViewer {
             if (pixel == null) {
                 return;
             }
-            label_Info_XY.Text = String.Join(", ", new[] { pixelX, pixelY });
-            label_Info_Pixel.Text = String.Join(", ", pixel);
+            label_Info_XY.Text = new[] { pixelX, pixelY }.JoinToString(", ");
+            label_Info_Pixel.Text = pixel.JoinToString(", ");
         }
 
         protected override void OnSourceInitialized(EventArgs e) {
