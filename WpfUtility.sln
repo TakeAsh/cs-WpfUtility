@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUtility", "WpfUtility\Wp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUtility_Call", "WpfUtility_Call\WpfUtility_Call.csproj", "{5109A4C2-65EC-4ADB-8466-017C0615A7CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializableDictionary", "..\cs-SerializableDictionary\SerializableDictionary\SerializableDictionary.csproj", "{356B032D-5DFE-41BB-AE70-3C46BB8F4345}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeAshUtility", "..\cs-TakeAshUtility\TakeAshUtility\TakeAshUtility.csproj", "{26A4A55A-CA4E-455C-8C14-832A73E23DFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer", "ImageViewer\ImageViewer.csproj", "{647F4574-8253-41E0-8F40-84C7415BCD6E}"
@@ -39,14 +37,6 @@ Global
 		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Release|x64.Build.0 = Release|x64
 		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Release|x86.ActiveCfg = Release|x86
 		{5109A4C2-65EC-4ADB-8466-017C0615A7CE}.Release|x86.Build.0 = Release|x86
-		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Debug|x64.ActiveCfg = Debug|x64
-		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Debug|x64.Build.0 = Debug|x64
-		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Debug|x86.ActiveCfg = Debug|x86
-		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Debug|x86.Build.0 = Debug|x86
-		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Release|x64.ActiveCfg = Release|x64
-		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Release|x64.Build.0 = Release|x64
-		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Release|x86.ActiveCfg = Release|x86
-		{356B032D-5DFE-41BB-AE70-3C46BB8F4345}.Release|x86.Build.0 = Release|x86
 		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Debug|x64.ActiveCfg = Debug|x64
 		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Debug|x64.Build.0 = Debug|x64
 		{26A4A55A-CA4E-455C-8C14-832A73E23DFE}.Debug|x86.ActiveCfg = Debug|x86
