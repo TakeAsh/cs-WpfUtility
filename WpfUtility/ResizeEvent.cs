@@ -21,10 +21,12 @@ namespace WpfUtility {
         const int WM_EXITSIZEMOVE = 0x0232;
 
         /// <summary>
-        /// Add Resize hook that fire Resizing/Resized events
+        /// Add Resize hook that fire Resizing/Resized events.
         /// </summary>
-        /// <typeparam name="TWindow">Window type with IResizeEvent</typeparam>
-        /// <param name="window">Window</param>
+        /// <typeparam name="TWindow">The type of Window with IResizeEvent.</typeparam>
+        /// <param name="window">The Window.</param>
+        /// <param name="resizingEventHandler">The event handler for the Resizing event.</param>
+        /// <param name="resizedEventHandler">The event handler for the Resized event.</param>
         public static void AddResizeHook<TWindow>(
             this TWindow window,
             EventHandler resizingEventHandler = null,
