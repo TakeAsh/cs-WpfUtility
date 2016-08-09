@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using TakeAshUtility;
 
 namespace WpfUtility {
 
@@ -14,7 +15,6 @@ namespace WpfUtility {
                 return;
             }
             list.Where(item => item != null)
-                .ToList()
                 .ForEach(item => items.Add(item));
         }
 
