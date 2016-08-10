@@ -18,5 +18,13 @@ namespace WpfUtility {
         public static RowDefinition AutoHeightRowDefinition {
             get { return new RowDefinition() { Height = AutoGridLength, }; }
         }
+
+        public static GridLength ToGridLength(this double pixels) {
+            return new GridLength(pixels);
+        }
+
+        public static GridLength ToGridLength(this double value, GridUnitType type) {
+            return new GridLength(value, type);
+        }
     }
 }
