@@ -35,6 +35,9 @@ namespace WpfUtility {
         /// </summary>
         /// <param name="element">the FrameworkElement to be updated.</param>
         public static void UpdateLayoutEx(this FrameworkElement element) {
+            if (element == null) {
+                return;
+            }
             element.Dispatcher.Invoke(
                 DispatcherPriority.Render,
                 new Action(() => {
