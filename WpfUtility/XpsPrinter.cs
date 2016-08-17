@@ -308,6 +308,15 @@ namespace WpfUtility {
                 document.Pages.Count == 0) {
                 return;
             }
+            document.Pages.ForEach(page => {
+                var fixedPage = page.Child as FixedPage;
+                if (fixedPage == null) {
+                    return;
+                }
+                fixedPage.Measure(new Size(fixedPage.Width, fixedPage.Height));
+                fixedPage.Arrange(new Rect(0, 0, fixedPage.Width, fixedPage.Height));
+                fixedPage.UpdateLayout();
+            });
             for (var i = 0; i < _renderHierarchy; ++i) {
                 document.Pages.ForEach(page => (page.Child as FrameworkElement).UpdateLayoutEx());
             }
