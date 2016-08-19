@@ -309,13 +309,13 @@ namespace WpfUtility {
                 return;
             }
             document.Pages.ForEach(page => {
-                var fixedPage = page.Child as FixedPage;
-                if (fixedPage == null) {
+                var element = page.Child as FrameworkElement;
+                if (element == null) {
                     return;
                 }
-                fixedPage.Measure(new Size(fixedPage.Width, fixedPage.Height));
-                fixedPage.Arrange(new Rect(0, 0, fixedPage.Width, fixedPage.Height));
-                fixedPage.UpdateLayout();
+                element.Measure(new Size(element.Width, element.Height));
+                element.Arrange(new Rect(0, 0, element.Width, element.Height));
+                element.UpdateLayout();
             });
             for (var i = 0; i < _renderHierarchy; ++i) {
                 document.Pages.ForEach(page => (page.Child as FrameworkElement).UpdateLayoutEx());
