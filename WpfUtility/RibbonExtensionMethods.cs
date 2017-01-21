@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Ribbon;
 using System.Windows.Media.Imaging;
-using Microsoft.Windows.Controls.Ribbon;
 using TakeAshUtility;
 
 namespace WpfUtility {

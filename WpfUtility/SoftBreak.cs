@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using Microsoft.Windows.Controls.Ribbon;
+using System.Windows.Controls.Ribbon;
 
 namespace WpfUtility {
     

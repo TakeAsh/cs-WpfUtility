@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Windows.Controls.Ribbon;
 using System.Windows.Input;
-using Microsoft.Windows.Controls.Ribbon;
 
 namespace WpfUtility {
 

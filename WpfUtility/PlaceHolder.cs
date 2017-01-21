@@ -2,9 +2,9 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Ribbon;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Windows.Controls.Ribbon;
 using TakeAshUtility;
 
 namespace WpfUtility {
