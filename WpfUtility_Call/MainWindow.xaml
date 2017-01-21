@@ -1,8 +1,7 @@
-﻿<r:RibbonWindow
+﻿<RibbonWindow
     x:Class="WpfUtility_Call.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:r="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:wu="clr-namespace:WpfUtility;assembly=WpfUtility"
     xmlns:wuc="clr-namespace:WpfUtility_Call"
@@ -13,124 +12,124 @@
     Loaded="RibbonWindow_Loaded">
 
     <DockPanel>
-        <r:Ribbon x:Name="ribbon_Main" DockPanel.Dock="Top">
-            <r:Ribbon.ApplicationMenu>
-                <r:RibbonApplicationMenu SmallImageSource="Images\SmallIcon.png">
-                    <r:RibbonApplicationMenuItem
+        <Ribbon x:Name="ribbon_Main" DockPanel.Dock="Top">
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu SmallImageSource="Images\SmallIcon.png">
+                    <RibbonApplicationMenuItem
                         x:Name="menuItem_ShowMonitorDpi"
                         Header="{wu:Tr MainWindow_menuItem_ShowMonitorDpi_Header}"
                         ImageSource="Images\LargeIcon.png"
                         Click="menuItem_ShowMonitorDpi_Click" />
-                    <r:RibbonApplicationMenuItem
+                    <RibbonApplicationMenuItem
                         x:Name="menuItem_Quit"
                         Header="{wu:Tr MainWindow_menuItem_Quit_Header}"
                         ImageSource="/WpfUtility_Call;component/Images/LargeIcon.png"
                         Click="menuItem_Quit_Click" />
-                </r:RibbonApplicationMenu>
-            </r:Ribbon.ApplicationMenu>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
 
-            <r:Ribbon.QuickAccessToolBar>
-                <r:RibbonQuickAccessToolBar>
+            <Ribbon.QuickAccessToolBar>
+                <RibbonQuickAccessToolBar>
                     <StackPanel Orientation="Horizontal">
                         <wu:MessageButton x:Name="messageButton_QATB" ToolTip="5sec" Size="Small" />
                     </StackPanel>
-                </r:RibbonQuickAccessToolBar>
-            </r:Ribbon.QuickAccessToolBar>
+                </RibbonQuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>
 
-            <r:Ribbon.HelpPaneContent>
+            <Ribbon.HelpPaneContent>
                 <StackPanel Orientation="Horizontal">
-                    <r:RibbonButton
+                    <RibbonButton
                         x:Name="button_ShowTextPrompt"
                         ToolTip="Show Prompt"
                         SmallImageSource="/WpfUtility_Call;component/Images/SmallIcon.png"
                         Click="button_ShowTextPrompt_Click" />
                 </StackPanel>
-            </r:Ribbon.HelpPaneContent>
+            </Ribbon.HelpPaneContent>
 
-            <r:RibbonTab Header="TrExtension">
-                <r:RibbonGroup Header="{wu:Tr MainWindow_tab_TrExtension_group_Buttons_Header}">
-                    <r:RibbonButton Label="{wu:Tr Dialog_Button_OK}"
+            <RibbonTab Header="TrExtension">
+                <RibbonGroup Header="{wu:Tr MainWindow_tab_TrExtension_group_Buttons_Header}">
+                    <RibbonButton Label="{wu:Tr Dialog_Button_OK}"
                         SmallImageSource="Images/OkS.png" />
-                    <r:RibbonButton Label="{wu:Tr Dialog_Button_Cancel, Assembly=WpfUtility_Call}"
+                    <RibbonButton Label="{wu:Tr Dialog_Button_Cancel, Assembly=WpfUtility_Call}"
                         SmallImageSource="Images/CancelS.png" />
-                    <r:RibbonButton Label="{wu:Tr Dialog_Button_Apply, Assembly=NotExist}"
+                    <RibbonButton Label="{wu:Tr Dialog_Button_Apply, Assembly=NotExist}"
                         SmallImageSource="Images/ApplyS.png" />
-                </r:RibbonGroup>
-                <r:RibbonGroup Header="{wu:Tr MainWindow_tab_TrExtension_group_Culture_Header}">
-                    <r:RibbonComboBox x:Name="comboBox_Culture">
-                        <r:RibbonGallery x:Name="comboBox_Culture_Gallery">
-                            <r:RibbonGalleryCategory x:Name="comboBox_Culture_GalleryCategory"
+                </RibbonGroup>
+                <RibbonGroup Header="{wu:Tr MainWindow_tab_TrExtension_group_Culture_Header}">
+                    <RibbonComboBox x:Name="comboBox_Culture">
+                        <RibbonGallery x:Name="comboBox_Culture_Gallery">
+                            <RibbonGalleryCategory x:Name="comboBox_Culture_GalleryCategory"
                                 DisplayMemberPath="EnglishName" />
-                        </r:RibbonGallery>
-                    </r:RibbonComboBox>
-                    <r:RibbonButton x:Name="button_Culture_OK" Label="{wu:Tr Dialog_Button_OK}"
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                    <RibbonButton x:Name="button_Culture_OK" Label="{wu:Tr Dialog_Button_OK}"
                         SmallImageSource="Images/OkS.png"
                         Click="button_Culture_OK_Click" />
-                </r:RibbonGroup>
-            </r:RibbonTab>
-            <r:RibbonTab Header="SoftBreak">
-                <r:RibbonGroup Header="Dummy">
-                    <r:RibbonButton x:Name="Button1" Label="Button1"
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="SoftBreak">
+                <RibbonGroup Header="Dummy">
+                    <RibbonButton x:Name="Button1" Label="Button1"
                         LargeImageSource="Images\LargeIcon.png" />
-                    <r:RibbonButton x:Name="Button2" Label="Button2"
+                    <RibbonButton x:Name="Button2" Label="Button2"
                         SmallImageSource="Images\SmallIcon.png" />
-                    <r:RibbonButton x:Name="Button3" Label="Button3"
+                    <RibbonButton x:Name="Button3" Label="Button3"
                         SmallImageSource="Images\SmallIcon.png" />
-                    <r:RibbonButton x:Name="Button4" Label="Button4"
+                    <RibbonButton x:Name="Button4" Label="Button4"
                         SmallImageSource="Images\SmallIcon.png" />
-                </r:RibbonGroup>
-                <r:RibbonGroup Header="Word Break"
+                </RibbonGroup>
+                <RibbonGroup Header="Word Break"
                     LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon_Red.png">
-                    <r:RibbonButton
+                    <RibbonButton
                         Label="StackOverFlow In U"
                         LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon.png"
                         SmallImageSource="/WpfUtility_Call;component/Images/SmallIcon.png" />
-                    <r:RibbonButton
+                    <RibbonButton
                         Label="StackOver Flow In U"
                         LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon.png"
                         SmallImageSource="/WpfUtility_Call;component/Images/SmallIcon.png" />
-                    <r:RibbonButton
+                    <RibbonButton
                         wu:SoftBreak.Label="StackOver[[WBR]]Flow In U"
                         LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon_Red.png"
                         SmallImageSource="/WpfUtility_Call;component/Images/SmallIcon_Red.png" />
-                </r:RibbonGroup>
-                <r:RibbonGroup Header="Soft Hyphen"
+                </RibbonGroup>
+                <RibbonGroup Header="Soft Hyphen"
                     LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon_Red.png">
-                    <r:RibbonButton
+                    <RibbonButton
                         Label="StackOverFlow ForEver"
                         LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon.png"
                         SmallImageSource="/WpfUtility_Call;component/Images/SmallIcon.png" />
-                    <r:RibbonButton
+                    <RibbonButton
                         Label="StackOver Flow ForEver"
                         LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon.png"
                         SmallImageSource="/WpfUtility_Call;component/Images/SmallIcon.png" />
-                    <r:RibbonButton
+                    <RibbonButton
                         wu:SoftBreak.Label="StackOver[[SHY]]Flow ForEver"
                         LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon_Red.png"
                         SmallImageSource="/WpfUtility_Call;component/Images/SmallIcon_Red.png" />
-                </r:RibbonGroup>
-            </r:RibbonTab>
-            <r:RibbonTab Header="MessageButton">
-                <r:RibbonGroup x:Name="Group1" Header="Update">
-                    <r:RibbonButton x:Name="button_QATB" Label="update Quick Access ToolBar"
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="MessageButton">
+                <RibbonGroup x:Name="Group1" Header="Update">
+                    <RibbonButton x:Name="button_QATB" Label="update Quick Access ToolBar"
                         LargeImageSource="Images/LargeIcon.png"
                         SmallImageSource="Images/SmallIcon.png"
                         Click="button_MessageButton_Click" />
-                    <r:RibbonButton x:Name="button_HPC" Label="update Help Pane Content"
+                    <RibbonButton x:Name="button_HPC" Label="update Help Pane Content"
                         LargeImageSource="Images/LargeIcon.png"
                         SmallImageSource="Images/SmallIcon.png"
                         Click="button_MessageButton_Click" />
-                    <r:RibbonButton x:Name="button_RG" Label="update Ribbon Group"
+                    <RibbonButton x:Name="button_RG" Label="update Ribbon Group"
                         LargeImageSource="Images/LargeIcon.png"
                         SmallImageSource="Images/SmallIcon.png"
                         Click="button_MessageButton_Click" />
-                </r:RibbonGroup>
-                <r:RibbonGroup>
+                </RibbonGroup>
+                <RibbonGroup>
                     <wu:MessageButton x:Name="messageButton_RG" Label="Info" ToolTip="20 sec" AutoPopDelay="20000" />
-                </r:RibbonGroup>
-            </r:RibbonTab>
-            <r:RibbonTab Header="PlaceHolder">
-                <r:RibbonGroup Header="Common Control">
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="PlaceHolder">
+                <RibbonGroup Header="Common Control">
                     <WrapPanel Orientation="Vertical" ItemWidth="120">
                         <TextBox wu:Placeholder.Text="TextBox1" />
                         <TextBox wu:Placeholder.Text="TextBox2" />
@@ -145,76 +144,76 @@
                             <ComboBoxItem Content="Item2" />
                         </ComboBox>
                     </WrapPanel>
-                </r:RibbonGroup>
-                <r:RibbonGroup Header="RibbonTextBox">
-                    <r:RibbonTextBox wu:Placeholder.Text="RTextBox1" />
-                    <r:RibbonTextBox wu:Placeholder.Text="RTextBox2" />
-                </r:RibbonGroup>
-                <r:RibbonGroup Header="RibbonComboBox">
-                    <r:RibbonComboBox wu:Placeholder.Text="GalleryItem1" IsEditable="True">
-                        <r:RibbonGallery>
-                            <r:RibbonGalleryCategory>
-                                <r:RibbonGalleryItem Content="" />
-                                <r:RibbonGalleryItem Content="Item1" />
-                                <r:RibbonGalleryItem Content="Item2" />
-                            </r:RibbonGalleryCategory>
-                        </r:RibbonGallery>
-                    </r:RibbonComboBox>
-                    <r:RibbonComboBox wu:Placeholder.Text="GalleryItem2" IsEditable="False">
-                        <r:RibbonGallery>
-                            <r:RibbonGalleryCategory>
-                                <r:RibbonGalleryItem Content="" />
-                                <r:RibbonGalleryItem Content="Item1" />
-                                <r:RibbonGalleryItem Content="Item2" />
-                            </r:RibbonGalleryCategory>
-                        </r:RibbonGallery>
-                    </r:RibbonComboBox>
-                </r:RibbonGroup>
-                <r:RibbonGroup Header="RibbonComboBox">
-                    <r:RibbonComboBox wu:Placeholder.Text="Object1" IsEditable="True">
-                        <r:RibbonGallery>
-                            <r:RibbonGalleryCategory x:Name="ribbonComboBox_comboBox3_GalleryCategory" />
-                        </r:RibbonGallery>
-                    </r:RibbonComboBox>
-                    <r:RibbonComboBox wu:Placeholder.Text="Object2" IsEditable="False">
-                        <r:RibbonGallery>
-                            <r:RibbonGalleryCategory x:Name="ribbonComboBox_comboBox4_GalleryCategory" />
-                        </r:RibbonGallery>
-                    </r:RibbonComboBox>
-                </r:RibbonGroup>
-            </r:RibbonTab>
-            <r:RibbonTab Header="Notify">
-                <r:RibbonGroup Header="Person">
-                    <r:RibbonTextBox x:Name="textBox_PersonId" />
-                    <r:RibbonTextBox x:Name="textBox_PersonFirstName" />
-                    <r:RibbonTextBox x:Name="textBox_PersonLastName" />
-                    <r:RibbonComboBox x:Name="comboBox_PersonSex">
-                        <r:RibbonGallery x:Name="comboBox_PersonSex_Gallery">
-                            <r:RibbonGalleryCategory x:Name="comboBox_PersonSex_GalleryCategory" />
-                        </r:RibbonGallery>
-                    </r:RibbonComboBox>
-                    <r:RibbonButton x:Name="button_ApplyPerson"
+                </RibbonGroup>
+                <RibbonGroup Header="RibbonTextBox">
+                    <RibbonTextBox wu:Placeholder.Text="RTextBox1" />
+                    <RibbonTextBox wu:Placeholder.Text="RTextBox2" />
+                </RibbonGroup>
+                <RibbonGroup Header="RibbonComboBox">
+                    <RibbonComboBox wu:Placeholder.Text="GalleryItem1" IsEditable="True">
+                        <RibbonGallery>
+                            <RibbonGalleryCategory>
+                                <RibbonGalleryItem Content="" />
+                                <RibbonGalleryItem Content="Item1" />
+                                <RibbonGalleryItem Content="Item2" />
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                    <RibbonComboBox wu:Placeholder.Text="GalleryItem2" IsEditable="False">
+                        <RibbonGallery>
+                            <RibbonGalleryCategory>
+                                <RibbonGalleryItem Content="" />
+                                <RibbonGalleryItem Content="Item1" />
+                                <RibbonGalleryItem Content="Item2" />
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                </RibbonGroup>
+                <RibbonGroup Header="RibbonComboBox">
+                    <RibbonComboBox wu:Placeholder.Text="Object1" IsEditable="True">
+                        <RibbonGallery>
+                            <RibbonGalleryCategory x:Name="ribbonComboBox_comboBox3_GalleryCategory" />
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                    <RibbonComboBox wu:Placeholder.Text="Object2" IsEditable="False">
+                        <RibbonGallery>
+                            <RibbonGalleryCategory x:Name="ribbonComboBox_comboBox4_GalleryCategory" />
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="Notify">
+                <RibbonGroup Header="Person">
+                    <RibbonTextBox x:Name="textBox_PersonId" />
+                    <RibbonTextBox x:Name="textBox_PersonFirstName" />
+                    <RibbonTextBox x:Name="textBox_PersonLastName" />
+                    <RibbonComboBox x:Name="comboBox_PersonSex">
+                        <RibbonGallery x:Name="comboBox_PersonSex_Gallery">
+                            <RibbonGalleryCategory x:Name="comboBox_PersonSex_GalleryCategory" />
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                    <RibbonButton x:Name="button_ApplyPerson"
                         Label="Apply"
                         LargeImageSource="/WpfUtility_Call;component/Images/LargeIcon.png"
                         SmallImageSource="/WpfUtility_Call;component/Images/ApplyS.png"
                         Click="button_ApplyPerson_Click" />
-                </r:RibbonGroup>
-            </r:RibbonTab>
-            <r:RibbonTab Header="{wu:Tr MainWindow_tab_Print_Header}">
-                <r:RibbonGroup Header="{wu:Tr MainWindow_group_Print_Header}">
-                    <r:RibbonButton
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="{wu:Tr MainWindow_tab_Print_Header}">
+                <RibbonGroup Header="{wu:Tr MainWindow_group_Print_Header}">
+                    <RibbonButton
                         x:Name="button_Print"
                         LargeImageSource="/WpfUtility_Call;component/Images/PrintL.png"
                         SmallImageSource="/WpfUtility_Call;component/Images/PrintS.png"
                         Click="button_Print_Click" />
-                </r:RibbonGroup>
-                <r:RibbonGroup
+                </RibbonGroup>
+                <RibbonGroup
                     Header="{wu:Tr MainWindow_group_Printer_Header}">
                     <ComboBox
                         x:Name="comboBox_Printer"
                         ToolTip="{wu:Tr MainWindow_comboBox_Printer_ToolTip}" />
-                </r:RibbonGroup>
-                <r:RibbonGroup
+                </RibbonGroup>
+                <RibbonGroup
                     Header="{wu:Tr MainWindow_group_Page_Header}">
                     <ComboBox
                         x:Name="comboBox_PageSize"
@@ -222,22 +221,22 @@
                     <ComboBox
                         x:Name="comboBox_PageOrientation"
                         ToolTip="{wu:Tr MainWindow_comboBox_PageOrientation_ToolTip}" />
-                </r:RibbonGroup>
-                <r:RibbonGroup
+                </RibbonGroup>
+                <RibbonGroup
                     Header="{wu:Tr MainWindow_group_PrintColor}">
                     <ComboBox
                         x:Name="comboBox_PrintColor" />
-                </r:RibbonGroup>
-                <r:RibbonGroup
+                </RibbonGroup>
+                <RibbonGroup
                     Header="{wu:Tr MainWindow_group_Font}">
                     <ComboBox
                         x:Name="comboBox_FontFamilies"
                         DisplayMemberPath="Value"
                         SelectedValuePath="Key"
                         SelectionChanged="comboBox_FontFamilies_SelectionChanged" />
-                </r:RibbonGroup>
-            </r:RibbonTab>
-        </r:Ribbon>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -300,4 +299,4 @@
             </TabControl>
         </Grid>
     </DockPanel>
-</r:RibbonWindow>
+</RibbonWindow>
