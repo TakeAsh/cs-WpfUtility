@@ -118,8 +118,8 @@ namespace ImageViewer {
                                 Visibility = Visibility.Collapsed,
                             }).ToList();
                         panel_Frames.Children.SafeAdd(_frames);
-                    }
-                    catch (Exception ex) {
+                        _frames[0].Visibility = Visibility.Visible;
+                    } catch (Exception ex) {
                         messageButton_Info.Show(ex.GetAllMessages(), MessageButton.Icons.Hand);
                         bitmap = new BitmapImage(_failedImageUri);
                         _imageDpiX = _imageDpiY = DefaultDpi;
@@ -132,9 +132,10 @@ namespace ImageViewer {
                     ApplyZoom();
                     label_Notice.Text = null;
                     label_Notice.Visibility = Visibility.Collapsed;
-                    slider_Frame.Maximum = _frames.Count - 1;
+                    slider_Frame.Maximum = _frames == null ?
+                        0 :
+                        _frames.Count - 1;
                     slider_Frame.Value = 0;
-                    _frames[0].Visibility = Visibility.Visible;
                 })
             );
         }
