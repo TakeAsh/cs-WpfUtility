@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUtility", "WpfUtility\WpfUtility.csproj", "{2F2D7E12-1121-4E38-AEF9-3E0BD51DA099}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUtility_Call", "WpfUtility_Call\WpfUtility_Call.csproj", "{5109A4C2-65EC-4ADB-8466-017C0615A7CE}"
