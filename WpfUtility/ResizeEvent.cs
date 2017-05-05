@@ -41,17 +41,17 @@ namespace WpfUtility {
                 source.AddHook((IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) => {
                     switch (msg) {
                         case WM_ENTERSIZEMOVE:
-                            var resizingHandler = window.GetDelegate(ResizingEventHandlerName)
-                                .GetHandler<EventHandler>();
-                            if (resizingHandler != null) {
-                                resizingHandler(window, EventArgs.Empty);
+                            var resizingHandlers = window.GetDelegate(ResizingEventHandlerName)
+                                .GetHandlers<EventHandler>();
+                            if (resizingHandlers != null) {
+                                resizingHandlers.ForEach(handler => handler(window, EventArgs.Empty));
                             }
                             break;
                         case WM_EXITSIZEMOVE:
-                            var resizedHandler = window.GetDelegate(ResizedEventHandlerName)
-                                .GetHandler<EventHandler>();
-                            if (resizedHandler != null) {
-                                resizedHandler(window, EventArgs.Empty);
+                            var resizedHandlers = window.GetDelegate(ResizedEventHandlerName)
+                                .GetHandlers<EventHandler>();
+                            if (resizedHandlers != null) {
+                                resizedHandlers.ForEach(handler => handler(window, EventArgs.Empty));
                             }
                             break;
                     }

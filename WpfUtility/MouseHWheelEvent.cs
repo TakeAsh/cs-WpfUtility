@@ -33,12 +33,12 @@ namespace WpfUtility {
                 source.AddHook((IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) => {
                     switch (msg) {
                         case WM_MOUSEHWHEEL:
-                            var handler = window.GetDelegate(MouseHWheelEventHandlerName)
-                                .GetHandler<MouseWheelEventHandler>();
-                            if (handler != null) {
+                            var handlers = window.GetDelegate(MouseHWheelEventHandlerName)
+                                .GetHandlers<MouseWheelEventHandler>();
+                            if (handlers != null) {
                                 var delta = wParam.GetHighWord();
                                 var args = new MouseWheelEventArgs(Mouse.PrimaryDevice, Environment.TickCount, delta);
-                                handler(window, args);
+                                handlers.ForEach(handler => handler(window, args));
                             }
                             break;
                     }
