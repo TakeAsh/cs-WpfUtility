@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using TakeAshUtility;
@@ -16,6 +17,7 @@ namespace WpfUtility {
 
         private string _foreground;
         private string _background;
+        private string _horizontalAlignment;
 
         public DataGridExAttribute() { }
 
@@ -61,6 +63,17 @@ namespace WpfUtility {
         }
 
         public object BackgroundValue { get; private set; }
+
+        [ToStringMember]
+        public string HorizontalAlignment {
+            get { return _horizontalAlignment; }
+            set {
+                _horizontalAlignment = value;
+                HorizontalAlignmentValue = _horizontalAlignment.TryParse<HorizontalAlignment>();
+            }
+        }
+
+        public HorizontalAlignment HorizontalAlignmentValue { get; private set; }
 
         [ToStringMember]
         public string ClipboardContentBinding { get; set; }

@@ -195,22 +195,19 @@ namespace WpfUtility {
             var checkBoxColumn = e.Column as DataGridCheckBoxColumn;
             if (textColumn != null) {
                 textColumn.Binding.StringFormat = attr.StringFormat;
-                var style = textColumn.GetCurrentStyle(typeof(DataGridCell));
+                var cellStyle = textColumn.GetCurrentStyle<DataGridCell>(DataGridBoundColumnStyles.CellStyle);
                 if (attr.ForegroundValue != null) {
-                    style.Setters.Add(new Setter(DataGridCell.ForegroundProperty, attr.ForegroundValue));
+                    cellStyle.Setters.Add(new Setter(DataGridCell.ForegroundProperty, attr.ForegroundValue));
                 }
                 if (attr.BackgroundValue != null) {
-                    style.Setters.Add(new Setter(DataGridCell.BackgroundProperty, attr.BackgroundValue));
-                    for (var i = style.Setters.Count - 1; i >= 0; --i) {
-                        var setter = style.Setters[i] as Setter;
-                        if (setter.Property == FrameworkElement.MarginProperty) {
-                            style.Setters.RemoveAt(i);
-                        }
-                    }
+                    cellStyle.Setters.Add(new Setter(DataGridCell.BackgroundProperty, attr.BackgroundValue));
                 }
-                textColumn.CellStyle = style;
+                textColumn.CellStyle = cellStyle;
+                var elementStyle = textColumn.GetCurrentStyle<TextBlock>();
+                elementStyle.Setters.Add(new Setter(Control.HorizontalAlignmentProperty, attr.HorizontalAlignmentValue));
+                textColumn.ElementStyle = elementStyle;
             } else if (checkBoxColumn != null) {
-                var style = checkBoxColumn.GetCurrentStyle(typeof(CheckBox));
+                var style = checkBoxColumn.GetCurrentStyle<CheckBox>();
                 style.Setters.Add(new Setter(Control.VerticalAlignmentProperty, VerticalAlignment.Center));
                 checkBoxColumn.ElementStyle = style;
             }

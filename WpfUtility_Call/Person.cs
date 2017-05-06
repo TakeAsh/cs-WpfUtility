@@ -62,6 +62,7 @@ namespace WpfUtility_Call {
         }
 
         private string _firstName;
+        [DataGridEx(HorizontalAlignment = "Right")]
         public string FirstName {
             get { return _firstName; }
             set {
@@ -81,6 +82,7 @@ namespace WpfUtility_Call {
             }
         }
 
+        [DataGridEx(HorizontalAlignment = "Center")]
         public string FullName {
             get { return _firstName + " " + _lastName; }
         }
