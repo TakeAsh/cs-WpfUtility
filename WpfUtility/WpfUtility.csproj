@@ -168,6 +168,7 @@
     <Compile Include="Surface3D.cs" />
     <Compile Include="SystemDpi.cs" />
     <Compile Include="ResourceTemplateSelector.cs" />
+    <Compile Include="TaskbarProgress.cs" />
     <Compile Include="TextPrompt.xaml.cs">
       <DependentUpon>TextPrompt.xaml</DependentUpon>
     </Compile>
