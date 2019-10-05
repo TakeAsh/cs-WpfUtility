@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Data;
@@ -19,9 +20,12 @@ namespace WpfUtility {
         private string _background;
         private string _horizontalAlignment;
 
-        public DataGridExAttribute() { }
+        public DataGridExAttribute([CallerLineNumber]int lineNumber = 0) {
+            LineNumber = lineNumber;
+        }
 
-        public DataGridExAttribute(string header) {
+        public DataGridExAttribute(string header, [CallerLineNumber]int lineNumber = 0)
+            : this(lineNumber) {
             Header = header;
         }
 
@@ -77,6 +81,8 @@ namespace WpfUtility {
 
         [ToStringMember]
         public string ClipboardContentBinding { get; set; }
+
+        public int LineNumber { get; private set; }
 
         public override string ToString() {
             return this.ToStringMembers();
