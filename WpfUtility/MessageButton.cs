@@ -197,11 +197,15 @@ namespace WpfUtility {
             get { return _text; }
             set {
                 _text = value;
+                if (_textBlock.Dispatcher.CheckAccess()) {
+                    _textBlock.Text = String.IsNullOrEmpty(_text) ? null : _text;
+                } else {
+                    _textBlock.Dispatcher
+                        .Invoke(new Action(() => _textBlock.Text = String.IsNullOrEmpty(_text) ? null : _text));
+                }
                 if (!String.IsNullOrEmpty(_text)) {
-                    _textBlock.Text = _text;
                     this.IsEnabled = true;
                 } else {
-                    _textBlock.Text = null;
                     this.IsChecked = false;
                     this.IsEnabled = false;
                 }
