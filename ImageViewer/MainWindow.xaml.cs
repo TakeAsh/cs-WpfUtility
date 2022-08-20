@@ -66,6 +66,14 @@ namespace ImageViewer {
                 .OfType<BitmapScalingMode>()
                 .Distinct();
             comboBox_BitmapScalingMode.SelectedItem = default(BitmapScalingMode);
+
+            DataContext = this;
+            ZoomResetmmand = new SimpleDelegateCommand(x => this.ZoomControl(x));
+            ZoomInCommand = new SimpleDelegateCommand(x => this.ZoomControl("+"));
+            ZoomOutCommand = new SimpleDelegateCommand(x => this.ZoomControl("-")) {
+                GestureKey = Key.Subtract,
+                GestureModifier = ModifierKeys.Control,
+            };
         }
 
         public double MonitorDpi {
@@ -84,6 +92,10 @@ namespace ImageViewer {
                 ApplyZoom();
             }
         }
+
+        public SimpleDelegateCommand ZoomResetmmand { get; private set; }
+        public SimpleDelegateCommand ZoomInCommand { get; private set; }
+        public SimpleDelegateCommand ZoomOutCommand { get; private set; }
 
         private void LoadImage(string filename) {
             label_Notice.Text = "Processing...";
@@ -171,6 +183,24 @@ namespace ImageViewer {
             }
             label_Info_XY.Text = new[] { pixelX, pixelY }.JoinToString(", ");
             label_Info_Pixel.Text = pixel.JoinToString(", ");
+        }
+
+        private void ZoomControl(object zoomString) {
+            var zoom = zoomString as string;
+            if (String.IsNullOrEmpty(zoom)) { return; }
+            var newIndex = 0;
+            switch (zoom) {
+                case "0":
+                    newIndex = 0;
+                    break;
+                case "+":
+                    newIndex = comboBox_Zoom.SelectedIndex + 1;
+                    break;
+                case "-":
+                    newIndex = comboBox_Zoom.SelectedIndex - 1;
+                    break;
+            }
+            comboBox_Zoom.SelectedIndex = newIndex.Clamp(0, comboBox_Zoom.Items.Count - 1);
         }
 
         protected override void OnSourceInitialized(EventArgs e) {

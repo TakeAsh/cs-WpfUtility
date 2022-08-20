@@ -157,6 +157,7 @@
     </Compile>
     <Compile Include="RibbonExtensionMethods.cs" />
     <Compile Include="ICommandSourceExtensionMethods.cs" />
+    <Compile Include="SimpleDelegateCommand.cs" />
     <Compile Include="SoftBreak.cs" />
     <Compile Include="Surface3D.cs" />
     <Compile Include="SystemDpi.cs" />

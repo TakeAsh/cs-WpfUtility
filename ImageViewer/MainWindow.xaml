@@ -8,6 +8,21 @@
     FontFamily="Noto Sans JP"
     AllowDrop="True"
     Drop="Window_Drop">
+	<Window.InputBindings>
+		<KeyBinding
+			Key="NumPad0"
+			Modifiers="Ctrl"
+			Command="{Binding ZoomResetmmand}"
+			CommandParameter="0" />
+		<KeyBinding
+			Key="Add"
+			Modifiers="Ctrl"
+			Command="{Binding ZoomInCommand}" />
+		<KeyBinding
+			Key="{Binding ZoomOutCommand.GestureKey}"
+			Modifiers="{Binding ZoomOutCommand.GestureModifier}"
+			Command="{Binding ZoomOutCommand}" />
+	</Window.InputBindings>
 
     <Grid>
         <wu:PaneledTab>
@@ -36,13 +51,13 @@
                         Grid.Row="1" Grid.Column="0"
                         TextAlignment="Right"
                         VerticalAlignment="Center" />
-                    <ComboBox
+					<ComboBox
                         x:Name="comboBox_Zoom"
                         ToolTip="Zoom"
                         Grid.Row="0" Grid.Column="1"
                         HorizontalContentAlignment="Right"
                         SelectionChanged="comboBox_Zoom_SelectionChanged" />
-                    <ComboBox
+					<ComboBox
                         x:Name="comboBox_BitmapScalingMode"
                         ToolTip="BitmapScalingMode"
                         Grid.Row="1" Grid.Column="1"
