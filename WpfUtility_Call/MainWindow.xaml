@@ -133,16 +133,16 @@
                     <WrapPanel Orientation="Vertical" ItemWidth="120">
                         <TextBox wu:Placeholder.Text="TextBox1" />
                         <TextBox wu:Placeholder.Text="TextBox2" />
-                        <ComboBox wu:Placeholder.Text="ComboBox1" IsEditable="True" >
+                        <wu:WarnIfEmptyComboBox wu:Placeholder.Text="ComboBox1" IsEditable="True" >
                             <ComboBoxItem Content="" />
                             <ComboBoxItem Content="Item1" />
                             <ComboBoxItem Content="Item2" />
-                        </ComboBox>
-                        <ComboBox wu:Placeholder.Text="ComboBox2" IsEditable="False" >
+                        </wu:WarnIfEmptyComboBox>
+                        <wu:WarnIfEmptyComboBox wu:Placeholder.Text="ComboBox2" IsEditable="False" >
                             <ComboBoxItem Content="" />
                             <ComboBoxItem Content="Item1" />
                             <ComboBoxItem Content="Item2" />
-                        </ComboBox>
+                        </wu:WarnIfEmptyComboBox>
                     </WrapPanel>
                 </RibbonGroup>
                 <RibbonGroup Header="RibbonTextBox">
