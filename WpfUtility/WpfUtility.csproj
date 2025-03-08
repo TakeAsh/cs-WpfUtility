@@ -171,6 +171,7 @@
     <Compile Include="UIElementCollectionExtensionMethods.cs" />
     <Compile Include="VisualExtensionMethods.cs" />
     <Compile Include="WarnIfEmptyComboBox.cs" />
+    <Compile Include="WarnIfEmptyTextBox.cs" />
     <Compile Include="WindowPlacement.cs" />
     <Compile Include="XpsPrinter.cs" />
   </ItemGroup>

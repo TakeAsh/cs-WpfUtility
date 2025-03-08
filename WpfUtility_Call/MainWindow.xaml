@@ -132,8 +132,9 @@
                 <RibbonGroup Header="Common Control">
                     <WrapPanel Orientation="Vertical" ItemWidth="120">
                         <TextBox wu:Placeholder.Text="TextBox1" />
-                        <TextBox wu:Placeholder.Text="TextBox2" />
-                        <wu:WarnIfEmptyComboBox wu:Placeholder.Text="ComboBox1" IsEditable="True" >
+						<wu:WarnIfEmptyTextBox />
+						<wu:WarnIfEmptyTextBox Placeholder="Warn If Empty" WarnBrush="Red" />
+						<wu:WarnIfEmptyComboBox wu:Placeholder.Text="ComboBox1" IsEditable="True" >
                             <ComboBoxItem Content="" />
                             <ComboBoxItem Content="Item1" />
                             <ComboBoxItem Content="Item2" />
@@ -287,15 +288,37 @@
                 </TabItem>
             </wu:PaneledTab>
             <TabControl x:Name="normalTab" Grid.Column="1" >
-                <TabItem Header="Item1">
-                    <TextBlock Text="Item1" />
-                </TabItem>
-                <TabItem Header="Item2">
-                    <TextBlock Text="Item2" />
-                </TabItem>
-                <TabItem Header="Item3">
-                    <TextBlock Text="Item3" />
-                </TabItem>
+				<TabControl.Resources>
+					<Style x:Key="CommonTextBox" TargetType="wu:WarnIfEmptyTextBox">
+						<Setter Property="AcceptsReturn" Value="True" />
+						<Setter Property="VerticalScrollBarVisibility" Value="Visible" />
+						<Setter Property="MinHeight" Value="24" />
+					</Style>
+				</TabControl.Resources>
+				<TabItem Header="Dock">
+					<DockPanel>
+						<wu:WarnIfEmptyTextBox DockPanel.Dock="Top" Placeholder="Top" Style="{StaticResource CommonTextBox}" />
+						<wu:WarnIfEmptyTextBox DockPanel.Dock="Left" Placeholder="Left" Width="80" MaxHeight="80" Style="{StaticResource CommonTextBox}" />
+						<wu:WarnIfEmptyTextBox DockPanel.Dock="Bottom" Placeholder="Bottom" WarnBrush="Orange" Background="LightBlue" Style="{StaticResource CommonTextBox}" />
+						<wu:WarnIfEmptyTextBox DockPanel.Dock="Right" Placeholder="Right" Width="80" MaxHeight="80" Style="{StaticResource CommonTextBox}" />
+						<Grid></Grid>
+					</DockPanel>
+				</TabItem>
+				<TabItem Header="Grid">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<wu:WarnIfEmptyTextBox Grid.Column="0" Grid.Row="1" Placeholder="0,1" Style="{StaticResource CommonTextBox}" />
+						<wu:WarnIfEmptyTextBox Grid.Column="2" Grid.Row="0" Placeholder="2,0" WarnBrush="Orange" Background="LightBlue" Style="{StaticResource CommonTextBox}" />
+					</Grid>
+				</TabItem>
             </TabControl>
         </Grid>
     </DockPanel>
